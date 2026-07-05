@@ -1,30 +1,16 @@
 "use client";
 
 import { Plus, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-export interface BoardTileAvatar {
-  initials: string;
-  color: string;
-}
 
 export interface BoardTileProps {
   title: string;
   background: string;
-  avatars: BoardTileAvatar[];
   favorite: boolean;
   onOpen: () => void;
   onToggleFavorite: () => void;
 }
 
-export function BoardTile({
-  title,
-  background,
-  avatars,
-  favorite,
-  onOpen,
-  onToggleFavorite,
-}: BoardTileProps) {
+export function BoardTile({ title, background, favorite, onOpen, onToggleFavorite }: BoardTileProps) {
   return (
     <div
       role="button"
@@ -46,21 +32,7 @@ export function BoardTile({
 
       <div className="flex-1" />
 
-      <div className="flex items-center justify-between">
-        <div className="flex">
-          {avatars.map((avatar, i) => (
-            <div
-              key={i}
-              className={cn(
-                "flex size-6 items-center justify-center rounded-full border-2 border-white/90 text-[9px] font-bold text-white",
-                i > 0 && "-ml-2",
-              )}
-              style={{ backgroundColor: avatar.color }}
-            >
-              {avatar.initials}
-            </div>
-          ))}
-        </div>
+      <div className="flex items-center justify-end">
         <button
           type="button"
           onClick={(e) => {

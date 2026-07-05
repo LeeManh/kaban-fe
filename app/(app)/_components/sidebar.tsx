@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, Settings, SquareKanban, User } from "lucide-react";
+import { LogOut, SquareKanban, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -16,10 +16,7 @@ interface NavLinkItem {
   danger?: boolean;
 }
 
-const PRIMARY_LINKS: NavLinkItem[] = [
-  { href: "/boards", label: "Boards", icon: SquareKanban },
-  { href: "/settings", label: "Settings", icon: Settings },
-];
+const PRIMARY_LINKS: NavLinkItem[] = [{ href: "/boards", label: "Boards", icon: SquareKanban }];
 
 export function Sidebar() {
   const pathname = usePathname();

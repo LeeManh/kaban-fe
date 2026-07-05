@@ -4,111 +4,28 @@ import { SquareKanban } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { BoardTile, CreateBoardTile, type BoardTileAvatar } from "./board-tile";
+import { BoardTile, CreateBoardTile } from "./board-tile";
 import { BoardsTopbar } from "./boards-topbar";
-import { CreateBoardDialog, type CreateBoardResult } from "./create-board-dialog";
+import { CreateBoardDialog } from "./create-board-dialog";
 import { EmptyBoardsState } from "./empty-boards-state";
-
-interface BoardItem {
-  id: string;
-  title: string;
-  background: string;
-  favorite: boolean;
-  avatars: BoardTileAvatar[];
-}
-
-const INITIAL_BOARDS: BoardItem[] = [
-  {
-    id: "product-roadmap",
-    title: "Product Roadmap",
-    background: "linear-gradient(135deg, #2563eb, #3b82f6)",
-    favorite: true,
-    avatars: [
-      { initials: "JD", color: "#579dff" },
-      { initials: "ML", color: "#22c55e" },
-    ],
-  },
-  {
-    id: "marketing-site",
-    title: "Marketing Site",
-    background: "linear-gradient(135deg, #16a34a, #22c55e)",
-    favorite: false,
-    avatars: [
-      { initials: "SO", color: "#f97316" },
-      { initials: "PN", color: "#ec4899" },
-    ],
-  },
-  {
-    id: "mobile-app-v2",
-    title: "Mobile App v2",
-    background: "linear-gradient(135deg, #ea580c, #f97316)",
-    favorite: false,
-    avatars: [
-      { initials: "JD", color: "#579dff" },
-      { initials: "ML", color: "#22c55e" },
-      { initials: "SO", color: "#8b5cf6" },
-    ],
-  },
-  {
-    id: "design-system",
-    title: "Design System",
-    background: "linear-gradient(135deg, #7c3aed, #a855f7)",
-    favorite: true,
-    avatars: [{ initials: "AR", color: "#8b5cf6" }],
-  },
-  {
-    id: "q3-campaigns",
-    title: "Q3 Campaigns",
-    background: "linear-gradient(135deg, #0d9488, #14b8a6)",
-    favorite: false,
-    avatars: [
-      { initials: "ML", color: "#22c55e" },
-      { initials: "PN", color: "#ec4899" },
-    ],
-  },
-  {
-    id: "research-hub",
-    title: "Research Hub",
-    background: "linear-gradient(135deg, #db2777, #ec4899)",
-    favorite: false,
-    avatars: [{ initials: "JD", color: "#579dff" }],
-  },
-];
-
-function slugify(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
+import { useBoards } from "../_hooks/use-boards";
+import { useToggleBoardStar } from "../_hooks/use-toggle-board-star";
 
 export function BoardsPageContent() {
   const router = useRouter();
-  const [boards, setBoards] = useState<BoardItem[]>(INITIAL_BOARDS);
+  const { data: boards = [], isLoading, isError } = useBoards();
+  const toggleStar = useToggleBoardStar();
   const [searchQuery, setSearchQuery] = useState("");
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   const filteredBoards = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
     if (!query) return boards;
-    return boards.filter((board) => board.title.toLowerCase().includes(query));
+    return boards.filter((board) => board.name.toLowerCase().includes(query));
   }, [boards, searchQuery]);
 
-  function handleCreateBoard({ name, background }: CreateBoardResult) {
-    setBoards((prev) => [
-      ...prev,
-      {
-        id: `${slugify(name)}-${Date.now()}`,
-        title: name,
-        background,
-        favorite: false,
-        avatars: [],
-      },
-    ]);
-  }
-
-  function handleToggleFavorite(id: string) {
-    setBoards((prev) => prev.map((b) => (b.id === id ? { ...b, favorite: !b.favorite } : b)));
+  function handleToggleFavorite(boardId: string, isStarred: boolean) {
+    toggleStar.mutate({ boardId, isStarred });
   }
 
   return (
@@ -126,7 +43,13 @@ export function BoardsPageContent() {
           </span>
         </div>
 
-        {boards.length === 0 ? (
+        {isLoading ? (
+          <div className="py-16 text-center text-sm text-slate-400">Loading boards…</div>
+        ) : isError ? (
+          <div className="py-16 text-center text-sm text-slate-400">
+            Could not load boards. Please try again.
+          </div>
+        ) : boards.length === 0 ? (
           <EmptyBoardsState onCreateBoard={() => setCreateDialogOpen(true)} />
         ) : filteredBoards.length === 0 ? (
           <div className="py-16 text-center text-sm text-slate-400">
@@ -137,12 +60,11 @@ export function BoardsPageContent() {
             {filteredBoards.map((board) => (
               <BoardTile
                 key={board.id}
-                title={board.title}
+                title={board.name}
                 background={board.background}
-                avatars={board.avatars}
-                favorite={board.favorite}
+                favorite={board.isStarred}
                 onOpen={() => router.push(`/boards/${board.id}`)}
-                onToggleFavorite={() => handleToggleFavorite(board.id)}
+                onToggleFavorite={() => handleToggleFavorite(board.id, board.isStarred)}
               />
             ))}
             <CreateBoardTile onClick={() => setCreateDialogOpen(true)} />
@@ -150,11 +72,7 @@ export function BoardsPageContent() {
         )}
       </main>
 
-      <CreateBoardDialog
-        open={createDialogOpen}
-        onOpenChange={setCreateDialogOpen}
-        onCreate={handleCreateBoard}
-      />
+      <CreateBoardDialog open={createDialogOpen} onOpenChange={setCreateDialogOpen} />
     </div>
   );
 }
