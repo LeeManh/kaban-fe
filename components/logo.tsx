@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <div className={cn("flex items-center gap-2.5", className)}>
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-500 shadow-[0_3px_8px_-1px] shadow-blue-600/35">
+    <div className={cn("flex items-center gap-2", className)}>
+      <span className="flex size-6.5 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-blue-500 shadow-[0_3px_8px_-1px] shadow-blue-600/35">
         <svg
-          width="18"
-          height="18"
+          width="15"
+          height="15"
           viewBox="0 0 24 24"
           fill="none"
           stroke="white"
@@ -18,9 +18,7 @@ export function Logo({ className }: { className?: string }) {
           <rect x="14" y="3" width="7" height="11" rx="1.5" />
         </svg>
       </span>
-      <span className="font-heading text-lg font-extrabold tracking-tight text-slate-900">
-        Kanvas
-      </span>
+      <span className="font-heading text-sm font-bold tracking-tight text-slate-900">Kanvas</span>
     </div>
   );
 }

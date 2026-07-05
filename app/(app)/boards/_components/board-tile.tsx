@@ -2,6 +2,8 @@
 
 import { Plus, Star } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+
 export interface BoardTileProps {
   title: string;
   background: string;
@@ -10,7 +12,13 @@ export interface BoardTileProps {
   onToggleFavorite: () => void;
 }
 
-export function BoardTile({ title, background, favorite, onOpen, onToggleFavorite }: BoardTileProps) {
+export function BoardTile({
+  title,
+  background,
+  favorite,
+  onOpen,
+  onToggleFavorite,
+}: BoardTileProps) {
   return (
     <div
       role="button"
@@ -23,16 +31,9 @@ export function BoardTile({ title, background, favorite, onOpen, onToggleFavorit
           onOpen();
         }
       }}
-      style={{ background }}
-      className="relative flex h-30 flex-col rounded-[11px] bg-cover bg-center px-3.5 py-3.25 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+      className="group flex h-32 flex-col overflow-hidden rounded-md bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
     >
-      <div className="pr-6.5 text-[15px] leading-tight font-bold text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.22)]">
-        {title}
-      </div>
-
-      <div className="flex-1" />
-
-      <div className="flex items-center justify-end">
+      <div style={{ background }} className="relative min-h-0 flex-1 bg-cover bg-center">
         <button
           type="button"
           onClick={(e) => {
@@ -40,10 +41,17 @@ export function BoardTile({ title, background, favorite, onOpen, onToggleFavorit
             onToggleFavorite();
           }}
           aria-label="Favorite board"
-          className="flex size-7 items-center justify-center rounded-md bg-white/18 hover:bg-white/32"
+          className={cn(
+            "absolute top-2 right-2 flex size-7.5 items-center justify-center rounded-md bg-black/20 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 hover:bg-black/30",
+            favorite && "bg-black/35 opacity-100",
+          )}
         >
-          <Star className="size-3.75 text-white" fill={favorite ? "currentColor" : "none"} />
+          <Star className="size-4" fill={favorite ? "currentColor" : "none"} />
         </button>
+      </div>
+
+      <div className="flex h-9 shrink-0 items-center px-3.5">
+        <span className="truncate text-[14px] font-medium text-slate-900">{title}</span>
       </div>
     </div>
   );
@@ -55,7 +63,7 @@ export function CreateBoardTile({ onClick }: { onClick?: () => void }) {
       type="button"
       onClick={onClick}
       aria-label="Create new board"
-      className="flex h-30 flex-col items-center justify-center gap-2 rounded-[11px] border-[1.5px] border-dashed border-slate-300 text-slate-600 hover:border-primary hover:bg-blue-50/50 hover:text-primary"
+      className="flex h-32 flex-col items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-slate-300 text-slate-600 hover:border-primary hover:bg-blue-50/50 hover:text-primary"
     >
       <Plus className="size-5.5" strokeWidth={2.2} />
       <span className="text-[13px] font-semibold">Create new board</span>

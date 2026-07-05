@@ -54,7 +54,7 @@ export function Hero() {
           style={{ perspective: "1600px" }}
         >
           <div
-            className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-[0_40px_80px_-20px_--theme(--color-blue-900/22%),0_8px_20px_--theme(--color-slate-900/10%)]"
+            className="relative overflow-hidden rounded-md border border-slate-200 bg-slate-100 shadow-[0_40px_80px_-20px_--theme(--color-blue-900/22%),0_8px_20px_--theme(--color-slate-900/10%)]"
             style={{ transform: "rotateY(-14deg) rotateX(5deg) rotate(1deg)" }}
           >
             <BorderBeam size={120} duration={8} colorFrom="#3b82f6" colorTo="#8b5cf6" />
@@ -111,7 +111,7 @@ function MockColumn({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-42.5 shrink-0 rounded-xl bg-slate-200 p-2.25">
+    <div className="w-42.5 shrink-0 rounded-md bg-slate-200 p-2.25">
       <div className="flex items-center gap-1.75 px-1.25 pt-0.75 pb-2.25">
         <span className="text-xs font-bold text-slate-700">{title}</span>
         <span
@@ -137,10 +137,10 @@ function MockCard({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-lg bg-white p-2.25 shadow-sm">
+    <div className="rounded-md bg-white p-2.25 shadow-sm">
       <div className="mb-1.75 flex gap-1">
         {labelColors.map((color, i) => (
-          <span key={i} className={`h-1.5 w-7 rounded-sm ${color}`} />
+          <span key={i} className={`h-1.5 w-7 rounded-md ${color}`} />
         ))}
       </div>
       <div

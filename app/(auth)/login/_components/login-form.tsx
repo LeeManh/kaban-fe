@@ -79,7 +79,7 @@ export function LoginForm() {
                     autoComplete="email"
                     aria-invalid={fieldState.invalid}
                     placeholder="you@company.com"
-                    className={cn("h-10.5 rounded-[10px]", fieldState.invalid && "bg-red-50 pr-10")}
+                    className={cn(fieldState.invalid && "bg-red-50 pr-10")}
                   />
                   {fieldState.invalid && (
                     <CircleAlert className="absolute top-1/2 right-3 size-4.25 -translate-y-1/2 text-destructive" />
@@ -112,7 +112,6 @@ export function LoginForm() {
                   autoComplete="current-password"
                   aria-invalid={fieldState.invalid}
                   placeholder="Enter your password"
-                  className="h-10.5 rounded-[10px]"
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
@@ -145,7 +144,6 @@ export function LoginForm() {
 
           <Button
             type="submit"
-            size="xl"
             disabled={form.formState.isSubmitting}
             className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)]"
           >

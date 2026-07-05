@@ -90,9 +90,9 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="h-full rounded-xl border border-slate-200 bg-white p-6 shadow-xs transition-all hover:-translate-y-0.75 hover:shadow-lg">
+    <div className="h-full rounded-md border border-slate-200 bg-white p-6 shadow-xs transition-all hover:-translate-y-0.75 hover:shadow-lg">
       <div
-        className={`mb-4 flex size-11.5 items-center justify-center rounded-[12px] ${iconClassName}`}
+        className={`mb-4 flex size-11.5 items-center justify-center rounded-md ${iconClassName}`}
       >
         <Icon className="size-5.5" />
       </div>

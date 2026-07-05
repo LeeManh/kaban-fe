@@ -33,7 +33,7 @@ export function About() {
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-slate-200 bg-white p-5.5 shadow-xs"
+              className="rounded-md border border-slate-200 bg-white p-5.5 shadow-xs"
             >
               <div className="mb-1 text-[28px] font-extrabold tracking-[-0.02em] text-primary">
                 {stat.static ? (

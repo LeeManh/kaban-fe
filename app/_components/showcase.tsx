@@ -14,7 +14,7 @@ export function Showcase() {
     <section className="py-22">
       <Container className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
         <div className="w-full max-w-120 shrink-0">
-          <div className="-rotate-[1.5deg] overflow-hidden rounded-[14px] border border-slate-200 bg-white shadow-[0_30px_60px_--theme(--color-slate-900/16%)]">
+          <div className="-rotate-[1.5deg] overflow-hidden rounded-md border border-slate-200 bg-white shadow-[0_30px_60px_--theme(--color-slate-900/16%)]">
             <div className="border-b border-slate-100 px-4.5 pt-4.5 pb-3.5">
               <div className="mb-2.5 flex gap-1.25">
                 <span className="h-2 w-9.5 rounded bg-violet-400" />
@@ -42,7 +42,7 @@ export function Showcase() {
 
               <div className="mb-4.5 flex flex-col gap-2.25">
                 <div className="flex items-center gap-2.25">
-                  <span className="flex size-4 items-center justify-center rounded-[5px] bg-primary">
+                  <span className="flex size-4 items-center justify-center rounded-md bg-primary">
                     <Check className="size-2.5 text-white" strokeWidth={3.5} />
                   </span>
                   <span className="text-[12.5px] text-slate-400 line-through">
@@ -50,7 +50,7 @@ export function Showcase() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2.25">
-                  <span className="size-4 rounded-[5px] border-2 border-slate-300" />
+                  <span className="size-4 rounded-md border-2 border-slate-300" />
                   <span className="text-[12.5px] text-slate-700">
                     Design skippable product tour
                   </span>
@@ -63,7 +63,7 @@ export function Showcase() {
                   Attachments
                 </span>
               </div>
-              <div className="flex items-center gap-2.5 rounded-[9px] border border-slate-100 p-2">
+              <div className="flex items-center gap-2.5 rounded-md border border-slate-100 p-2">
                 <div className="h-8.5 w-11.5 shrink-0 rounded-md bg-gradient-to-br from-indigo-300 via-sky-400 to-fuchsia-300" />
                 <div className="flex-1">
                   <div className="mb-1.25 h-1.5 w-4/5 rounded bg-slate-200" />
