@@ -1,0 +1,158 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CircleAlert, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+
+const loginSchema = z.object({
+  email: z.email("Please enter a valid email address."),
+  password: z
+    .string()
+    .min(1, "Password is required.")
+    .pipe(z.string().min(6, "Password must be at least 6 characters.")),
+  remember: z.boolean(),
+});
+
+type LoginValues = z.infer<typeof loginSchema>;
+
+export function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const form = useForm<LoginValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "", remember: true },
+  });
+
+  function onSubmit(data: LoginValues) {
+    console.log(data);
+  }
+
+  return (
+    <div className="w-full max-w-95">
+      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
+        Welcome back
+      </h1>
+      <p className="mb-6.5 text-sm text-slate-500">Sign in to continue to your boards.</p>
+
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+        <FieldGroup className="gap-4.5">
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel
+                  htmlFor="login-email"
+                  className="text-[13px] font-semibold text-slate-700"
+                >
+                  Email
+                </FieldLabel>
+                <div className="relative">
+                  <Input
+                    {...field}
+                    id="login-email"
+                    type="email"
+                    autoComplete="email"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="you@company.com"
+                    className={cn("h-10.5 rounded-[10px]", fieldState.invalid && "bg-red-50 pr-10")}
+                  />
+                  {fieldState.invalid && (
+                    <CircleAlert className="absolute top-1/2 right-3 size-4.25 -translate-y-1/2 text-destructive" />
+                  )}
+                </div>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="password"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <div className="flex items-center justify-between">
+                  <FieldLabel
+                    htmlFor="login-password"
+                    className="text-[13px] font-semibold text-slate-700"
+                  >
+                    Password
+                  </FieldLabel>
+                  <a href="#" className="text-[13px] font-semibold text-primary hover:underline">
+                    Forgot password?
+                  </a>
+                </div>
+                <div className="relative">
+                  <Input
+                    {...field}
+                    id="login-password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="Enter your password"
+                    className="h-10.5 rounded-[10px] pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute top-1/2 right-1.5 flex size-7.5 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="size-4.25" />
+                    ) : (
+                      <Eye className="size-4.25" />
+                    )}
+                  </button>
+                </div>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="remember"
+            control={form.control}
+            render={({ field }) => (
+              <Field orientation="horizontal" className="gap-2">
+                <Checkbox
+                  id="login-remember"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <Label htmlFor="login-remember" className="text-[13px] font-medium text-slate-600">
+                  Remember me
+                </Label>
+              </Field>
+            )}
+          />
+
+          <Button
+            type="submit"
+            size="xl"
+            disabled={form.formState.isSubmitting}
+            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)]"
+          >
+            {form.formState.isSubmitting ? "Signing in…" : "Sign in"}
+          </Button>
+        </FieldGroup>
+      </form>
+
+      <p className="mt-5.5 text-center text-[13.5px] text-slate-500">
+        Don&apos;t have an account?{" "}
+        <a href="#" className="font-bold text-primary hover:underline">
+          Sign up
+        </a>
+      </p>
+    </div>
+  );
+}
