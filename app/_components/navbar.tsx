@@ -1,15 +1,10 @@
 import { Menu } from "lucide-react";
+import Link from "next/link";
 
 import { Container } from "@/components/container";
 import { Logo } from "@/components/logo";
 import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -36,18 +31,18 @@ export function Navbar() {
           ))}
         </nav>
         <div className="ml-auto hidden items-center gap-2.5 lg:flex">
-          <a href="#" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
+          <Link href="/login" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
             Log in
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/register"
             className={cn(
               buttonVariants({ size: "lg" }),
-              "shadow-[0_2px_5px_--theme(--color-primary/30%)]"
+              "shadow-[0_2px_5px_--theme(--color-primary/30%)]",
             )}
           >
             Sign up free
-          </a>
+          </Link>
         </div>
 
         <Sheet>
@@ -79,7 +74,10 @@ export function Navbar() {
               <SheetClose
                 nativeButton={false}
                 render={
-                  <a href="#" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))} />
+                  <Link
+                    href="/login"
+                    className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+                  />
                 }
               >
                 Log in
@@ -87,11 +85,11 @@ export function Navbar() {
               <SheetClose
                 nativeButton={false}
                 render={
-                  <a
-                    href="#"
+                  <Link
+                    href="/register"
                     className={cn(
                       buttonVariants({ size: "lg" }),
-                      "shadow-[0_2px_5px_--theme(--color-primary/30%)]"
+                      "shadow-[0_2px_5px_--theme(--color-primary/30%)]",
                     )}
                   />
                 }

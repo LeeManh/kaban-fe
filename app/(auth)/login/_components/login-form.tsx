@@ -12,7 +12,11 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/input-password";
 import { Label } from "@/components/ui/label";
+import { getApiErrorMessage } from "@/lib/api/client";
+import { applyApiFormErrors } from "@/lib/api/form-errors";
 import { cn } from "@/lib/utils";
+
+import { useLogin } from "../_hooks/use-login";
 
 const loginSchema = z.object({
   email: z.email("Please enter a valid email address."),
@@ -30,9 +34,21 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "", remember: true },
   });
+  const loginMutation = useLogin();
 
-  function onSubmit(data: LoginValues) {
-    console.log(data);
+  async function onSubmit(data: LoginValues) {
+    try {
+      await loginMutation.mutateAsync({
+        email: data.email,
+        password: data.password,
+        rememberMe: data.remember,
+      });
+    } catch (error) {
+      const handled = applyApiFormErrors(form.setError, error, ["email", "password"]);
+      if (!handled) {
+        form.setError("root", { message: getApiErrorMessage(error) });
+      }
+    }
   }
 
   return (
@@ -119,6 +135,13 @@ export function LoginForm() {
               </Field>
             )}
           />
+
+          {form.formState.errors.root && (
+            <div className="flex items-center gap-1.5 text-sm text-destructive">
+              <CircleAlert className="size-3.5 shrink-0" />
+              {form.formState.errors.root.message}
+            </div>
+          )}
 
           <Button
             type="submit"

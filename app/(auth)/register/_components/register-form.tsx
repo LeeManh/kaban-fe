@@ -10,7 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/input-password";
+import { getApiErrorMessage } from "@/lib/api/client";
+import { applyApiFormErrors } from "@/lib/api/form-errors";
 import { cn } from "@/lib/utils";
+
+import { useRegister } from "../_hooks/use-register";
 
 const registerSchema = z
   .object({
@@ -34,9 +38,21 @@ export function RegisterForm() {
     resolver: zodResolver(registerSchema),
     defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
   });
+  const registerMutation = useRegister();
 
-  function onSubmit(data: RegisterValues) {
-    console.log(data);
+  async function onSubmit(data: RegisterValues) {
+    try {
+      await registerMutation.mutateAsync({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+    } catch (error) {
+      const handled = applyApiFormErrors(form.setError, error, ["name", "email", "password"]);
+      if (!handled) {
+        form.setError("root", { message: getApiErrorMessage(error) });
+      }
+    }
   }
 
   return (
@@ -44,9 +60,7 @@ export function RegisterForm() {
       <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
         Create your account
       </h1>
-      <p className="mb-6.5 text-sm text-slate-500">
-        Start organizing your work in minutes.
-      </p>
+      <p className="mb-6.5 text-sm text-slate-500">Start organizing your work in minutes.</p>
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <FieldGroup className="gap-4.5">
@@ -68,10 +82,7 @@ export function RegisterForm() {
                     autoComplete="name"
                     aria-invalid={fieldState.invalid}
                     placeholder="Avery Reyes"
-                    className={cn(
-                      "h-10.5 rounded-[10px]",
-                      fieldState.invalid && "bg-red-50 pr-10"
-                    )}
+                    className={cn("h-10.5 rounded-[10px]", fieldState.invalid && "bg-red-50 pr-10")}
                   />
                   {fieldState.invalid && (
                     <CircleAlert className="absolute top-1/2 right-3 size-4.25 -translate-y-1/2 text-destructive" />
@@ -101,10 +112,7 @@ export function RegisterForm() {
                     autoComplete="email"
                     aria-invalid={fieldState.invalid}
                     placeholder="you@company.com"
-                    className={cn(
-                      "h-10.5 rounded-[10px]",
-                      fieldState.invalid && "bg-red-50 pr-10"
-                    )}
+                    className={cn("h-10.5 rounded-[10px]", fieldState.invalid && "bg-red-50 pr-10")}
                   />
                   {fieldState.invalid && (
                     <CircleAlert className="absolute top-1/2 right-3 size-4.25 -translate-y-1/2 text-destructive" />
@@ -162,6 +170,13 @@ export function RegisterForm() {
               </Field>
             )}
           />
+
+          {form.formState.errors.root && (
+            <div className="flex items-center gap-1.5 text-sm text-destructive">
+              <CircleAlert className="size-3.5 shrink-0" />
+              {form.formState.errors.root.message}
+            </div>
+          )}
 
           <Button
             type="submit"
