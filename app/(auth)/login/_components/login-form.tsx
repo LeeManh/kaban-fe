@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleAlert, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { CircleAlert } from "lucide-react";
+import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/input-password";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
@@ -25,8 +26,6 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
-
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "", remember: true },
@@ -91,29 +90,14 @@ export function LoginForm() {
                     Forgot password?
                   </a>
                 </div>
-                <div className="relative">
-                  <Input
-                    {...field}
-                    id="login-password"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Enter your password"
-                    className="h-10.5 rounded-[10px] pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword((v) => !v)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute top-1/2 right-1.5 flex size-7.5 -translate-y-1/2 items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-600"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="size-4.25" />
-                    ) : (
-                      <Eye className="size-4.25" />
-                    )}
-                  </button>
-                </div>
+                <PasswordInput
+                  {...field}
+                  id="login-password"
+                  autoComplete="current-password"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Enter your password"
+                  className="h-10.5 rounded-[10px]"
+                />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
@@ -149,9 +133,9 @@ export function LoginForm() {
 
       <p className="mt-5.5 text-center text-[13.5px] text-slate-500">
         Don&apos;t have an account?{" "}
-        <a href="#" className="font-bold text-primary hover:underline">
+        <Link href="/register" className="font-bold text-primary hover:underline">
           Sign up
-        </a>
+        </Link>
       </p>
     </div>
   );
