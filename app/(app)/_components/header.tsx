@@ -1,12 +1,14 @@
 "use client";
 
-import { Bell, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
 
 import { Logo } from "@/components/logo";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+import { AccountMenu } from "./account-menu";
+import { NotificationsButton } from "./notifications-button";
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,7 +26,7 @@ export function Header() {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search boards…"
             aria-label="Search boards"
-            className="w-full bg-slate-50 pl-8.5 h-9"
+            className="w-full bg-slate-50 pl-8.5"
           />
         </div>
         <Button
@@ -35,17 +37,9 @@ export function Header() {
         </Button>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2.5">
-        <button
-          type="button"
-          aria-label="Notifications"
-          className="flex size-9 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100"
-        >
-          <Bell className="size-4.25" />
-        </button>
-        <Avatar className="size-7">
-          <AvatarFallback className="bg-violet-500 text-xs font-bold text-white">AR</AvatarFallback>
-        </Avatar>
+      <div className="flex shrink-0 items-center gap-2">
+        <NotificationsButton />
+        <AccountMenu />
       </div>
     </header>
   );

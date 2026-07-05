@@ -71,6 +71,7 @@ export function RegisterForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
                   htmlFor="register-name"
+                  required
                   className="text-[13px] font-semibold text-slate-700"
                 >
                   Full name
@@ -100,6 +101,7 @@ export function RegisterForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
                   htmlFor="register-email"
+                  required
                   className="text-[13px] font-semibold text-slate-700"
                 >
                   Email
@@ -130,6 +132,7 @@ export function RegisterForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
                   htmlFor="register-password"
+                  required
                   className="text-[13px] font-semibold text-slate-700"
                 >
                   Password
@@ -153,6 +156,7 @@ export function RegisterForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
                   htmlFor="register-confirm"
+                  required
                   className="text-[13px] font-semibold text-slate-700"
                 >
                   Confirm password

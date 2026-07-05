@@ -13,7 +13,7 @@ export function useLogin() {
     mutationFn: login,
     onSuccess: (tokens) => {
       setTokens(tokens);
-      router.replace("/");
+      router.replace("/boards");
     },
   });
 }

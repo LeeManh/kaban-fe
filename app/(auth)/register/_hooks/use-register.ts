@@ -13,7 +13,7 @@ export function useRegister() {
     mutationFn: register,
     onSuccess: (tokens) => {
       setTokens(tokens);
-      router.replace("/");
+      router.replace("/boards");
     },
   });
 }

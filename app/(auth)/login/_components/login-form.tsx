@@ -67,6 +67,7 @@ export function LoginForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
                   htmlFor="login-email"
+                  required
                   className="text-[13px] font-semibold text-slate-700"
                 >
                   Email
@@ -98,6 +99,7 @@ export function LoginForm() {
                 <div className="flex items-center justify-between">
                   <FieldLabel
                     htmlFor="login-password"
+                    required
                     className="text-[13px] font-semibold text-slate-700"
                   >
                     Password
