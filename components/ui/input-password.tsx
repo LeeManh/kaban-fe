@@ -14,6 +14,7 @@ function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
       <Input
         {...props}
         type={visible ? "text" : "password"}
+        hideInvalidIcon
         className={cn("pr-10", className)}
       />
       <button

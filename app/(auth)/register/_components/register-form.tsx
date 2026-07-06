@@ -76,19 +76,14 @@ export function RegisterForm() {
                 >
                   Full name
                 </FieldLabel>
-                <div className="relative">
-                  <Input
-                    {...field}
-                    id="register-name"
-                    autoComplete="name"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Avery Reyes"
-                    className={cn(fieldState.invalid && "bg-red-50 pr-10")}
-                  />
-                  {fieldState.invalid && (
-                    <CircleAlert className="absolute top-1/2 right-3 size-4.25 -translate-y-1/2 text-destructive" />
-                  )}
-                </div>
+                <Input
+                  {...field}
+                  id="register-name"
+                  autoComplete="name"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Avery Reyes"
+                  className={cn(fieldState.invalid && "bg-red-50")}
+                />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
@@ -106,20 +101,15 @@ export function RegisterForm() {
                 >
                   Email
                 </FieldLabel>
-                <div className="relative">
-                  <Input
-                    {...field}
-                    id="register-email"
-                    type="email"
-                    autoComplete="email"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="you@company.com"
-                    className={cn(fieldState.invalid && "bg-red-50 pr-10")}
-                  />
-                  {fieldState.invalid && (
-                    <CircleAlert className="absolute top-1/2 right-3 size-4.25 -translate-y-1/2 text-destructive" />
-                  )}
-                </div>
+                <Input
+                  {...field}
+                  id="register-email"
+                  type="email"
+                  autoComplete="email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="you@company.com"
+                  className={cn(fieldState.invalid && "bg-red-50")}
+                />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}

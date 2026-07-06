@@ -4,7 +4,9 @@ import { Plus, Star } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-export interface BoardTileProps {
+import { CreateBoardPopover } from "./create-board-popover";
+
+export interface BoardCardProps {
   title: string;
   background: string;
   favorite: boolean;
@@ -12,13 +14,13 @@ export interface BoardTileProps {
   onToggleFavorite: () => void;
 }
 
-export function BoardTile({
+export function BoardCard({
   title,
   background,
   favorite,
   onOpen,
   onToggleFavorite,
-}: BoardTileProps) {
+}: BoardCardProps) {
   return (
     <div
       role="button"
@@ -31,7 +33,7 @@ export function BoardTile({
           onOpen();
         }
       }}
-      className="group flex h-32 flex-col overflow-hidden rounded-md bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+      className="group flex h-30 flex-col overflow-hidden rounded-md bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
     >
       <div style={{ background }} className="relative min-h-0 flex-1 bg-cover bg-center">
         <button
@@ -42,7 +44,7 @@ export function BoardTile({
           }}
           aria-label="Favorite board"
           className={cn(
-            "absolute top-2 right-2 flex size-7.5 items-center justify-center rounded-md bg-black/20 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 hover:bg-black/30",
+            "absolute top-2 right-2 flex size-6 items-center justify-center rounded-md bg-black/20 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 hover:bg-black/30",
             favorite && "bg-black/35 opacity-100",
           )}
         >
@@ -57,16 +59,17 @@ export function BoardTile({
   );
 }
 
-export function CreateBoardTile({ onClick }: { onClick?: () => void }) {
+export function CreateBoardCard() {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label="Create new board"
-      className="flex h-32 flex-col items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-slate-300 text-slate-600 hover:border-primary hover:bg-blue-50/50 hover:text-primary"
-    >
-      <Plus className="size-5.5" strokeWidth={2.2} />
-      <span className="text-[13px] font-semibold">Create new board</span>
-    </button>
+    <CreateBoardPopover>
+      <button
+        type="button"
+        aria-label="Create new board"
+        className="flex h-30 flex-col items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-slate-300 text-slate-600 hover:border-primary hover:bg-blue-50/50 hover:text-primary"
+      >
+        <Plus className="size-5.5" strokeWidth={2.2} />
+        <span className="text-[13px] font-semibold">Create new board</span>
+      </button>
+    </CreateBoardPopover>
   );
 }

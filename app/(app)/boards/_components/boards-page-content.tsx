@@ -3,7 +3,7 @@
 import { SquareKanban } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { BoardTile, CreateBoardTile } from "./board-tile";
+import { BoardCard, CreateBoardCard } from "./board-card";
 import { EmptyBoardsState } from "./empty-boards-state";
 import { useBoards } from "../_hooks/use-boards";
 import { useToggleBoardStar } from "../_hooks/use-toggle-board-star";
@@ -16,8 +16,6 @@ export function BoardsPageContent() {
   function handleToggleFavorite(boardId: string, isStarred: boolean) {
     toggleStar.mutate({ boardId, isStarred });
   }
-
-  function handleCreateBoard() {}
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden pt-4">
@@ -37,11 +35,11 @@ export function BoardsPageContent() {
               Could not load boards. Please try again.
             </div>
           ) : boards.length === 0 ? (
-            <EmptyBoardsState onCreateBoard={handleCreateBoard} />
+            <EmptyBoardsState />
           ) : (
             <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4">
               {boards.map((board) => (
-                <BoardTile
+                <BoardCard
                   key={board.id}
                   title={board.name}
                   background={board.background}
@@ -50,7 +48,7 @@ export function BoardsPageContent() {
                   onToggleFavorite={() => handleToggleFavorite(board.id, board.isStarred)}
                 />
               ))}
-              <CreateBoardTile onClick={handleCreateBoard} />
+              <CreateBoardCard />
             </div>
           )}
         </div>

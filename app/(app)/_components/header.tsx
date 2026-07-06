@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 
 import { AccountMenu } from "./account-menu";
 import { NotificationsButton } from "./notifications-button";
+import { CreateBoardPopover } from "../boards/_components/create-board-popover";
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,12 +30,14 @@ export function Header() {
             className="w-full bg-slate-50 pl-8.5"
           />
         </div>
-        <Button
-          size="lg"
-          className="shrink-0 gap-1.75 shadow-[0_1px_2px_--theme(--color-primary/30%)]"
-        >
-          Create
-        </Button>
+        <CreateBoardPopover>
+          <Button
+            size="lg"
+            className="shrink-0 gap-1.75 shadow-[0_1px_2px_--theme(--color-primary/30%)]"
+          >
+            Create
+          </Button>
+        </CreateBoardPopover>
       </div>
 
       <div className="flex shrink-0 items-center gap-2">

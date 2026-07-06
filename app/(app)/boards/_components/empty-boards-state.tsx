@@ -2,7 +2,9 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-export function EmptyBoardsState({ onCreateBoard }: { onCreateBoard: () => void }) {
+import { CreateBoardPopover } from "./create-board-popover";
+
+export function EmptyBoardsState() {
   return (
     <div className="flex flex-col items-center rounded-md border border-slate-200 bg-white px-6 py-12 text-center shadow-xs">
       <div className="mb-4.5 flex gap-2">
@@ -17,13 +19,12 @@ export function EmptyBoardsState({ onCreateBoard }: { onCreateBoard: () => void 
         Boards keep your projects, tasks, and teammates organized in one place. Create your first
         one to get started.
       </div>
-      <Button
-        onClick={onCreateBoard}
-        className="gap-1.75 rounded-md shadow-[0_1px_2px_--theme(--color-primary/30%)]"
-      >
-        <Plus className="size-4" strokeWidth={2.4} />
-        Create your first board
-      </Button>
+      <CreateBoardPopover>
+        <Button className="gap-1.75 rounded-md shadow-[0_1px_2px_--theme(--color-primary/30%)]">
+          <Plus className="size-4" strokeWidth={2.4} />
+          Create your first board
+        </Button>
+      </CreateBoardPopover>
     </div>
   );
 }
