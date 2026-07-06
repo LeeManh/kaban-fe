@@ -53,7 +53,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
             strategy={verticalListSortingStrategy}
           >
             {list.cards.map((card) => (
-              <BoardCardItem key={card.id} card={card} />
+              <BoardCardItem key={card.id} boardId={list.boardId} card={card} />
             ))}
           </SortableContext>
         </div>
