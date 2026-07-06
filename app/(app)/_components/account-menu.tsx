@@ -30,9 +30,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearTokens } from "@/lib/api/tokens";
+import { cn } from "@/lib/utils";
+
+import { useBoardChrome } from "../_context/app-shell";
 
 export function AccountMenu() {
   const router = useRouter();
+  const { background } = useBoardChrome();
 
   function handleLogout() {
     clearTokens();
@@ -49,7 +53,12 @@ export function AccountMenu() {
                 <button
                   type="button"
                   aria-label="Account menu"
-                  className="flex size-8 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100"
+                  className={cn(
+                    "flex size-8 items-center justify-center rounded-md",
+                    background
+                      ? "text-white hover:bg-white/15"
+                      : "text-slate-600 hover:bg-slate-100",
+                  )}
                 />
               }
             >

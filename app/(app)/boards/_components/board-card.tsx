@@ -2,7 +2,7 @@
 
 import { Plus, Star } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { cn, toBackgroundStyle } from "@/lib/utils";
 
 import { CreateBoardPopover } from "./create-board-popover";
 
@@ -35,7 +35,10 @@ export function BoardCard({
       }}
       className="group flex h-30 flex-col overflow-hidden rounded-md bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
     >
-      <div style={{ background }} className="relative min-h-0 flex-1 bg-cover bg-center">
+      <div
+        style={{ background: toBackgroundStyle(background) }}
+        className="relative min-h-0 flex-1 bg-cover bg-center"
+      >
         <button
           type="button"
           onClick={(e) => {

@@ -3,8 +3,13 @@
 import { Bell } from "lucide-react";
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+
+import { useBoardChrome } from "../_context/app-shell";
 
 export function NotificationsButton() {
+  const { background } = useBoardChrome();
+
   return (
     <Tooltip>
       <TooltipTrigger
@@ -12,7 +17,10 @@ export function NotificationsButton() {
           <button
             type="button"
             aria-label="Notifications"
-            className="flex size-8 items-center justify-center rounded-md text-slate-600 hover:bg-slate-100"
+            className={cn(
+              "flex size-8 items-center justify-center rounded-md",
+              background ? "text-white hover:bg-white/15" : "text-slate-600 hover:bg-slate-100",
+            )}
           />
         }
       >

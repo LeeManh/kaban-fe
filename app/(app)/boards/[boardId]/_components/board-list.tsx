@@ -1,14 +1,10 @@
 import { Ellipsis, Plus } from "lucide-react";
 
-import { BoardCardItem, type MockCard } from "./board-card-item";
+import type { ListWithCards } from "@/lib/api/boards";
 
-export interface MockList {
-  id: string;
-  title: string;
-  cards: MockCard[];
-}
+import { BoardCardItem } from "./board-card-item";
 
-export function BoardList({ list }: { list: MockList }) {
+export function BoardList({ list }: { list: ListWithCards }) {
   return (
     <div className="flex w-70 shrink-0 flex-col rounded-md bg-slate-100 p-2">
       <div className="mb-1 flex items-center gap-1.5 px-1.5 py-1">

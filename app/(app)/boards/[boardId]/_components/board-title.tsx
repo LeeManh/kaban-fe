@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
 
-export function BoardTitle() {
+export function BoardTitle({ name: initialName }: { name: string }) {
   const [isEditingName, setIsEditingName] = useState(false);
-  const [name, setName] = useState("Board name");
+  const [name, setName] = useState(initialName);
 
   if (isEditingName) {
     return (

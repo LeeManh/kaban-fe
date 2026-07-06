@@ -6,33 +6,52 @@ import { useState } from "react";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 import { AccountMenu } from "./account-menu";
+import { useBoardChrome } from "../_context/app-shell";
 import { NotificationsButton } from "./notifications-button";
 import { CreateBoardPopover } from "../boards/_components/create-board-popover";
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { background } = useBoardChrome();
 
   return (
-    <header className="flex h-14 flex-none items-center gap-3.5 border-b border-slate-200 bg-white px-3.5">
-      <Logo className="shrink-0" />
+    <header
+      className={cn(
+        "flex h-14 flex-none items-center gap-3.5 px-3.5 border-b",
+        background ? "bg-black/20" : "bg-white",
+        background ? "border-transparent" : "border-slate-200",
+      )}
+    >
+      <Logo className={cn("shrink-0", background ? "text-white" : "text-slate-900")} />
 
       <div className="flex flex-1 items-center justify-center gap-2.5">
         <div className="relative max-w-2xl flex-1">
-          <Search className="absolute top-1/2 left-2.75 size-4 -translate-y-1/2 text-slate-400" />
+          <Search
+            className={cn(
+              "absolute top-1/2 left-2.75 size-4 -translate-y-1/2",
+              background ? "text-white/70" : "text-slate-400",
+            )}
+          />
           <Input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search boards…"
+            placeholder="Search"
             aria-label="Search boards"
-            className="w-full bg-slate-50 pl-8.5"
+            className={cn(
+              "w-full h-8 pl-8.5 focus-visible:ring-0",
+              background
+                ? "border-transparent bg-white/20 text-white placeholder:text-white/70 focus-visible:border-transparent focus-visible:bg-white/25"
+                : "bg-slate-50 focus-visible:border-slate-300 focus-visible:bg-white",
+            )}
           />
         </div>
         <CreateBoardPopover>
           <Button
-            size="lg"
+            size="default"
             className="shrink-0 gap-1.75 shadow-[0_1px_2px_--theme(--color-primary/30%)]"
           >
             Create

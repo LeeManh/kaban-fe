@@ -3,26 +3,29 @@ import { Ellipsis, ListFilter, Plus, Share2, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { BoardDetail } from "@/lib/api/boards";
+import { getInitials } from "@/lib/utils";
 
 import { BoardTitle } from "./board-title";
 
-export function BoardHeader() {
+const AVATAR_COLORS = ["bg-violet-500", "bg-sky-500", "bg-emerald-500", "bg-rose-500"];
+
+export function BoardHeader({ board }: { board: BoardDetail }) {
   return (
-    <div className="flex h-14 flex-none items-center gap-1.5 bg-linear-to-br from-amber-700 to-amber-600 px-4">
-      <BoardTitle />
+    <div className="flex h-14 flex-none items-center gap-1.5 bg-black/10 px-4">
+      <BoardTitle name={board.name} />
 
       <div className="flex-1" />
       <AvatarGroup>
-        <Avatar className="size-6.5">
-          <AvatarFallback className="bg-violet-500 text-[11px] font-bold text-white">
-            CP
-          </AvatarFallback>
-        </Avatar>
-        <Avatar className="size-6.5">
-          <AvatarFallback className="bg-sky-500 text-[11px] font-bold text-white">
-            PV
-          </AvatarFallback>
-        </Avatar>
+        {board.members.map((member, index) => (
+          <Avatar key={member.id} className="size-6.5">
+            <AvatarFallback
+              className={`${AVATAR_COLORS[index % AVATAR_COLORS.length]} text-[11px] font-bold text-white`}
+            >
+              {getInitials(member)}
+            </AvatarFallback>
+          </Avatar>
+        ))}
       </AvatarGroup>
 
       <Tooltip>

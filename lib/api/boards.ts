@@ -21,7 +21,7 @@ export async function createBoard(payload: CreateBoardPayload): Promise<Board> {
 export interface BoardMember {
   id: string;
   email: string;
-  name: string;
+  name: string | null;
 }
 
 export interface BoardWithMembers extends Board {
@@ -31,6 +31,57 @@ export interface BoardWithMembers extends Board {
 
 export async function listBoards(): Promise<BoardWithMembers[]> {
   const { data } = await apiClient.get<ApiSuccessResponse<BoardWithMembers[]>>("/boards");
+  return data.data;
+}
+
+export type CardPriority = "LOW" | "MEDIUM" | "HIGH";
+
+export interface CardLabel {
+  id: string;
+  name: string;
+  color: string;
+}
+
+export interface CardAssignee {
+  id: string;
+  name: string | null;
+  email: string;
+}
+
+export interface CardSummary {
+  id: string;
+  title: string;
+  description: string | null;
+  order: number;
+  priority: CardPriority;
+  dueDate: string | null;
+  isDone: boolean;
+  version: number;
+  listId: string;
+  createdAt: string;
+  updatedAt: string;
+  labels: CardLabel[];
+  assignees: CardAssignee[];
+  _count: { comments: number; attachments: number };
+  checklistProgress: { done: number; total: number };
+}
+
+export interface ListWithCards {
+  id: string;
+  title: string;
+  order: number;
+  boardId: string;
+  createdAt: string;
+  updatedAt: string;
+  cards: CardSummary[];
+}
+
+export interface BoardDetail extends BoardWithMembers {
+  lists: ListWithCards[];
+}
+
+export async function getBoard(boardId: string): Promise<BoardDetail> {
+  const { data } = await apiClient.get<ApiSuccessResponse<BoardDetail>>(`/boards/${boardId}`);
   return data.data;
 }
 

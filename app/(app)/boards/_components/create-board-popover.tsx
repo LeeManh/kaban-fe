@@ -17,6 +17,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toBackgroundStyle } from "@/lib/utils";
 
 import { useCreateBoard } from "../_hooks/use-create-board";
 import { notifyUnsplashDownload, useUnsplashPhotos } from "../_hooks/use-unsplash-photos";
@@ -91,7 +92,7 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
             render={({ field, fieldState }) => (
               <>
                 <div
-                  style={{ background: field.value }}
+                  style={{ background: toBackgroundStyle(field.value) }}
                   className="relative mx-auto flex w-[60%] flex-col items-center gap-3 rounded-md bg-cover bg-center px-3 pt-2 pb-3"
                 >
                   <Logo iconOnly className="shrink-0" />
@@ -127,12 +128,12 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
                         aria-label={`Background photo by ${photo.authorName}`}
                         onClick={() => {
                           setDownloadLocation(photo.downloadLocation);
-                          field.onChange(`url(${photo.regularUrl}) center/cover no-repeat`);
+                          field.onChange(photo.regularUrl);
                         }}
                         style={{ backgroundImage: `url(${photo.thumbUrl})` }}
                         className="relative h-11 rounded-md bg-cover bg-center hover:brightness-110 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                       >
-                        {field.value.includes(photo.regularUrl) && (
+                        {field.value === photo.regularUrl && (
                           <span className="absolute top-1 right-1 flex size-4 items-center justify-center rounded-full bg-white">
                             <Check className="size-2.5 text-slate-900" strokeWidth={3} />
                           </span>

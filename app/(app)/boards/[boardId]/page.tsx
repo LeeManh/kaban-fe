@@ -1,11 +1,11 @@
-import { BoardCanvas } from "./_components/board-canvas";
-import { BoardHeader } from "./_components/board-header";
+import { BoardDetailContent } from "./_components/board-detail-content";
 
-export default function BoardDetailPage() {
+export default async function BoardDetailPage(props: PageProps<"/boards/[boardId]">) {
+  const { boardId } = await props.params;
+
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
-      <BoardHeader />
-      <BoardCanvas />
+      <BoardDetailContent boardId={boardId} />
     </div>
   );
 }
