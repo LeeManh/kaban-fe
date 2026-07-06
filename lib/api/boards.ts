@@ -48,7 +48,7 @@ export interface CardAssignee {
   email: string;
 }
 
-export interface CardSummary {
+export interface Card {
   id: string;
   title: string;
   description: string | null;
@@ -60,19 +60,25 @@ export interface CardSummary {
   listId: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CardSummary extends Card {
   labels: CardLabel[];
   assignees: CardAssignee[];
   _count: { comments: number; attachments: number };
   checklistProgress: { done: number; total: number };
 }
 
-export interface ListWithCards {
+export interface List {
   id: string;
   title: string;
   order: number;
   boardId: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ListWithCards extends List {
   cards: CardSummary[];
 }
 

@@ -1,7 +1,8 @@
-import { Ellipsis, Plus } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 
 import type { ListWithCards } from "@/lib/api/boards";
 
+import { AddCardForm } from "./add-card-form";
 import { BoardCardItem } from "./board-card-item";
 
 export function BoardList({ list }: { list: ListWithCards }) {
@@ -11,7 +12,9 @@ export function BoardList({ list }: { list: ListWithCards }) {
         <span className="flex-1 truncate text-[13.5px] font-semibold text-slate-700">
           {list.title}
         </span>
-        <span className="text-xs font-medium text-slate-400">{list.cards.length}</span>
+        {list.cards.length > 0 && (
+          <span className="text-xs font-medium text-slate-600">{list.cards.length}</span>
+        )}
         <button
           type="button"
           aria-label="List actions"
@@ -27,13 +30,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
         ))}
       </div>
 
-      <button
-        type="button"
-        className="mt-1.5 flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-slate-500 hover:bg-slate-200"
-      >
-        <Plus className="size-3.75" />
-        Add a card
-      </button>
+      <AddCardForm boardId={list.boardId} listId={list.id} />
     </div>
   );
 }

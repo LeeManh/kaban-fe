@@ -36,7 +36,7 @@ export function BoardDetailContent({ boardId }: { boardId: string }) {
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       <BoardHeader board={board} />
-      <BoardCanvas lists={board.lists} />
+      <BoardCanvas boardId={boardId} lists={board.lists} />
     </div>
   );
 }

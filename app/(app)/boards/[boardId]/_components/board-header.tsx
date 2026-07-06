@@ -16,7 +16,7 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
       <BoardTitle name={board.name} />
 
       <div className="flex-1" />
-      <AvatarGroup>
+      <AvatarGroup className="*:data-[slot=avatar]:ring-0">
         {board.members.map((member, index) => (
           <Avatar key={member.id} className="size-6.5">
             <AvatarFallback
@@ -34,7 +34,7 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
             <button
               type="button"
               aria-label="Invite members"
-              className="flex size-7.5 items-center justify-center rounded-full border border-dashed border-white/60 text-white hover:bg-white/15"
+              className="flex size-6.5 items-center justify-center rounded-full border border-dashed border-white/60 text-white hover:bg-white/15"
             />
           }
         >
