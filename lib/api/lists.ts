@@ -12,3 +12,20 @@ export async function createList(boardId: string, payload: CreateListPayload): P
   );
   return data.data;
 }
+
+export interface MoveListPayload {
+  beforeId?: string;
+  afterId?: string;
+}
+
+export async function moveList(
+  boardId: string,
+  listId: string,
+  payload: MoveListPayload,
+): Promise<List> {
+  const { data } = await apiClient.patch<ApiSuccessResponse<List>>(
+    `/boards/${boardId}/lists/${listId}/move`,
+    payload,
+  );
+  return data.data;
+}

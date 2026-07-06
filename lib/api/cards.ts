@@ -19,3 +19,21 @@ export async function createCard(
   );
   return data.data;
 }
+
+export interface MoveCardPayload {
+  listId?: string;
+  beforeId?: string;
+  afterId?: string;
+}
+
+export async function moveCard(
+  boardId: string,
+  cardId: string,
+  payload: MoveCardPayload,
+): Promise<Card> {
+  const { data } = await apiClient.patch<ApiSuccessResponse<Card>>(
+    `/boards/${boardId}/cards/${cardId}/move`,
+    payload,
+  );
+  return data.data;
+}
