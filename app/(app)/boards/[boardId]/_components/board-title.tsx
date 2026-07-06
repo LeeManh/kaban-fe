@@ -4,9 +4,32 @@ import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
 
-export function BoardTitle({ name: initialName }: { name: string }) {
+import { useUpdateBoard } from "../_hooks/use-update-board";
+
+export function BoardTitle({ boardId, name: initialName }: { boardId: string; name: string }) {
   const [isEditingName, setIsEditingName] = useState(false);
   const [name, setName] = useState(initialName);
+  const updateBoard = useUpdateBoard(boardId);
+
+  function commit() {
+    setIsEditingName(false);
+
+    const trimmed = name.trim();
+    if (!trimmed) {
+      setName(initialName);
+      return;
+    }
+
+    setName(trimmed);
+    if (trimmed !== initialName) {
+      updateBoard.mutate({ name: trimmed });
+    }
+  }
+
+  function cancel() {
+    setName(initialName);
+    setIsEditingName(false);
+  }
 
   if (isEditingName) {
     return (
@@ -15,9 +38,10 @@ export function BoardTitle({ name: initialName }: { name: string }) {
         value={name}
         onChange={(e) => setName(e.target.value)}
         onFocus={(e) => e.currentTarget.select()}
-        onBlur={() => setIsEditingName(false)}
+        onBlur={commit}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === "Escape") e.currentTarget.blur();
+          if (e.key === "Enter") e.currentTarget.blur();
+          if (e.key === "Escape") cancel();
         }}
         className="mr-1 h-8 min-w-24 max-w-90 rounded-sm border-none bg-white/20 px-2 py-1 text-base font-bold text-white placeholder:text-white/70 focus-visible:ring-0 field-sizing-content md:text-base"
       />

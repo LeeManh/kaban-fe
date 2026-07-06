@@ -13,7 +13,7 @@ const AVATAR_COLORS = ["bg-violet-500", "bg-sky-500", "bg-emerald-500", "bg-rose
 export function BoardHeader({ board }: { board: BoardDetail }) {
   return (
     <div className="flex h-14 flex-none items-center gap-1.5 bg-black/10 px-4">
-      <BoardTitle name={board.name} />
+      <BoardTitle boardId={board.id} name={board.name} />
 
       <div className="flex-1" />
       <AvatarGroup className="*:data-[slot=avatar]:ring-0">
