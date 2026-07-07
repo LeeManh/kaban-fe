@@ -114,3 +114,30 @@ export async function moveCard(
   );
   return data.data;
 }
+
+export interface CardAssigneeLink {
+  cardId: string;
+  userId: string;
+}
+
+export async function assignCardMember(
+  boardId: string,
+  cardId: string,
+  userId: string,
+): Promise<CardAssigneeLink> {
+  const { data } = await apiClient.post<ApiSuccessResponse<CardAssigneeLink>>(
+    `/boards/${boardId}/cards/${cardId}/assignees/${userId}`,
+  );
+  return data.data;
+}
+
+export async function unassignCardMember(
+  boardId: string,
+  cardId: string,
+  userId: string,
+): Promise<CardAssigneeLink> {
+  const { data } = await apiClient.delete<ApiSuccessResponse<CardAssigneeLink>>(
+    `/boards/${boardId}/cards/${cardId}/assignees/${userId}`,
+  );
+  return data.data;
+}

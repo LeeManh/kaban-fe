@@ -11,9 +11,10 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { CardLabel } from "@/lib/api/boards";
+import type { CardAssignee, CardLabel } from "@/lib/api/boards";
 
 import { CardLabelsPopoverContent } from "./card-labels-popover";
+import { CardMembersPopoverContent } from "./card-members-popover";
 
 const ADD_TO_CARD_ITEMS = [
   { icon: Tag, title: "Labels", description: "Organize, categorize, and prioritize" },
@@ -27,12 +28,19 @@ function AddToCardButton({
   boardId,
   cardId,
   labels,
+  assignees,
 }: {
   boardId: string;
   cardId: string;
   labels: CardLabel[];
+  assignees: CardAssignee[];
 }) {
-  const [view, setView] = useState<"menu" | "labels">("menu");
+  const [view, setView] = useState<"menu" | "labels" | "members">("menu");
+
+  const VIEW_BY_TITLE: Partial<Record<string, typeof view>> = {
+    Labels: "labels",
+    Members: "members",
+  };
 
   return (
     <Popover
@@ -47,9 +55,13 @@ function AddToCardButton({
         Add
       </PopoverTrigger>
       <PopoverContent align="end" className="w-72 gap-1">
-        {view === "labels" ? (
+        {view === "labels" && (
           <CardLabelsPopoverContent boardId={boardId} cardId={cardId} cardLabels={labels} />
-        ) : (
+        )}
+        {view === "members" && (
+          <CardMembersPopoverContent boardId={boardId} cardId={cardId} assignees={assignees} />
+        )}
+        {view === "menu" && (
           <>
             <div className="flex items-center justify-between px-1">
               <span className="w-6" />
@@ -64,20 +76,23 @@ function AddToCardButton({
               </PopoverClose>
             </div>
             <div className="flex flex-col">
-              {ADD_TO_CARD_ITEMS.map(({ icon: Icon, title, description }) => (
-                <button
-                  key={title}
-                  type="button"
-                  onClick={title === "Labels" ? () => setView("labels") : undefined}
-                  className="flex cursor-pointer items-start gap-3 rounded-md p-2 text-left hover:bg-slate-100"
-                >
-                  <Icon className="mt-0.5 size-4 shrink-0 text-slate-600" />
-                  <div>
-                    <div className="text-[13.5px] font-medium text-slate-800">{title}</div>
-                    <div className="text-xs text-slate-500">{description}</div>
-                  </div>
-                </button>
-              ))}
+              {ADD_TO_CARD_ITEMS.map(({ icon: Icon, title, description }) => {
+                const targetView = VIEW_BY_TITLE[title];
+                return (
+                  <button
+                    key={title}
+                    type="button"
+                    onClick={targetView ? () => setView(targetView) : undefined}
+                    className="flex cursor-pointer items-start gap-3 rounded-md p-2 text-left hover:bg-slate-100"
+                  >
+                    <Icon className="mt-0.5 size-4 shrink-0 text-slate-600" />
+                    <div>
+                      <div className="text-[13.5px] font-medium text-slate-800">{title}</div>
+                      <div className="text-xs text-slate-500">{description}</div>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </>
         )}
@@ -90,14 +105,16 @@ export function CardQuickActions({
   boardId,
   cardId,
   labels,
+  assignees,
 }: {
   boardId: string;
   cardId: string;
   labels: CardLabel[];
+  assignees: CardAssignee[];
 }) {
   return (
     <div className="flex flex-wrap gap-2">
-      <AddToCardButton boardId={boardId} cardId={cardId} labels={labels} />
+      <AddToCardButton boardId={boardId} cardId={cardId} labels={labels} assignees={assignees} />
       {labels.length === 0 && (
         <Popover>
           <PopoverTrigger

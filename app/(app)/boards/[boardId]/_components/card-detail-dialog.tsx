@@ -74,10 +74,15 @@ export function CardDetailDialog({
                 }
               />
 
-              <CardQuickActions boardId={boardId} cardId={card.id} labels={card.labels} />
+              <CardQuickActions
+                boardId={boardId}
+                cardId={card.id}
+                labels={card.labels}
+                assignees={card.assignees}
+              />
 
               <div className="flex flex-wrap gap-4">
-                <CardMembers assignees={card.assignees} />
+                <CardMembers boardId={boardId} cardId={card.id} assignees={card.assignees} />
 
                 <CardLabels boardId={boardId} cardId={card.id} labels={card.labels} />
 
