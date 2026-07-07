@@ -307,6 +307,7 @@ export function BoardCardItem({
       <CardDetailDialog
         open={isDetailOpen}
         onOpenChange={setIsDetailOpen}
+        boardId={boardId}
         card={card}
         listTitle={listTitle}
       />

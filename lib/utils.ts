@@ -15,3 +15,28 @@ export function getInitials(member: { name?: string | null; email: string }): st
   if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase()
   return source.slice(0, 2).toUpperCase()
 }
+
+export function formatTimeAgo(dateString: string): string {
+  const minutes = Math.floor((Date.now() - new Date(dateString).getTime()) / 60000)
+  if (minutes < 1) return "just now"
+  if (minutes < 60) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`
+  const hours = Math.floor(minutes / 60)
+  if (hours < 24) return `${hours} hour${hours > 1 ? "s" : ""} ago`
+  const days = Math.floor(hours / 24)
+  if (days < 30) return `${days} day${days > 1 ? "s" : ""} ago`
+  return new Date(dateString).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+}
+
+export function formatAddedAt(dateString: string): string {
+  return `Added ${new Date(dateString).toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  })}`
+}

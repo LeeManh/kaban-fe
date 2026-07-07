@@ -1,8 +1,56 @@
 import { apiClient, type ApiSuccessResponse } from "@/lib/api/client";
-import type { Card, CardPriority, CardSummary } from "@/lib/api/boards";
+import type { Card, CardAssignee, CardLabel, CardPriority } from "@/lib/api/boards";
 
-export async function getCard(boardId: string, cardId: string): Promise<CardSummary> {
-  const { data } = await apiClient.get<ApiSuccessResponse<CardSummary>>(
+export interface ChecklistItem {
+  id: string;
+  content: string;
+  isDone: boolean;
+  order: number;
+  checklistId: string;
+}
+
+export interface Checklist {
+  id: string;
+  title: string;
+  order: number;
+  cardId: string;
+  createdAt: string;
+  items: ChecklistItem[];
+}
+
+export interface CardAttachment {
+  id: string;
+  filename: string;
+  key: string;
+  mimeType: string | null;
+  size: number | null;
+  cardId: string;
+  uploadedById: string;
+  createdAt: string;
+  downloadUrl: string;
+}
+
+export interface CardComment {
+  id: string;
+  content: string;
+  cardId: string;
+  authorId: string;
+  author: CardAssignee;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CardDetail extends Card {
+  labels: CardLabel[];
+  assignees: CardAssignee[];
+  checklists: Checklist[];
+  attachments: CardAttachment[];
+  comments: CardComment[];
+  checklistProgress: { done: number; total: number };
+}
+
+export async function getCard(boardId: string, cardId: string): Promise<CardDetail> {
+  const { data } = await apiClient.get<ApiSuccessResponse<CardDetail>>(
     `/boards/${boardId}/cards/${cardId}`,
   );
   return data.data;
