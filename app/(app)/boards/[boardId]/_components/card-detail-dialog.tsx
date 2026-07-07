@@ -14,7 +14,8 @@ import { CardComments } from "./card-comments";
 import { CardCoverBanner } from "./card-cover-banner";
 import { CardDescription } from "./card-description";
 import { CardDueDate } from "./card-due-date";
-import { CardMembersLabels } from "./card-members-labels";
+import { CardLabels } from "./card-labels";
+import { CardMembers } from "./card-members";
 import { CardQuickActions } from "./card-quick-actions";
 import { CardTitle } from "./card-title";
 
@@ -76,12 +77,9 @@ export function CardDetailDialog({
               <CardQuickActions boardId={boardId} cardId={card.id} labels={card.labels} />
 
               <div className="flex flex-wrap gap-4">
-                <CardMembersLabels
-                  boardId={boardId}
-                  cardId={card.id}
-                  assignees={card.assignees}
-                  labels={card.labels}
-                />
+                <CardMembers assignees={card.assignees} />
+
+                <CardLabels boardId={boardId} cardId={card.id} labels={card.labels} />
 
                 {card.dueDate && <CardDueDate dueDate={card.dueDate} isOverdue={isOverdue} />}
               </div>
