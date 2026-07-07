@@ -11,7 +11,6 @@ import {
   SquareCheckBig,
   SquarePen,
   TextAlignStart,
-  X,
 } from "lucide-react";
 import { useState } from "react";
 import { createPortal } from "react-dom";

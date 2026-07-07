@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 import { AddCardForm } from "./add-card-form";
 import { BoardCardItem } from "./board-card-item";
+import { ListTitle } from "./list-title";
 
 export function BoardList({ list }: { list: ListWithCards }) {
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
@@ -31,9 +32,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
           {...listeners}
           className="mb-1 flex cursor-grab items-center gap-1.5 px-1.5 py-1 active:cursor-grabbing"
         >
-          <span className="flex-1 truncate text-[13.5px] font-semibold text-slate-700">
-            {list.title}
-          </span>
+          <ListTitle boardId={list.boardId} listId={list.id} title={list.title} />
           {list.cards.length > 0 && (
             <span className="text-xs font-medium text-slate-600">{list.cards.length}</span>
           )}

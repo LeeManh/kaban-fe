@@ -34,7 +34,7 @@ export function AddListForm({ boardId }: { boardId: string }) {
       <button
         type="button"
         onClick={() => setIsAdding(true)}
-        className="flex w-70 shrink-0 items-center gap-1.5 rounded-md bg-white/15 px-3 py-2 text-[13.5px] font-medium text-white hover:bg-white/25"
+        className="flex w-70 shrink-0 items-center gap-1.5 rounded-md bg-white px-3 py-2 text-[13.5px] font-medium text-slate-700 shadow-sm hover:bg-slate-200"
       >
         <Plus className="size-4" />
         Add another list

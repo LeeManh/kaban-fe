@@ -43,7 +43,7 @@ export function BoardTitle({ boardId, name: initialName }: { boardId: string; na
           if (e.key === "Enter") e.currentTarget.blur();
           if (e.key === "Escape") cancel();
         }}
-        className="mr-1 h-8 min-w-24 max-w-90 rounded-sm border-none bg-white/20 px-2 py-1 text-base font-bold text-white placeholder:text-white/70 focus-visible:ring-0 field-sizing-content md:text-base"
+        className="mr-1 h-7 min-w-24 max-w-90 bg-white px-2 py-1 text-base font-bold text-slate-800 field-sizing-content md:text-base"
       />
     );
   }
@@ -52,7 +52,7 @@ export function BoardTitle({ boardId, name: initialName }: { boardId: string; na
     <button
       type="button"
       onClick={() => setIsEditingName(true)}
-      className="mr-1 flex items-center rounded-sm py-1 px-2 text-base font-bold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)] hover:bg-white/15 h-8"
+      className="mr-1 flex items-center rounded-sm py-1 px-2 text-base font-bold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)] hover:bg-white/15 h-7"
     >
       {name}
     </button>
