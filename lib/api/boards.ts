@@ -158,3 +158,71 @@ export async function uploadBoardBackgroundFile(uploadUrl: string, file: File): 
     body: file,
   });
 }
+
+export type BoardRole = "VIEWER" | "MEMBER" | "ADMIN" | "OWNER";
+
+export interface BoardMemberWithRole {
+  role: BoardRole;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  };
+}
+
+export interface AddBoardMemberPayload {
+  email: string;
+  role?: BoardRole;
+}
+
+export async function addBoardMember(
+  boardId: string,
+  payload: AddBoardMemberPayload,
+): Promise<BoardMemberWithRole> {
+  const { data } = await apiClient.post<ApiSuccessResponse<BoardMemberWithRole>>(
+    `/boards/${boardId}/members`,
+    payload,
+  );
+  return data.data;
+}
+
+export async function listBoardMembers(boardId: string): Promise<BoardMemberWithRole[]> {
+  const { data } = await apiClient.get<ApiSuccessResponse<BoardMemberWithRole[]>>(
+    `/boards/${boardId}/members`,
+  );
+  return data.data;
+}
+
+export async function updateBoardMemberRole(
+  boardId: string,
+  userId: string,
+  role: BoardRole,
+): Promise<BoardMemberWithRole> {
+  const { data } = await apiClient.patch<ApiSuccessResponse<BoardMemberWithRole>>(
+    `/boards/${boardId}/members/${userId}`,
+    { role },
+  );
+  return data.data;
+}
+
+export interface BoardMemberLink {
+  boardId: string;
+  userId: string;
+}
+
+export async function removeBoardMember(
+  boardId: string,
+  userId: string,
+): Promise<BoardMemberLink> {
+  const { data } = await apiClient.delete<ApiSuccessResponse<BoardMemberLink>>(
+    `/boards/${boardId}/members/${userId}`,
+  );
+  return data.data;
+}
+
+export async function leaveBoard(boardId: string): Promise<BoardMemberLink> {
+  const { data } = await apiClient.delete<ApiSuccessResponse<BoardMemberLink>>(
+    `/boards/${boardId}/members/me`,
+  );
+  return data.data;
+}

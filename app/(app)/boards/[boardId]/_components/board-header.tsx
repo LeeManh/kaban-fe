@@ -1,4 +1,7 @@
+"use client";
+
 import { Ellipsis, ListFilter, Plus, Share2, Star } from "lucide-react";
+import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -6,26 +9,29 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { BoardDetail } from "@/lib/api/boards";
 import { getInitials } from "@/lib/utils";
 
+import { BoardAddMembersDialog } from "./board-add-members-dialog";
 import { BoardTitle } from "./board-title";
 
-const AVATAR_COLORS = ["bg-violet-500", "bg-sky-500", "bg-emerald-500", "bg-rose-500"];
-
 export function BoardHeader({ board }: { board: BoardDetail }) {
+  const [isShareOpen, setIsShareOpen] = useState(false);
+
   return (
     <div className="flex h-14 flex-none items-center gap-1.5 bg-black/10 px-4">
       <BoardTitle boardId={board.id} name={board.name} />
 
       <div className="flex-1" />
-      <AvatarGroup className="*:data-[slot=avatar]:ring-0">
-        {board.members.map((member, index) => (
-          <Avatar key={member.id} className="size-6.5">
-            <AvatarFallback
-              className={`${AVATAR_COLORS[index % AVATAR_COLORS.length]} text-[11px] font-bold text-white`}
-            >
-              {getInitials(member)}
-            </AvatarFallback>
-          </Avatar>
-        ))}
+      <AvatarGroup>
+        {board.members.map((member) => {
+          return (
+            <div key={member.id} className="relative">
+              <Avatar key={member.id} className="size-5.5 ring-2 ring-white">
+                <AvatarFallback className="bg-violet-500 text-[9px] font-bold text-white">
+                  {getInitials(member)}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+          );
+        })}
       </AvatarGroup>
 
       <Tooltip>
@@ -33,15 +39,16 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
           render={
             <button
               type="button"
-              aria-label="Invite members"
-              className="flex size-6.5 items-center justify-center rounded-full border border-dashed border-white/60 text-white hover:bg-white/15"
+              aria-label="Add members"
+              onClick={() => setIsShareOpen(true)}
+              className="flex size-6.5 items-center justify-center rounded-full border border-white/60 text-white hover:bg-white/15"
             />
           }
         >
           <Plus className="size-3.75" />
         </TooltipTrigger>
         <TooltipContent side="bottom" showArrow={false}>
-          Invite members
+          Add members
         </TooltipContent>
       </Tooltip>
 
@@ -106,6 +113,12 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
           More options
         </TooltipContent>
       </Tooltip>
+
+      <BoardAddMembersDialog
+        open={isShareOpen}
+        onOpenChange={setIsShareOpen}
+        boardId={board.id}
+      />
     </div>
   );
 }

@@ -32,7 +32,7 @@ function Input({
   const invalid = (ariaInvalid === true || ariaInvalid === "true") && !hideInvalidIcon;
 
   return (
-    <div className="relative">
+    <div className={cn("relative", className)}>
       <InputPrimitive
         type={type}
         data-slot="input"
