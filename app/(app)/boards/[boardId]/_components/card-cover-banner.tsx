@@ -54,7 +54,14 @@ function CardBannerActions({ overlay }: { overlay: boolean }) {
         <TooltipTrigger
           render={
             <DialogClose
-              render={<Button variant="secondary" size="icon-sm" aria-label="Close" className={buttonClassName} />}
+              render={
+                <Button
+                  variant="secondary"
+                  size="icon-sm"
+                  aria-label="Close"
+                  className={buttonClassName}
+                />
+              }
             >
               <X className="size-4" />
             </DialogClose>

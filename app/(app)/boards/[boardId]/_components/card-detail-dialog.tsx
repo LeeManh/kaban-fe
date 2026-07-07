@@ -6,6 +6,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import type { CardSummary } from "@/lib/api/boards";
 
 import { useCard } from "../_hooks/use-card";
+import { useUpdateCard } from "../_hooks/use-update-card";
 import { useUpdateCardCover } from "../_hooks/use-update-card-cover";
 import { CardAttachments } from "./card-attachments";
 import { CardChecklist } from "./card-checklist";
@@ -30,7 +31,6 @@ export function CardDetailDialog({
   card: CardSummary;
   listTitle: string;
 }) {
-  const [isDone, setIsDone] = useState(card.isDone);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
 
@@ -39,9 +39,10 @@ export function CardDetailDialog({
   const attachments = detail?.attachments ?? [];
   const comments = detail?.comments ?? [];
 
+  const updateCard = useUpdateCard(boardId);
   const updateCardCover = useUpdateCardCover(boardId);
 
-  const isOverdue = !!card.dueDate && !isDone && new Date(card.dueDate) < new Date();
+  const isOverdue = !!card.dueDate && !card.isDone && new Date(card.dueDate) < new Date();
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
@@ -59,14 +60,31 @@ export function CardDetailDialog({
           />
 
           <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_400px]">
-            <div className="flex max-h-[75vh] flex-col gap-5 overflow-y-auto p-5 md:border-r md:border-slate-200">
-              <CardTitle title={card.title} isDone={isDone} onToggleDone={() => setIsDone((v) => !v)} />
+            <div className="flex max-h-[85vh] flex-col gap-5 overflow-y-auto p-5 md:border-r md:border-slate-200">
+              <CardTitle
+                title={card.title}
+                isDone={card.isDone}
+                onToggleDone={() =>
+                  updateCard.mutate({
+                    cardId: card.id,
+                    version: card.version,
+                    isDone: !card.isDone,
+                  })
+                }
+              />
 
-              <CardQuickActions hasLabels={card.labels.length > 0} />
+              <CardQuickActions boardId={boardId} cardId={card.id} labels={card.labels} />
 
-              <CardMembersLabels assignees={card.assignees} labels={card.labels} />
+              <div className="flex flex-wrap gap-4">
+                <CardMembersLabels
+                  boardId={boardId}
+                  cardId={card.id}
+                  assignees={card.assignees}
+                  labels={card.labels}
+                />
 
-              {card.dueDate && <CardDueDate dueDate={card.dueDate} isOverdue={isOverdue} />}
+                {card.dueDate && <CardDueDate dueDate={card.dueDate} isOverdue={isOverdue} />}
+              </div>
 
               <CardDescription
                 description={card.description}
