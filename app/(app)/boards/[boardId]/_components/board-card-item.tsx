@@ -24,6 +24,7 @@ import type { CardLabel, CardSummary } from "@/lib/api/boards";
 import { cn, getInitials } from "@/lib/utils";
 
 import { useUpdateCard } from "../_hooks/use-update-card";
+import { CardDetailDialog } from "./card-detail-dialog";
 
 function DoneBadge({ className }: { className?: string }) {
   return (
@@ -224,13 +225,22 @@ function CardEditView({
   );
 }
 
-export function BoardCardItem({ boardId, card }: { boardId: string; card: CardSummary }) {
+export function BoardCardItem({
+  boardId,
+  listTitle,
+  card,
+}: {
+  boardId: string;
+  listTitle: string;
+  card: CardSummary;
+}) {
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
     id: card.id,
     data: { type: "card", listId: card.listId },
   });
   const [isDone, setIsDone] = useState(card.isDone);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const updateCard = useUpdateCard(boardId);
 
   return (
@@ -239,6 +249,9 @@ export function BoardCardItem({ boardId, card }: { boardId: string; card: CardSu
       style={{ transform: CSS.Transform.toString(transform), transition }}
       {...(isEditing ? {} : attributes)}
       {...(isEditing ? {} : listeners)}
+      onClick={() => {
+        if (!isEditing && !isDragging) setIsDetailOpen(true);
+      }}
       className={
         isEditing
           ? "relative z-50 w-full"
@@ -290,6 +303,13 @@ export function BoardCardItem({ boardId, card }: { boardId: string; card: CardSu
           <CardBody card={card} checked={isDone} onToggleChecked={() => setIsDone((v) => !v)} />
         </div>
       )}
+
+      <CardDetailDialog
+        open={isDetailOpen}
+        onOpenChange={setIsDetailOpen}
+        card={card}
+        listTitle={listTitle}
+      />
     </div>
   );
 }

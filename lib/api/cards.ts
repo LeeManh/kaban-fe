@@ -1,5 +1,12 @@
 import { apiClient, type ApiSuccessResponse } from "@/lib/api/client";
-import type { Card, CardPriority } from "@/lib/api/boards";
+import type { Card, CardPriority, CardSummary } from "@/lib/api/boards";
+
+export async function getCard(boardId: string, cardId: string): Promise<CardSummary> {
+  const { data } = await apiClient.get<ApiSuccessResponse<CardSummary>>(
+    `/boards/${boardId}/cards/${cardId}`,
+  );
+  return data.data;
+}
 
 export interface CreateCardPayload {
   title: string;
