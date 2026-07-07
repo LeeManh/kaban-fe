@@ -82,6 +82,7 @@ export interface UpdateCardPayload {
   priority?: CardPriority;
   dueDate?: string;
   isDone?: boolean;
+  cover?: string | null;
 }
 
 export async function updateCard(

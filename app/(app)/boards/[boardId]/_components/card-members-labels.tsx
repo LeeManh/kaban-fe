@@ -3,6 +3,7 @@
 import { Plus, UserPlus } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { CardAssignee, CardLabel } from "@/lib/api/boards";
 import { getInitials } from "@/lib/utils";
 
@@ -40,18 +41,26 @@ export function CardMembersLabels({
           <div className="mb-1.5 text-xs font-semibold text-slate-500">Labels</div>
           <div className="flex flex-wrap items-center gap-1.5">
             {labels.map((label) => (
-              <span
-                key={label.id}
-                style={{ backgroundColor: label.color }}
-                className="flex h-6 min-w-10 items-center justify-center rounded-md px-2.5 text-[13px] font-medium text-white"
-              >
-                {label.name}
-              </span>
+              <Tooltip key={label.id}>
+                <TooltipTrigger
+                  render={
+                    <span
+                      style={{ backgroundColor: label.color }}
+                      className="flex h-6 min-w-10 cursor-pointer items-center justify-center rounded-md px-2.5 text-[13px] font-medium text-white"
+                    />
+                  }
+                >
+                  {label.name}
+                </TooltipTrigger>
+                <TooltipContent side="top" showArrow={false}>
+                  {`Color: ${label.color}, title: "${label.name}"`}
+                </TooltipContent>
+              </Tooltip>
             ))}
             <button
               type="button"
               aria-label="Add label"
-              className="flex h-7 w-10 cursor-pointer items-center justify-center rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200"
+              className="flex size-7 cursor-pointer items-center justify-center rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200"
             >
               <Plus className="size-3.5" />
             </button>

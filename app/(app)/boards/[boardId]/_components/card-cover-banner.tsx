@@ -9,20 +9,95 @@ import { toBackgroundStyle } from "@/lib/utils";
 
 import { CardCoverPopover } from "./card-cover-popover";
 
+function CardBannerActions({ overlay }: { overlay: boolean }) {
+  const buttonClassName = overlay
+    ? "cursor-pointer rounded-full bg-white/90 hover:bg-white"
+    : "cursor-pointer rounded-full";
+
+  return (
+    <>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <Button
+              variant="secondary"
+              size="icon-sm"
+              aria-label="Stop watching card"
+              className={buttonClassName}
+            />
+          }
+        >
+          <Eye className="size-4" />
+        </TooltipTrigger>
+        <TooltipContent side="bottom" showArrow={false}>
+          Stop watching card
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <Button
+              variant="secondary"
+              size="icon-sm"
+              aria-label="More options"
+              className={buttonClassName}
+            />
+          }
+        >
+          <Ellipsis className="size-4" />
+        </TooltipTrigger>
+        <TooltipContent side="bottom" showArrow={false}>
+          More options
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <DialogClose
+              render={<Button variant="secondary" size="icon-sm" aria-label="Close" className={buttonClassName} />}
+            >
+              <X className="size-4" />
+            </DialogClose>
+          }
+        />
+        <TooltipContent side="bottom" showArrow={false}>
+          Close
+        </TooltipContent>
+      </Tooltip>
+    </>
+  );
+}
+
 export function CardCoverBanner({
   listTitle,
-  coverBackground,
+  cover,
   onCoverChange,
   onRemoveCover,
 }: {
   listTitle: string;
-  coverBackground: string;
+  cover: string | null;
   onCoverChange: (value: string) => void;
   onRemoveCover: () => void;
 }) {
+  if (!cover) {
+    return (
+      <div className="flex items-center justify-between gap-3 p-3">
+        <Button variant="secondary" size="sm" className="cursor-pointer gap-1 text-slate-700">
+          {listTitle}
+          <ChevronDown className="size-3.5" />
+        </Button>
+
+        <div className="flex items-center gap-1.5">
+          <CardCoverPopover value="" onChange={onCoverChange} />
+          <CardBannerActions overlay={false} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
-      style={{ background: toBackgroundStyle(coverBackground) }}
+      style={{ background: toBackgroundStyle(cover) }}
       className="group relative h-40 shrink-0 bg-cover bg-center"
     >
       <Button
@@ -44,62 +119,8 @@ export function CardCoverBanner({
       </Button>
 
       <div className="absolute top-3 right-3 flex items-center gap-1.5">
-        <CardCoverPopover value={coverBackground} onChange={onCoverChange} />
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                variant="secondary"
-                size="icon-sm"
-                aria-label="Stop watching card"
-                className="cursor-pointer rounded-full bg-white/90 hover:bg-white"
-              />
-            }
-          >
-            <Eye className="size-4" />
-          </TooltipTrigger>
-          <TooltipContent side="bottom" showArrow={false}>
-            Stop watching card
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                variant="secondary"
-                size="icon-sm"
-                aria-label="More options"
-                className="cursor-pointer rounded-full bg-white/90 hover:bg-white"
-              />
-            }
-          >
-            <Ellipsis className="size-4" />
-          </TooltipTrigger>
-          <TooltipContent side="bottom" showArrow={false}>
-            More options
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <DialogClose
-                render={
-                  <Button
-                    variant="secondary"
-                    size="icon-sm"
-                    aria-label="Close"
-                    className="cursor-pointer rounded-full bg-white/90 hover:bg-white"
-                  />
-                }
-              >
-                <X className="size-4" />
-              </DialogClose>
-            }
-          />
-          <TooltipContent side="bottom" showArrow={false}>
-            Close
-          </TooltipContent>
-        </Tooltip>
+        <CardCoverPopover value={cover} onChange={onCoverChange} />
+        <CardBannerActions overlay />
       </div>
     </div>
   );

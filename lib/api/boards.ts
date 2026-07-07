@@ -56,6 +56,7 @@ export interface Card {
   priority: CardPriority;
   dueDate: string | null;
   isDone: boolean;
+  cover: string | null;
   version: number;
   listId: string;
   createdAt: string;

@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import type { CardLabel, CardSummary } from "@/lib/api/boards";
-import { cn, getInitials } from "@/lib/utils";
+import { cn, getInitials, toBackgroundStyle } from "@/lib/utils";
 
 import { useUpdateCard } from "../_hooks/use-update-card";
 import { CardDetailDialog } from "./card-detail-dialog";
@@ -36,6 +36,17 @@ function DoneBadge({ className }: { className?: string }) {
     >
       <Check className="size-2.5 text-white" strokeWidth={3} />
     </span>
+  );
+}
+
+function CardCover({ cover }: { cover: string }) {
+  const isPhoto = cover.startsWith("http");
+
+  return (
+    <div
+      style={{ background: toBackgroundStyle(cover) }}
+      className={cn("-mx-2.5 -mt-2.5 mb-2 bg-cover bg-center", isPhoto ? "h-24" : "h-8")}
+    />
   );
 }
 
@@ -135,6 +146,7 @@ function CardBody({
 
   return (
     <>
+      {card.cover && <CardCover cover={card.cover} />}
       <CardLabels labels={card.labels} />
 
       <p className="flex items-center gap-2 text-[13.5px] leading-snug text-slate-800">
@@ -256,7 +268,7 @@ export function BoardCardItem({
         isEditing
           ? "relative z-50 w-full"
           : cn(
-              "group relative rounded-md border-2 p-2.5 transition-shadow",
+              "group relative overflow-hidden rounded-md border-2 p-2.5 transition-shadow",
               isDragging
                 ? "border-transparent bg-slate-300/30"
                 : "cursor-pointer border-transparent bg-white shadow-sm hover:border-primary hover:shadow-md focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2",
@@ -317,7 +329,7 @@ export function BoardCardItem({
 
 export function BoardCardPreview({ card }: { card: CardSummary }) {
   return (
-    <div className="cursor-grabbing rounded-md bg-white p-2.5 shadow-lg">
+    <div className="cursor-grabbing overflow-hidden rounded-md bg-white p-2.5 shadow-lg">
       <CardBody card={card} />
     </div>
   );

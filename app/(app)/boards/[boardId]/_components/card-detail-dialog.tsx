@@ -6,6 +6,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import type { CardSummary } from "@/lib/api/boards";
 
 import { useCard } from "../_hooks/use-card";
+import { useUpdateCardCover } from "../_hooks/use-update-card-cover";
 import { CardAttachments } from "./card-attachments";
 import { CardChecklist } from "./card-checklist";
 import { CardComments } from "./card-comments";
@@ -15,8 +16,6 @@ import { CardDueDate } from "./card-due-date";
 import { CardMembersLabels } from "./card-members-labels";
 import { CardQuickActions } from "./card-quick-actions";
 import { CardTitle } from "./card-title";
-
-const DEFAULT_COVER = "linear-gradient(to bottom right, #8b5cf6, #e879f9)";
 
 export function CardDetailDialog({
   open,
@@ -34,12 +33,13 @@ export function CardDetailDialog({
   const [isDone, setIsDone] = useState(card.isDone);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [coverBackground, setCoverBackground] = useState(DEFAULT_COVER);
 
   const { data: detail } = useCard(boardId, card.id, { enabled: open });
   const checklist = detail?.checklists[0];
   const attachments = detail?.attachments ?? [];
   const comments = detail?.comments ?? [];
+
+  const updateCardCover = useUpdateCardCover(boardId);
 
   const isOverdue = !!card.dueDate && !isDone && new Date(card.dueDate) < new Date();
 
@@ -49,9 +49,13 @@ export function CardDetailDialog({
         <DialogContent showCloseButton={false} className="gap-0 overflow-hidden p-0 sm:max-w-5xl">
           <CardCoverBanner
             listTitle={listTitle}
-            coverBackground={coverBackground}
-            onCoverChange={setCoverBackground}
-            onRemoveCover={() => setCoverBackground(DEFAULT_COVER)}
+            cover={card.cover}
+            onCoverChange={(cover) =>
+              updateCardCover.mutate({ cardId: card.id, version: card.version, cover })
+            }
+            onRemoveCover={() =>
+              updateCardCover.mutate({ cardId: card.id, version: card.version, cover: null })
+            }
           />
 
           <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_400px]">
