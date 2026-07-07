@@ -28,7 +28,11 @@ import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { CardSummary } from "@/lib/api/boards";
-import { cn, getInitials } from "@/lib/utils";
+import { cn, getInitials, toBackgroundStyle } from "@/lib/utils";
+
+import { CardCoverPopover } from "./card-cover-popover";
+
+const DEFAULT_COVER = "linear-gradient(to bottom right, #8b5cf6, #e879f9)";
 
 interface MockChecklistItem {
   id: string;
@@ -89,6 +93,7 @@ export function CardDetailDialog({
   const [newItemText, setNewItemText] = useState("");
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const [commentText, setCommentText] = useState("");
+  const [coverBackground, setCoverBackground] = useState(DEFAULT_COVER);
 
   const doneCount = checklistItems.filter((item) => item.done).length;
   const checklistPercent =
@@ -115,7 +120,10 @@ export function CardDetailDialog({
     <div onClick={(e) => e.stopPropagation()}>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent showCloseButton={false} className="gap-0 overflow-hidden p-0 sm:max-w-5xl">
-          <div className="group relative h-36 shrink-0 bg-linear-to-br from-violet-500 to-fuchsia-400">
+          <div
+            style={{ background: toBackgroundStyle(coverBackground) }}
+            className="group relative h-40 shrink-0 bg-cover bg-center"
+          >
             <Button
               variant="secondary"
               size="sm"
@@ -128,29 +136,14 @@ export function CardDetailDialog({
             <Button
               variant="secondary"
               size="sm"
+              onClick={() => setCoverBackground(DEFAULT_COVER)}
               className="absolute right-3 bottom-3 cursor-pointer bg-white/90 text-slate-800 opacity-0 pointer-events-none transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100 hover:bg-white"
             >
               Remove cover
             </Button>
 
             <div className="absolute top-3 right-3 flex items-center gap-1.5">
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button
-                      variant="secondary"
-                      size="icon-sm"
-                      aria-label="Cover image"
-                      className="cursor-pointer rounded-full bg-white/90 hover:bg-white"
-                    />
-                  }
-                >
-                  <ImageIcon className="size-4" />
-                </TooltipTrigger>
-                <TooltipContent side="bottom" showArrow={false}>
-                  Cover image
-                </TooltipContent>
-              </Tooltip>
+              <CardCoverPopover value={coverBackground} onChange={setCoverBackground} />
               <Tooltip>
                 <TooltipTrigger
                   render={
