@@ -142,3 +142,43 @@ export async function unassignCardMember(
   );
   return data.data;
 }
+
+export const MAX_DESCRIPTION_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
+
+export const ALLOWED_DESCRIPTION_IMAGE_MIME_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+] as const;
+
+export interface PresignDescriptionImagePayload {
+  filename: string;
+  contentType: string;
+  size: number;
+}
+
+export interface PresignDescriptionImageResult {
+  key: string;
+  uploadUrl: string;
+  viewUrl: string;
+}
+
+export async function presignDescriptionImage(
+  boardId: string,
+  cardId: string,
+  payload: PresignDescriptionImagePayload,
+): Promise<PresignDescriptionImageResult> {
+  const { data } = await apiClient.post<ApiSuccessResponse<PresignDescriptionImageResult>>(
+    `/boards/${boardId}/cards/${cardId}/description/presign`,
+    payload,
+  );
+  return data.data;
+}
+
+export async function uploadDescriptionImageFile(uploadUrl: string, file: File): Promise<void> {
+  await fetch(uploadUrl, {
+    method: "PUT",
+    headers: { "Content-Type": file.type },
+    body: file,
+  });
+}

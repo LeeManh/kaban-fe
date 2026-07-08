@@ -102,6 +102,9 @@ export function CardDetailDialog({
               </div>
 
               <CardDescription
+                boardId={boardId}
+                cardId={card.id}
+                version={card.version}
                 description={card.description}
                 expanded={descriptionExpanded}
                 onToggleExpanded={() => setDescriptionExpanded((v) => !v)}

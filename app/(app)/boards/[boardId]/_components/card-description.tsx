@@ -1,19 +1,41 @@
 "use client";
 
 import { AlignLeft, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import { useUpdateCard } from "../_hooks/use-update-card";
+import { CardDescriptionEditor } from "./card-description-editor";
+import { CardDescriptionViewer } from "./card-description-viewer";
+
 export function CardDescription({
+  boardId,
+  cardId,
+  version,
   description,
   expanded,
   onToggleExpanded,
 }: {
+  boardId: string;
+  cardId: string;
+  version: number;
   description: string | null;
   expanded: boolean;
   onToggleExpanded: () => void;
 }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const updateCard = useUpdateCard(boardId);
+
+  function handleSave(markdown: string) {
+    updateCard.mutate(
+      { cardId, version, description: markdown },
+      { onSuccess: () => setIsEditing(false) },
+    );
+  }
+
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
@@ -21,33 +43,50 @@ export function CardDescription({
           <AlignLeft className="size-4" />
           Description
         </div>
-        <Button variant="secondary" size="sm" className="cursor-pointer">
-          Edit
-        </Button>
-      </div>
-      {description ? (
-        <div>
-          <div
-            className={cn(
-              "text-[13.5px] leading-relaxed whitespace-pre-wrap text-slate-700",
-              !expanded && "line-clamp-6",
-            )}
-          >
-            {description}
-          </div>
+        {description && !isEditing && (
           <Button
-            variant="ghost"
+            variant="secondary"
             size="sm"
-            className="mt-1 cursor-pointer gap-1 text-slate-600"
-            onClick={onToggleExpanded}
+            className="cursor-pointer"
+            onClick={() => setIsEditing(true)}
           >
-            <ChevronDown className={cn("size-3.5 transition-transform", expanded && "rotate-180")} />
-            {expanded ? "Show less" : "Show more"}
+            Edit
           </Button>
+        )}
+      </div>
+
+      {isEditing ? (
+        <CardDescriptionEditor
+          boardId={boardId}
+          cardId={cardId}
+          initialValue={description ?? ""}
+          isSaving={updateCard.isPending}
+          onSave={handleSave}
+          onCancel={() => setIsEditing(false)}
+        />
+      ) : description ? (
+        <div>
+          <CardDescriptionViewer
+            description={description}
+            expanded={expanded}
+            onOverflowChange={setIsOverflowing}
+          />
+          {(expanded || isOverflowing) && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="mt-1 cursor-pointer gap-1 text-slate-600"
+              onClick={onToggleExpanded}
+            >
+              <ChevronDown className={cn("size-3.5 transition-transform", expanded && "rotate-180")} />
+              {expanded ? "Show less" : "Show more"}
+            </Button>
+          )}
         </div>
       ) : (
         <button
           type="button"
+          onClick={() => setIsEditing(true)}
           className="w-full cursor-pointer rounded-md bg-slate-100 px-3 py-2 text-left text-[13.5px] text-slate-500 hover:bg-slate-200"
         >
           Add a more detailed description…
