@@ -48,7 +48,10 @@ export function CardDetailDialog({
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent showCloseButton={false} className="gap-0 overflow-hidden p-0 sm:max-w-5xl">
+        <DialogContent
+          showCloseButton={false}
+          className="flex max-h-[90vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-5xl"
+        >
           <CardCoverBanner
             listTitle={listTitle}
             cover={card.cover}
@@ -60,8 +63,8 @@ export function CardDetailDialog({
             }
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_400px]">
-            <div className="flex max-h-[85vh] flex-col gap-5 overflow-y-auto p-5 md:border-r md:border-slate-200">
+          <div className="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(0,1fr)_400px]">
+            <div className="flex h-full flex-col gap-5 overflow-y-auto p-5 md:border-r md:border-slate-200">
               <CardTitle
                 title={card.title}
                 isDone={card.isDone}

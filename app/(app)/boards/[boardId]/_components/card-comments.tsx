@@ -18,7 +18,7 @@ export function CardComments({
   onCommentTextChange: (value: string) => void;
 }) {
   return (
-    <div className="flex max-h-[75vh] flex-col gap-3 overflow-y-auto p-5">
+    <div className="flex h-full flex-col gap-3 overflow-y-auto p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
           <MessageSquare className="size-4" />
