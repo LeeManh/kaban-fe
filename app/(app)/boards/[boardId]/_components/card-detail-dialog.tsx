@@ -77,6 +77,9 @@ export function CardDetailDialog({
               <CardQuickActions
                 boardId={boardId}
                 cardId={card.id}
+                version={card.version}
+                dueDate={card.dueDate}
+                reminderOffsetMinutes={card.reminderOffsetMinutes}
                 labels={card.labels}
                 assignees={card.assignees}
               />
@@ -86,7 +89,16 @@ export function CardDetailDialog({
 
                 <CardLabels boardId={boardId} cardId={card.id} labels={card.labels} />
 
-                {card.dueDate && <CardDueDate dueDate={card.dueDate} isOverdue={isOverdue} />}
+                {card.dueDate && (
+                  <CardDueDate
+                    boardId={boardId}
+                    cardId={card.id}
+                    version={card.version}
+                    dueDate={card.dueDate}
+                    reminderOffsetMinutes={card.reminderOffsetMinutes}
+                    isOverdue={isOverdue}
+                  />
+                )}
               </div>
 
               <CardDescription

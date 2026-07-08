@@ -13,33 +13,41 @@ import {
 } from "@/components/ui/popover";
 import type { CardAssignee, CardLabel } from "@/lib/api/boards";
 
+import { CardDueDatePopoverContent } from "./card-due-date-popover";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 import { CardMembersPopoverContent } from "./card-members-popover";
 
 const ADD_TO_CARD_ITEMS = [
   { icon: Tag, title: "Labels", description: "Organize, categorize, and prioritize" },
-  { icon: Clock, title: "Dates", description: "Start dates, due dates, and reminders" },
+  { icon: Clock, title: "Dates", description: "Due dates and reminders" },
   { icon: CheckSquare, title: "Checklist", description: "Add subtasks" },
   { icon: UserPlus, title: "Members", description: "Assign members" },
-  { icon: Paperclip, title: "Attachment", description: "Add links, pages, work items, and more" },
+  { icon: Paperclip, title: "Attachment", description: "Attach files to this card" },
 ];
 
 function AddToCardButton({
   boardId,
   cardId,
+  version,
+  dueDate,
+  reminderOffsetMinutes,
   labels,
   assignees,
 }: {
   boardId: string;
   cardId: string;
+  version: number;
+  dueDate: string | null;
+  reminderOffsetMinutes: number | null;
   labels: CardLabel[];
   assignees: CardAssignee[];
 }) {
-  const [view, setView] = useState<"menu" | "labels" | "members">("menu");
+  const [view, setView] = useState<"menu" | "labels" | "members" | "dates">("menu");
 
   const VIEW_BY_TITLE: Partial<Record<string, typeof view>> = {
     Labels: "labels",
     Members: "members",
+    Dates: "dates",
   };
 
   return (
@@ -60,6 +68,15 @@ function AddToCardButton({
         )}
         {view === "members" && (
           <CardMembersPopoverContent boardId={boardId} cardId={cardId} assignees={assignees} />
+        )}
+        {view === "dates" && (
+          <CardDueDatePopoverContent
+            boardId={boardId}
+            cardId={cardId}
+            version={version}
+            dueDate={dueDate}
+            reminderOffsetMinutes={reminderOffsetMinutes}
+          />
         )}
         {view === "menu" && (
           <>
@@ -104,17 +121,31 @@ function AddToCardButton({
 export function CardQuickActions({
   boardId,
   cardId,
+  version,
+  dueDate,
+  reminderOffsetMinutes,
   labels,
   assignees,
 }: {
   boardId: string;
   cardId: string;
+  version: number;
+  dueDate: string | null;
+  reminderOffsetMinutes: number | null;
   labels: CardLabel[];
   assignees: CardAssignee[];
 }) {
   return (
     <div className="flex flex-wrap gap-2">
-      <AddToCardButton boardId={boardId} cardId={cardId} labels={labels} assignees={assignees} />
+      <AddToCardButton
+        boardId={boardId}
+        cardId={cardId}
+        version={version}
+        dueDate={dueDate}
+        reminderOffsetMinutes={reminderOffsetMinutes}
+        labels={labels}
+        assignees={assignees}
+      />
       {labels.length === 0 && (
         <Popover>
           <PopoverTrigger

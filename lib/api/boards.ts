@@ -55,6 +55,7 @@ export interface Card {
   order: number;
   priority: CardPriority;
   dueDate: string | null;
+  reminderOffsetMinutes: number | null;
   isDone: boolean;
   cover: string | null;
   version: number;

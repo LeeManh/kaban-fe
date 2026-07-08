@@ -80,7 +80,8 @@ export interface UpdateCardPayload {
   title?: string;
   description?: string;
   priority?: CardPriority;
-  dueDate?: string;
+  dueDate?: string | null;
+  reminderOffsetMinutes?: number | null;
   isDone?: boolean;
   cover?: string | null;
 }
