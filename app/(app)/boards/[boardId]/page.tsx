@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { BoardDetailContent } from "./_components/board-detail-content";
 
 export default async function BoardDetailPage(props: PageProps<"/boards/[boardId]">) {
@@ -5,7 +7,9 @@ export default async function BoardDetailPage(props: PageProps<"/boards/[boardId
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
-      <BoardDetailContent boardId={boardId} />
+      <Suspense fallback={null}>
+        <BoardDetailContent boardId={boardId} />
+      </Suspense>
     </div>
   );
 }

@@ -4,8 +4,8 @@ import { Link2, MessageSquare } from "lucide-react";
 import { useState } from "react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import type { CardComment } from "@/lib/api/cards";
+import { getCurrentUserId } from "@/lib/api/tokens";
 import { formatTimeAgo, getInitials } from "@/lib/utils";
 
 import { useCreateComment } from "../_hooks/use-create-comment";
@@ -26,6 +26,7 @@ export function CardComments({
 }) {
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [composeKey, setComposeKey] = useState(0);
+  const currentUserId = getCurrentUserId();
 
   const createComment = useCreateComment(boardId, cardId);
   const updateComment = useUpdateComment(boardId);
@@ -97,20 +98,22 @@ export function CardComments({
                   <div className="mt-1 rounded-md border border-slate-200 px-2.5 py-1.5 text-[13.5px] text-slate-700">
                     <CardDescriptionViewer description={comment.content} expanded />
                   </div>
-                  <div className="mt-1 flex items-center gap-2 text-xs font-medium text-slate-500">
-                    <button
-                      type="button"
-                      className="cursor-pointer hover:underline"
-                      onClick={() => setEditingCommentId(comment.id)}
-                    >
-                      Edit
-                    </button>
-                    <span>·</span>
-                    <CardCommentDeletePopover
-                      isDeleting={deleteComment.isPending}
-                      onConfirm={() => deleteComment.mutate(comment.id)}
-                    />
-                  </div>
+                  {comment.authorId === currentUserId && (
+                    <div className="mt-1 flex items-center gap-2 text-xs font-medium text-slate-500">
+                      <button
+                        type="button"
+                        className="cursor-pointer hover:underline"
+                        onClick={() => setEditingCommentId(comment.id)}
+                      >
+                        Edit
+                      </button>
+                      <span>·</span>
+                      <CardCommentDeletePopover
+                        isDeleting={deleteComment.isPending}
+                        onConfirm={() => deleteComment.mutate(comment.id)}
+                      />
+                    </div>
+                  )}
                 </>
               )}
             </div>

@@ -27,3 +27,19 @@ export function clearTokens(): void {
   localStorage.removeItem(ACCESS_TOKEN_KEY);
   localStorage.removeItem(REFRESH_TOKEN_KEY);
 }
+
+interface JwtPayload {
+  sub: string;
+  email: string;
+}
+
+export function getCurrentUserId(): string | null {
+  const token = getAccessToken();
+  if (!token) return null;
+  try {
+    const base64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    return (JSON.parse(atob(base64)) as JwtPayload).sub ?? null;
+  } catch {
+    return null;
+  }
+}

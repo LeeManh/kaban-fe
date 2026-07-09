@@ -50,6 +50,9 @@ export function CardDetailDialog({
           className="flex max-h-[90vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-5xl"
         >
           <CardCoverBanner
+            boardId={boardId}
+            cardId={card.id}
+            assignees={card.assignees}
             listTitle={listTitle}
             cover={card.cover}
             onCoverChange={(cover) =>

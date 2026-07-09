@@ -1,55 +1,39 @@
 "use client";
 
-import { ChevronDown, Ellipsis, Eye, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { CardAssignee } from "@/lib/api/boards";
 import { toBackgroundStyle } from "@/lib/utils";
 
 import { CardCoverPopover } from "./card-cover-popover";
+import { CardMoreOptionsMenu } from "./card-more-options-menu";
 
-function CardBannerActions({ overlay }: { overlay: boolean }) {
+function CardBannerActions({
+  boardId,
+  cardId,
+  assignees,
+  overlay,
+}: {
+  boardId: string;
+  cardId: string;
+  assignees: CardAssignee[];
+  overlay: boolean;
+}) {
   const buttonClassName = overlay
     ? "cursor-pointer rounded-full bg-white/90 hover:bg-white"
     : "cursor-pointer rounded-full";
 
   return (
     <>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <Button
-              variant="secondary"
-              size="icon-sm"
-              aria-label="Stop watching card"
-              className={buttonClassName}
-            />
-          }
-        >
-          <Eye className="size-4" />
-        </TooltipTrigger>
-        <TooltipContent side="bottom" showArrow={false}>
-          Stop watching card
-        </TooltipContent>
-      </Tooltip>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <Button
-              variant="secondary"
-              size="icon-sm"
-              aria-label="More options"
-              className={buttonClassName}
-            />
-          }
-        >
-          <Ellipsis className="size-4" />
-        </TooltipTrigger>
-        <TooltipContent side="bottom" showArrow={false}>
-          More options
-        </TooltipContent>
-      </Tooltip>
+      <CardMoreOptionsMenu
+        boardId={boardId}
+        cardId={cardId}
+        assignees={assignees}
+        buttonClassName={buttonClassName}
+      />
       <Tooltip>
         <TooltipTrigger
           render={
@@ -76,11 +60,17 @@ function CardBannerActions({ overlay }: { overlay: boolean }) {
 }
 
 export function CardCoverBanner({
+  boardId,
+  cardId,
+  assignees,
   listTitle,
   cover,
   onCoverChange,
   onRemoveCover,
 }: {
+  boardId: string;
+  cardId: string;
+  assignees: CardAssignee[];
   listTitle: string;
   cover: string | null;
   onCoverChange: (value: string) => void;
@@ -96,7 +86,12 @@ export function CardCoverBanner({
 
         <div className="flex items-center gap-1.5">
           <CardCoverPopover value="" onChange={onCoverChange} />
-          <CardBannerActions overlay={false} />
+          <CardBannerActions
+            boardId={boardId}
+            cardId={cardId}
+            assignees={assignees}
+            overlay={false}
+          />
         </div>
       </div>
     );
@@ -127,7 +122,7 @@ export function CardCoverBanner({
 
       <div className="absolute top-3 right-3 flex items-center gap-1.5">
         <CardCoverPopover value={cover} onChange={onCoverChange} />
-        <CardBannerActions overlay />
+        <CardBannerActions boardId={boardId} cardId={cardId} assignees={assignees} overlay />
       </div>
     </div>
   );

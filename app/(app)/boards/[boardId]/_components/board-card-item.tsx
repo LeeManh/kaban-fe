@@ -12,6 +12,7 @@ import {
   SquarePen,
   TextAlignStart,
 } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -252,8 +253,23 @@ export function BoardCardItem({
   });
   const [isDone, setIsDone] = useState(card.isDone);
   const [isEditing, setIsEditing] = useState(false);
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isDetailOpen, setIsDetailOpen] = useState(() => searchParams.get("card") === card.id);
   const updateCard = useUpdateCard(boardId);
+
+  function handleDetailOpenChange(open: boolean) {
+    setIsDetailOpen(open);
+    const params = new URLSearchParams(searchParams.toString());
+    if (open) {
+      params.set("card", card.id);
+    } else if (params.get("card") === card.id) {
+      params.delete("card");
+    }
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }
 
   return (
     <div
@@ -262,7 +278,7 @@ export function BoardCardItem({
       {...(isEditing ? {} : attributes)}
       {...(isEditing ? {} : listeners)}
       onClick={() => {
-        if (!isEditing && !isDragging) setIsDetailOpen(true);
+        if (!isEditing && !isDragging) handleDetailOpenChange(true);
       }}
       className={
         isEditing
@@ -318,7 +334,7 @@ export function BoardCardItem({
 
       <CardDetailDialog
         open={isDetailOpen}
-        onOpenChange={setIsDetailOpen}
+        onOpenChange={handleDetailOpenChange}
         boardId={boardId}
         card={card}
         listTitle={listTitle}
