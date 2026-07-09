@@ -1,10 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleAlert } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -63,7 +63,7 @@ export function RegisterForm() {
     } catch (error) {
       const handled = applyApiFormErrors(form.setError, error, ["name", "email", "password"]);
       if (!handled) {
-        form.setError("root", { message: getApiErrorMessage(error) });
+        toast.error(getApiErrorMessage(error));
       }
     }
   }
@@ -176,13 +176,6 @@ export function RegisterForm() {
               </Field>
             )}
           />
-
-          {form.formState.errors.root && (
-            <div className="flex items-center gap-1.5 text-sm text-destructive">
-              <CircleAlert className="size-3.5 shrink-0" />
-              {form.formState.errors.root.message}
-            </div>
-          )}
 
           <Button
             type="submit"
