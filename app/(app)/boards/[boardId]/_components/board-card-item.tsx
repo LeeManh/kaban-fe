@@ -24,6 +24,7 @@ import type { CardLabel, CardSummary } from "@/lib/api/boards";
 import { cn, getInitials, toBackgroundStyle } from "@/lib/utils";
 
 import { useUpdateCard } from "../_hooks/use-update-card";
+import { DUE_STATUS_BADGE_CLASSNAME, getDueStatus } from "../_lib/due-status";
 import { CardDetailDialog } from "./card-detail-dialog";
 
 function DoneBadge({ className }: { className?: string }) {
@@ -76,7 +77,6 @@ function CardMeta({ card, isDone }: { card: CardSummary; isDone: boolean }) {
   const hasChecklist = card.checklistProgress.total > 0;
   const commentCount = card._count.comments;
   const attachmentCount = card._count.attachments;
-  const isOverdue = !!card.dueDate && !isDone && new Date(card.dueDate) < new Date();
   const hasMeta =
     hasDescription || hasChecklist || commentCount > 0 || attachmentCount > 0 || !!card.dueDate;
 
@@ -88,7 +88,7 @@ function CardMeta({ card, isDone }: { card: CardSummary; isDone: boolean }) {
         <span
           className={cn(
             "flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium",
-            isOverdue ? "bg-red-100 text-red-700" : "bg-amber-200 text-amber-900",
+            DUE_STATUS_BADGE_CLASSNAME[getDueStatus(card.dueDate, isDone)],
           )}
         >
           <Calendar className="size-3.5" />

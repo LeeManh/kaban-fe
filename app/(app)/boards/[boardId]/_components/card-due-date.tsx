@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
+import { DUE_STATUS_BADGE_CLASSNAME, DUE_STATUS_LABEL, getDueStatus } from "../_lib/due-status";
 import { CardDueDatePopoverContent } from "./card-due-date-popover";
 
 export function CardDueDate({
@@ -13,15 +14,17 @@ export function CardDueDate({
   version,
   dueDate,
   reminderOffsetMinutes,
-  isOverdue,
+  isDone,
 }: {
   boardId: string;
   cardId: string;
   version: number;
   dueDate: string;
   reminderOffsetMinutes: number | null;
-  isOverdue: boolean;
+  isDone: boolean;
 }) {
+  const status = getDueStatus(dueDate, isDone);
+
   return (
     <div>
       <div className="mb-1.5 text-xs font-semibold text-slate-500">Due date</div>
@@ -40,14 +43,12 @@ export function CardDueDate({
             hour: "numeric",
             minute: "2-digit",
           })}
-          {isOverdue && (
-            <Badge variant="destructive" className="bg-red-600 text-white">
-              Overdue
-            </Badge>
+          {status !== "upcoming" && (
+            <Badge className={DUE_STATUS_BADGE_CLASSNAME[status]}>{DUE_STATUS_LABEL[status]}</Badge>
           )}
           <ChevronDown className="size-3.5" />
         </PopoverTrigger>
-        <PopoverContent align="start" className="w-72 gap-2">
+        <PopoverContent align="start" className="w-80 gap-2">
           <CardDueDatePopoverContent
             boardId={boardId}
             cardId={cardId}

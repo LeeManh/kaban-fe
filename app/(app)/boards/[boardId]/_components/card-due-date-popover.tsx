@@ -95,7 +95,7 @@ export function CardDueDatePopoverContent({
         onSelect={selectDate}
         endMonth={new Date(new Date().getFullYear() + 10, 11)}
         disabled={{ before: new Date(new Date().setHours(0, 0, 0, 0)) }}
-        className="mx-auto"
+        className="mx-auto [--cell-size:--spacing(9)]"
       />
 
       <div>

@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import type { CardAssignee, CardLabel } from "@/lib/api/boards";
+import { cn } from "@/lib/utils";
 
 import { CardAttachFilePopoverContent } from "./card-attach-file-popover";
 import { CardChecklistPopoverContent } from "./card-checklist-popover";
@@ -68,7 +69,7 @@ function AddToCardButton({
         <Plus className="size-3.5" />
         Add
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-72 gap-1">
+      <PopoverContent align="end" className={cn("gap-1", view === "dates" ? "w-80" : "w-72")}>
         {view === "labels" && (
           <CardLabelsPopoverContent boardId={boardId} cardId={cardId} cardLabels={labels} />
         )}

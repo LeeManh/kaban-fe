@@ -43,8 +43,6 @@ export function CardDetailDialog({
   const updateCard = useUpdateCard(boardId);
   const updateCardCover = useUpdateCardCover(boardId);
 
-  const isOverdue = !!card.dueDate && !card.isDone && new Date(card.dueDate) < new Date();
-
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <Dialog open={open} onOpenChange={onOpenChange}>
@@ -99,7 +97,7 @@ export function CardDetailDialog({
                     version={card.version}
                     dueDate={card.dueDate}
                     reminderOffsetMinutes={card.reminderOffsetMinutes}
-                    isOverdue={isOverdue}
+                    isDone={card.isDone}
                   />
                 )}
               </div>
