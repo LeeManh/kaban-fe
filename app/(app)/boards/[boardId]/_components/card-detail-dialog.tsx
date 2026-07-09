@@ -113,7 +113,7 @@ export function CardDetailDialog({
                 onToggleExpanded={() => setDescriptionExpanded((v) => !v)}
               />
 
-              <CardAttachments attachments={attachments} />
+              <CardAttachments boardId={boardId} cardId={card.id} attachments={attachments} />
 
               {checklist && <CardChecklist checklist={checklist} />}
             </div>

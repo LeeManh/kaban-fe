@@ -31,6 +31,17 @@ export function formatTimeAgo(dateString: string): string {
   })
 }
 
+export async function downloadFile(url: string, filename: string): Promise<void> {
+  const response = await fetch(url)
+  const blob = await response.blob()
+  const blobUrl = URL.createObjectURL(blob)
+  const link = document.createElement("a")
+  link.href = blobUrl
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(blobUrl)
+}
+
 export function formatAddedAt(dateString: string): string {
   return `Added ${new Date(dateString).toLocaleString(undefined, {
     month: "short",

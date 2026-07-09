@@ -24,7 +24,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-import { CardDescriptionImageDialog } from "./card-description-image-dialog";
+import { CardDescriptionImagePopover } from "./card-description-image-popover";
 
 const HEADING_OPTIONS: { label: string; level: 0 | 1 | 2 | 3 }[] = [
   { label: "Normal text", level: 0 },
@@ -234,7 +234,7 @@ export function CardDescriptionToolbar({
       <ToolbarButton ariaLabel="Link" active={editor.isActive("link")} onClick={setLink}>
         <LinkIcon className="size-3.5" />
       </ToolbarButton>
-      <CardDescriptionImageDialog boardId={boardId} cardId={cardId} editor={editor} />
+      <CardDescriptionImagePopover boardId={boardId} cardId={cardId} editor={editor} />
 
       <div className="ml-auto">
         <Tooltip>

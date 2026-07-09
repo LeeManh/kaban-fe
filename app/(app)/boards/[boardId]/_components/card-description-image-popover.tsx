@@ -1,12 +1,12 @@
 "use client";
 
 import type { Editor } from "@tiptap/react";
-import { ImageIcon } from "lucide-react";
+import { ImageIcon, X } from "lucide-react";
 import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Popover, PopoverClose, PopoverContent, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { ALLOWED_DESCRIPTION_IMAGE_MIME_TYPES, MAX_DESCRIPTION_IMAGE_SIZE } from "@/lib/api/cards";
 
@@ -14,7 +14,7 @@ import { usePresignDescriptionImage } from "../_hooks/use-presign-description-im
 
 const MAX_RECENT_IMAGES = 8;
 
-export function CardDescriptionImageDialog({
+export function CardDescriptionImagePopover({
   boardId,
   cardId,
   editor,
@@ -69,11 +69,11 @@ export function CardDescriptionImageDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen}>
       <Tooltip>
         <TooltipTrigger
           render={
-            <DialogTrigger
+            <PopoverTrigger
               render={
                 <Button
                   type="button"
@@ -85,17 +85,23 @@ export function CardDescriptionImageDialog({
               }
             >
               <ImageIcon className="size-3.5" />
-            </DialogTrigger>
+            </PopoverTrigger>
           }
         />
         <TooltipContent side="bottom" showArrow={false}>
           Image
         </TooltipContent>
       </Tooltip>
-      <DialogContent forceRenderOverlay className="gap-4 sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-center">Select image</DialogTitle>
-        </DialogHeader>
+      <PopoverContent align="start" className="w-80 gap-3">
+        <div className="flex items-center justify-between">
+          <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">
+            Select image
+          </PopoverTitle>
+          <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
+            <X className="size-3.5" />
+            <span className="sr-only">Close</span>
+          </PopoverClose>
+        </div>
 
         {recentImages.length > 0 && (
           <div>
@@ -153,7 +159,7 @@ export function CardDescriptionImageDialog({
           className="hidden"
           onChange={handleFileChange}
         />
-      </DialogContent>
-    </Dialog>
+      </PopoverContent>
+    </Popover>
   );
 }
