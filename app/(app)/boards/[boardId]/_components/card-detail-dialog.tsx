@@ -36,7 +36,7 @@ export function CardDetailDialog({
   const [commentText, setCommentText] = useState("");
 
   const { data: detail } = useCard(boardId, card.id, { enabled: open });
-  const checklist = detail?.checklists[0];
+  const checklists = detail?.checklists ?? [];
   const attachments = detail?.attachments ?? [];
   const comments = detail?.comments ?? [];
 
@@ -115,7 +115,9 @@ export function CardDetailDialog({
 
               <CardAttachments boardId={boardId} cardId={card.id} attachments={attachments} />
 
-              {checklist && <CardChecklist checklist={checklist} />}
+              {checklists.map((checklist) => (
+                <CardChecklist key={checklist.id} boardId={boardId} checklist={checklist} />
+              ))}
             </div>
 
             <CardComments

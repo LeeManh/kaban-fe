@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import type { CardAssignee, CardLabel } from "@/lib/api/boards";
 
+import { CardChecklistPopoverContent } from "./card-checklist-popover";
 import { CardDueDatePopoverContent } from "./card-due-date-popover";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 import { CardMembersPopoverContent } from "./card-members-popover";
@@ -42,12 +43,13 @@ function AddToCardButton({
   labels: CardLabel[];
   assignees: CardAssignee[];
 }) {
-  const [view, setView] = useState<"menu" | "labels" | "members" | "dates">("menu");
+  const [view, setView] = useState<"menu" | "labels" | "members" | "dates" | "checklist">("menu");
 
   const VIEW_BY_TITLE: Partial<Record<string, typeof view>> = {
     Labels: "labels",
     Members: "members",
     Dates: "dates",
+    Checklist: "checklist",
   };
 
   return (
@@ -77,6 +79,9 @@ function AddToCardButton({
             dueDate={dueDate}
             reminderOffsetMinutes={reminderOffsetMinutes}
           />
+        )}
+        {view === "checklist" && (
+          <CardChecklistPopoverContent boardId={boardId} cardId={cardId} />
         )}
         {view === "menu" && (
           <>
@@ -159,10 +164,17 @@ export function CardQuickActions({
           </PopoverContent>
         </Popover>
       )}
-      <Button variant="outline" size="sm" className="cursor-pointer gap-1.5">
-        <CheckSquare className="size-3.5" />
-        Checklist
-      </Button>
+      <Popover>
+        <PopoverTrigger
+          render={<Button variant="outline" size="sm" className="cursor-pointer gap-1.5" />}
+        >
+          <CheckSquare className="size-3.5" />
+          Checklist
+        </PopoverTrigger>
+        <PopoverContent align="start" className="w-72 gap-2">
+          <CardChecklistPopoverContent boardId={boardId} cardId={cardId} />
+        </PopoverContent>
+      </Popover>
       <Button variant="outline" size="sm" className="cursor-pointer gap-1.5">
         <Paperclip className="size-3.5" />
         Attachment
