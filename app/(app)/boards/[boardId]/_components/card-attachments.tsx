@@ -1,12 +1,16 @@
 "use client";
 
 import { ExternalLink, File as FileIcon, FileArchive, FileSpreadsheet, FileText, Paperclip } from "lucide-react";
+import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import type { CardAttachment } from "@/lib/api/cards";
 import { cn, formatAddedAt } from "@/lib/utils";
 
 import { CardAttachFilePopover } from "./card-attach-file-popover";
 import { CardAttachmentActions } from "./card-attachment-actions";
+
+const VISIBLE_COUNT = 4;
 
 function getFileIconMeta(mimeType: string | null) {
   switch (mimeType) {
@@ -36,6 +40,10 @@ export function CardAttachments({
   cardId: string;
   attachments: CardAttachment[];
 }) {
+  const [showAll, setShowAll] = useState(false);
+  const hiddenCount = attachments.length - VISIBLE_COUNT;
+  const visibleAttachments = showAll ? attachments : attachments.slice(0, VISIBLE_COUNT);
+
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
@@ -49,7 +57,7 @@ export function CardAttachments({
         <>
           <div className="mb-1.5 text-xs font-semibold text-slate-500">Files</div>
           <div className="flex flex-col gap-1">
-            {attachments.map((attachment) => {
+            {visibleAttachments.map((attachment) => {
               const isImage = attachment.mimeType?.startsWith("image/");
               const { Icon, className } = getFileIconMeta(attachment.mimeType);
 
@@ -91,6 +99,16 @@ export function CardAttachments({
               );
             })}
           </div>
+          {!showAll && hiddenCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-1.5 w-full cursor-pointer"
+              onClick={() => setShowAll(true)}
+            >
+              View all attachments ({hiddenCount} hidden)
+            </Button>
+          )}
         </>
       )}
     </div>

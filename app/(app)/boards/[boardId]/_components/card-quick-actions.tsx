@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import type { CardAssignee, CardLabel } from "@/lib/api/boards";
 
+import { CardAttachFilePopoverContent } from "./card-attach-file-popover";
 import { CardChecklistPopoverContent } from "./card-checklist-popover";
 import { CardDueDatePopoverContent } from "./card-due-date-popover";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
@@ -43,13 +44,16 @@ function AddToCardButton({
   labels: CardLabel[];
   assignees: CardAssignee[];
 }) {
-  const [view, setView] = useState<"menu" | "labels" | "members" | "dates" | "checklist">("menu");
+  const [view, setView] = useState<
+    "menu" | "labels" | "members" | "dates" | "checklist" | "attachment"
+  >("menu");
 
   const VIEW_BY_TITLE: Partial<Record<string, typeof view>> = {
     Labels: "labels",
     Members: "members",
     Dates: "dates",
     Checklist: "checklist",
+    Attachment: "attachment",
   };
 
   return (
@@ -82,6 +86,9 @@ function AddToCardButton({
         )}
         {view === "checklist" && (
           <CardChecklistPopoverContent boardId={boardId} cardId={cardId} />
+        )}
+        {view === "attachment" && (
+          <CardAttachFilePopoverContent boardId={boardId} cardId={cardId} />
         )}
         {view === "menu" && (
           <>
@@ -175,10 +182,17 @@ export function CardQuickActions({
           <CardChecklistPopoverContent boardId={boardId} cardId={cardId} />
         </PopoverContent>
       </Popover>
-      <Button variant="outline" size="sm" className="cursor-pointer gap-1.5">
-        <Paperclip className="size-3.5" />
-        Attachment
-      </Button>
+      <Popover>
+        <PopoverTrigger
+          render={<Button variant="outline" size="sm" className="cursor-pointer gap-1.5" />}
+        >
+          <Paperclip className="size-3.5" />
+          Attachment
+        </PopoverTrigger>
+        <PopoverContent align="start" className="w-80 gap-3">
+          <CardAttachFilePopoverContent boardId={boardId} cardId={cardId} />
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

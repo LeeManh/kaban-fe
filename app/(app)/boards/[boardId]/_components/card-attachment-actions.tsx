@@ -22,7 +22,7 @@ export function CardAttachmentActions({
   attachment: CardAttachment;
 }) {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState<"menu" | "edit">("menu");
+  const [view, setView] = useState<"menu" | "edit" | "remove">("menu");
   const [filename, setFilename] = useState(attachment.filename);
 
   const renameAttachment = useRenameAttachment(boardId);
@@ -48,8 +48,7 @@ export function CardAttachmentActions({
       return;
     }
     if (item === "Remove") {
-      deleteAttachment.mutate(attachment.id);
-      handleOpenChange(false);
+      setView("remove");
     }
   }
 
@@ -60,6 +59,10 @@ export function CardAttachmentActions({
       { attachmentId: attachment.id, filename: trimmed },
       { onSuccess: () => handleOpenChange(false) },
     );
+  }
+
+  function handleConfirmRemove() {
+    deleteAttachment.mutate(attachment.id, { onSuccess: () => handleOpenChange(false) });
   }
 
   return (
@@ -77,7 +80,7 @@ export function CardAttachmentActions({
         <Ellipsis className="size-3.75" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-64 gap-3">
-        {view === "menu" ? (
+        {view === "menu" && (
           <div className="flex flex-col">
             {MENU_ITEMS.map((item) => (
               <button
@@ -94,7 +97,9 @@ export function CardAttachmentActions({
               </button>
             ))}
           </div>
-        ) : (
+        )}
+
+        {view === "edit" && (
           <>
             <div className="flex items-center justify-between">
               <Button
@@ -138,6 +143,44 @@ export function CardAttachmentActions({
               onClick={handleUpdate}
             >
               {renameAttachment.isPending ? "Updating…" : "Update"}
+            </Button>
+          </>
+        )}
+
+        {view === "remove" && (
+          <>
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                size="icon-xs"
+                aria-label="Back"
+                className="cursor-pointer"
+                onClick={() => setView("menu")}
+              >
+                <ChevronLeft className="size-4" />
+              </Button>
+              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+                Remove attachment?
+              </PopoverTitle>
+              <PopoverClose
+                render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}
+              >
+                <X className="size-3.5" />
+                <span className="sr-only">Close</span>
+              </PopoverClose>
+            </div>
+
+            <p className="text-[13px] text-slate-600">
+              Remove this attachment? There is no undo.
+            </p>
+
+            <Button
+              variant="destructive"
+              className="w-full cursor-pointer"
+              disabled={deleteAttachment.isPending}
+              onClick={handleConfirmRemove}
+            >
+              {deleteAttachment.isPending ? "Removing…" : "Remove"}
             </Button>
           </>
         )}
