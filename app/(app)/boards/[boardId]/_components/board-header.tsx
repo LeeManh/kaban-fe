@@ -1,6 +1,6 @@
 "use client";
 
-import { Ellipsis, ListFilter, Plus, Share2, Star } from "lucide-react";
+import { Ellipsis, ListFilter, Share2, Star } from "lucide-react";
 import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
@@ -10,7 +10,7 @@ import type { BoardDetail } from "@/lib/api/boards";
 import { getInitials } from "@/lib/utils";
 
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
-import { BoardAddMembersDialog } from "./board-add-members-dialog";
+import { BoardShareDialog } from "./board-share-dialog";
 import { BoardTitle } from "./board-title";
 
 export function BoardHeader({ board }: { board: BoardDetail }) {
@@ -35,24 +35,6 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
           );
         })}
       </AvatarGroup>
-
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <button
-              type="button"
-              aria-label="Add members"
-              onClick={() => setIsShareOpen(true)}
-              className="flex size-6.5 items-center justify-center rounded-full border border-white/60 text-white hover:bg-white/15"
-            />
-          }
-        >
-          <Plus className="size-3.75" />
-        </TooltipTrigger>
-        <TooltipContent side="bottom" showArrow={false}>
-          Add members
-        </TooltipContent>
-      </Tooltip>
 
       <div className="mx-1 h-5 w-px bg-white/25" />
 
@@ -94,7 +76,8 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
       <Button
         size="sm"
         variant="secondary"
-        className="gap-1.5 bg-white/90 text-slate-900 hover:bg-white"
+        onClick={() => setIsShareOpen(true)}
+        className="cursor-pointer gap-1.5 bg-white/90 text-slate-900 hover:bg-white"
       >
         <Share2 className="size-3.75" />
         Share
@@ -117,11 +100,7 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
         </TooltipContent>
       </Tooltip>
 
-      <BoardAddMembersDialog
-        open={isShareOpen}
-        onOpenChange={setIsShareOpen}
-        boardId={board.id}
-      />
+      <BoardShareDialog open={isShareOpen} onOpenChange={setIsShareOpen} boardId={board.id} />
     </div>
   );
 }

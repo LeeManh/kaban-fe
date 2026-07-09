@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleAlert } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -30,11 +31,23 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+  const searchParams = useSearchParams();
+  const emailParam = searchParams.get("email") ?? "";
+  const redirectParam = searchParams.get("redirect");
+
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "", remember: true },
+    defaultValues: { email: emailParam, password: "", remember: true },
   });
   const loginMutation = useLogin();
+
+  const registerHref = (() => {
+    const params = new URLSearchParams();
+    if (redirectParam) params.set("redirect", redirectParam);
+    if (emailParam) params.set("email", emailParam);
+    const qs = params.toString();
+    return qs ? `/register?${qs}` : "/register";
+  })();
 
   async function onSubmit(data: LoginValues) {
     try {
@@ -79,6 +92,7 @@ export function LoginForm() {
                   autoComplete="email"
                   aria-invalid={fieldState.invalid}
                   placeholder="you@company.com"
+                  disabled={!!emailParam}
                   className={cn(fieldState.invalid && "bg-red-50")}
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -151,7 +165,7 @@ export function LoginForm() {
 
       <p className="mt-5.5 text-center text-[13.5px] text-slate-500">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="font-bold text-primary hover:underline">
+        <Link href={registerHref} className="font-bold text-primary hover:underline">
           Sign up
         </Link>
       </p>

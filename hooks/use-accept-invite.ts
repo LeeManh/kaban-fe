@@ -2,13 +2,13 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { addBoardMember, type AddBoardMemberPayload } from "@/lib/api/boards";
+import { acceptInvite } from "@/lib/api/invites";
 
-export function useAddBoardMember(boardId: string) {
+export function useAcceptInvite() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (payload: AddBoardMemberPayload) => addBoardMember(boardId, payload),
+    mutationFn: (token: string) => acceptInvite(token),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
     },

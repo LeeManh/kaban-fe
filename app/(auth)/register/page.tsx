@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { AuthBrandPanel } from "../_components/auth-brand-panel";
 import { RegisterForm } from "./_components/register-form";
 
@@ -19,7 +21,9 @@ export default function RegisterPage() {
         />
 
         <div className="flex flex-1 items-center justify-center overflow-y-auto p-10">
-          <RegisterForm />
+          <Suspense fallback={null}>
+            <RegisterForm />
+          </Suspense>
         </div>
       </div>
     </div>
