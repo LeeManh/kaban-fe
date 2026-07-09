@@ -109,6 +109,16 @@ export function CardAttachments({
               View all attachments ({hiddenCount} hidden)
             </Button>
           )}
+          {showAll && hiddenCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-1.5 w-full cursor-pointer"
+              onClick={() => setShowAll(false)}
+            >
+              Show fewer attachments
+            </Button>
+          )}
         </>
       )}
     </div>

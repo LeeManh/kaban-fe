@@ -6,7 +6,7 @@ import { CircleAlert } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const inputVariants = cva(
-  "w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-2 focus-visible:border-ring disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50",
+  "w-full min-w-0 rounded-md border-2 border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50",
   {
     variants: {
       size: {
@@ -31,18 +31,28 @@ function Input({
   VariantProps<typeof inputVariants> & { hideInvalidIcon?: boolean }) {
   const invalid = (ariaInvalid === true || ariaInvalid === "true") && !hideInvalidIcon;
 
-  return (
-    <div className={cn("relative", className)}>
+  if (!invalid) {
+    return (
       <InputPrimitive
         type={type}
         data-slot="input"
         aria-invalid={ariaInvalid}
-        className={cn(inputVariants({ size }), invalid && "pr-9", className)}
+        className={cn(inputVariants({ size }), className)}
         {...props}
       />
-      {invalid && (
-        <CircleAlert className="absolute top-1/2 right-3 size-3.5 -translate-y-1/2 text-destructive" />
-      )}
+    );
+  }
+
+  return (
+    <div className="relative">
+      <InputPrimitive
+        type={type}
+        data-slot="input"
+        aria-invalid={ariaInvalid}
+        className={cn(inputVariants({ size }), "pr-9", className)}
+        {...props}
+      />
+      <CircleAlert className="absolute top-1/2 right-3 size-3.5 -translate-y-1/2 text-destructive" />
     </div>
   );
 }

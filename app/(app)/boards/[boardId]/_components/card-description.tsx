@@ -66,16 +66,21 @@ export function CardDescription({
         />
       ) : description ? (
         <div>
-          <CardDescriptionViewer
-            description={description}
-            expanded={expanded}
-            onOverflowChange={setIsOverflowing}
-          />
+          <div className="relative">
+            <CardDescriptionViewer
+              description={description}
+              expanded={expanded}
+              onOverflowChange={setIsOverflowing}
+            />
+            {!expanded && isOverflowing && (
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-linear-to-t from-white to-transparent" />
+            )}
+          </div>
           {(expanded || isOverflowing) && (
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
-              className="mt-1 cursor-pointer gap-1 text-slate-600"
+              className="mt-1 w-full cursor-pointer justify-center gap-1.5 text-slate-700"
               onClick={onToggleExpanded}
             >
               <ChevronDown className={cn("size-3.5 transition-transform", expanded && "rotate-180")} />
