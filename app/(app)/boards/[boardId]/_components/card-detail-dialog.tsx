@@ -33,7 +33,6 @@ export function CardDetailDialog({
   listTitle: string;
 }) {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
-  const [commentText, setCommentText] = useState("");
 
   const { data: detail } = useCard(boardId, card.id, { enabled: open });
   const checklists = detail?.checklists ?? [];
@@ -61,7 +60,7 @@ export function CardDetailDialog({
             }
           />
 
-          <div className="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(0,1fr)_400px]">
+          <div className="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(0,1fr)_420px]">
             <div className="flex h-full flex-col gap-5 overflow-y-auto p-5 md:border-r md:border-slate-200">
               <CardTitle
                 title={card.title}
@@ -118,11 +117,7 @@ export function CardDetailDialog({
               ))}
             </div>
 
-            <CardComments
-              comments={comments}
-              commentText={commentText}
-              onCommentTextChange={setCommentText}
-            />
+            <CardComments boardId={boardId} cardId={card.id} comments={comments} />
           </div>
         </DialogContent>
       </Dialog>

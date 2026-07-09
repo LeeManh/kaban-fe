@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import { useUpdateCard } from "../_hooks/use-update-card";
-import { CardDescriptionEditor } from "./card-description-editor";
 import { CardDescriptionViewer } from "./card-description-viewer";
+import { MarkdownEditor } from "./markdown-editor";
 
 export function CardDescription({
   boardId,
@@ -56,10 +56,11 @@ export function CardDescription({
       </div>
 
       {isEditing ? (
-        <CardDescriptionEditor
+        <MarkdownEditor
           boardId={boardId}
           cardId={cardId}
           initialValue={description ?? ""}
+          placeholder="Add a more detailed description…"
           isSaving={updateCard.isPending}
           onSave={handleSave}
           onCancel={() => setIsEditing(false)}
