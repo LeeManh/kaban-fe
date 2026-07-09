@@ -9,11 +9,13 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { BoardDetail } from "@/lib/api/boards";
 import { getInitials } from "@/lib/utils";
 
+import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { BoardAddMembersDialog } from "./board-add-members-dialog";
 import { BoardTitle } from "./board-title";
 
 export function BoardHeader({ board }: { board: BoardDetail }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const toggleStar = useToggleBoardStar();
 
   return (
     <div className="flex h-14 flex-none items-center gap-1.5 bg-black/10 px-4">
@@ -76,15 +78,16 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
           render={
             <button
               type="button"
-              aria-label="Favorite board"
-              className="flex size-8 items-center justify-center rounded-md text-white hover:bg-white/15"
+              aria-label={board.isStarred ? "Unstar board" : "Star board"}
+              onClick={() => toggleStar.mutate({ boardId: board.id, isStarred: board.isStarred })}
+              className="flex size-8 cursor-pointer items-center justify-center rounded-md text-white hover:bg-white/15"
             />
           }
         >
-          <Star className="size-4" />
+          <Star className="size-4" fill={board.isStarred ? "currentColor" : "none"} />
         </TooltipTrigger>
         <TooltipContent side="bottom" showArrow={false}>
-          Favorite board
+          {board.isStarred ? "Unstar board" : "Star board"}
         </TooltipContent>
       </Tooltip>
 
