@@ -42,7 +42,7 @@ export function BoardShareDialog({
 
         <ShareInviteForm boardId={boardId} />
 
-        <ShareInviteLinkPanel boardId={boardId} />
+        <ShareInviteLinkPanel boardId={boardId} open={open} />
 
         <div>
           <div className="flex items-center gap-4 border-b border-slate-200">

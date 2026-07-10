@@ -12,16 +12,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getApiErrorMessage } from "@/lib/api/client";
-import type { InviteLink, InviteLinkPermission } from "@/lib/api/invite-links";
+import type { InviteLinkPermission } from "@/lib/api/invite-links";
 
 import { useCreateInviteLink } from "../_hooks/use-create-invite-link";
+import { useInviteLink } from "../_hooks/use-invite-link";
 import { useRevokeInviteLink } from "../_hooks/use-revoke-invite-link";
 import { useUpdateInviteLink } from "../_hooks/use-update-invite-link";
 
-export function ShareInviteLinkPanel({ boardId }: { boardId: string }) {
-  const [inviteLink, setInviteLink] = useState<InviteLink | null>(null);
+export function ShareInviteLinkPanel({ boardId, open }: { boardId: string; open: boolean }) {
   const [linkCopied, setLinkCopied] = useState(false);
 
+  const { data: inviteLink } = useInviteLink(boardId, { enabled: open });
   const createLink = useCreateInviteLink(boardId);
   const updateLink = useUpdateInviteLink(boardId);
   const revokeLink = useRevokeInviteLink(boardId);
@@ -30,7 +31,6 @@ export function ShareInviteLinkPanel({ boardId }: { boardId: string }) {
     createLink.mutate(
       {},
       {
-        onSuccess: (link) => setInviteLink(link),
         onError: (err) => toast.error(getApiErrorMessage(err, "Could not create invite link.")),
       },
     );
@@ -45,10 +45,7 @@ export function ShareInviteLinkPanel({ boardId }: { boardId: string }) {
 
   function handleDeleteLink() {
     revokeLink.mutate(undefined, {
-      onSuccess: () => {
-        setInviteLink(null);
-        toast.success("Invite link deleted.");
-      },
+      onSuccess: () => toast.success("Invite link deleted."),
       onError: (err) => toast.error(getApiErrorMessage(err, "Could not delete invite link.")),
     });
   }
@@ -57,7 +54,6 @@ export function ShareInviteLinkPanel({ boardId }: { boardId: string }) {
     updateLink.mutate(
       { permission },
       {
-        onSuccess: (link) => setInviteLink(link),
         onError: (err) => toast.error(getApiErrorMessage(err, "Could not update permissions.")),
       },
     );

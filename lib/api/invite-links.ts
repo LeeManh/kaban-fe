@@ -26,6 +26,13 @@ export async function createInviteLink(
   return data.data;
 }
 
+export async function getInviteLink(boardId: string): Promise<InviteLink> {
+  const { data } = await apiClient.get<ApiSuccessResponse<InviteLink>>(
+    `/boards/${boardId}/invite-link`,
+  );
+  return data.data;
+}
+
 export type UpdateInviteLinkPayload = CreateInviteLinkPayload;
 
 export async function updateInviteLink(

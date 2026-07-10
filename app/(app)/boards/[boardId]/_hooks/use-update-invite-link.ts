@@ -1,11 +1,16 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { updateInviteLink, type UpdateInviteLinkPayload } from "@/lib/api/invite-links";
+import { updateInviteLink, type InviteLink, type UpdateInviteLinkPayload } from "@/lib/api/invite-links";
 
 export function useUpdateInviteLink(boardId: string) {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (payload: UpdateInviteLinkPayload) => updateInviteLink(boardId, payload),
+    onSuccess: (link) => {
+      queryClient.setQueryData<InviteLink>(["boards", boardId, "invite-link"], link);
+    },
   });
 }
