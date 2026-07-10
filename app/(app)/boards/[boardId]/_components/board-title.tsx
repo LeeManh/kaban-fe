@@ -43,7 +43,7 @@ export function BoardTitle({ boardId, name: initialName }: { boardId: string; na
           if (e.key === "Enter") e.currentTarget.blur();
           if (e.key === "Escape") cancel();
         }}
-        className="mr-1 h-7 min-w-24 max-w-90 bg-white px-2 py-1 text-base font-bold text-slate-800 field-sizing-content md:text-base"
+        className="mr-1 h-7 w-fit max-w-90 bg-white px-2 py-1 text-base font-bold text-slate-800 field-sizing-content md:text-base"
       />
     );
   }

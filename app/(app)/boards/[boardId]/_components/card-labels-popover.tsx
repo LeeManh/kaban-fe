@@ -56,11 +56,13 @@ type PopoverMode = "list" | "create" | "edit";
 export function CardLabelsPopoverContent({
   boardId,
   cardId,
-  cardLabels,
+  cardLabels = [],
+  onBack,
 }: {
   boardId: string;
-  cardId: string;
-  cardLabels: CardLabel[];
+  cardId?: string;
+  cardLabels?: CardLabel[];
+  onBack?: () => void;
 }) {
   const [mode, setMode] = useState<PopoverMode>("list");
   const [searchQuery, setSearchQuery] = useState("");
@@ -82,6 +84,7 @@ export function CardLabelsPopoverContent({
   );
 
   function toggleLabel(label: CardLabel) {
+    if (!cardId) return;
     if (cardLabelIds.has(label.id)) {
       removeLabel.mutate({ cardId, labelId: label.id });
     } else {
@@ -250,7 +253,22 @@ export function CardLabelsPopoverContent({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">Labels</PopoverTitle>
+        {onBack ? (
+          <Button
+            variant="ghost"
+            size="icon-xs"
+            aria-label="Back"
+            className="cursor-pointer"
+            onClick={onBack}
+          >
+            <ChevronLeft className="size-4" />
+          </Button>
+        ) : null}
+        <PopoverTitle
+          className={onBack ? "flex-1 text-center text-sm font-semibold text-slate-900" : "mx-auto text-sm font-semibold text-slate-900"}
+        >
+          Labels
+        </PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
           <X className="size-3.5" />
           <span className="sr-only">Close</span>
@@ -269,10 +287,12 @@ export function CardLabelsPopoverContent({
         <div className="flex flex-col gap-1.5">
           {filteredLabels.map((label) => (
             <div key={label.id} className="flex items-center gap-2">
-              <Checkbox
-                checked={cardLabelIds.has(label.id)}
-                onCheckedChange={() => toggleLabel(label)}
-              />
+              {cardId ? (
+                <Checkbox
+                  checked={cardLabelIds.has(label.id)}
+                  onCheckedChange={() => toggleLabel(label)}
+                />
+              ) : null}
               <LabelSwatch label={label} className="h-8 flex-1 px-2.5 text-[13px]" />
               <button
                 type="button"

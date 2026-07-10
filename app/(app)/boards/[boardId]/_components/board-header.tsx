@@ -1,18 +1,19 @@
 "use client";
 
-import { Ellipsis, Share2, Star } from "lucide-react";
+import { Share2, Star } from "lucide-react";
 import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { BoardDetail } from "@/lib/api/boards";
-import { getInitials } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 
 import { useLabels } from "../_hooks/use-labels";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import type { BoardFilterState } from "../_lib/board-filter";
 import { BoardFilterPopover } from "./board-filter-popover";
+import { BoardMoreOptionsMenu } from "./board-more-options-menu";
 import { BoardShareDialog } from "./board-share-dialog";
 import { BoardTitle } from "./board-title";
 
@@ -30,7 +31,7 @@ export function BoardHeader({
   const { data: labels = [] } = useLabels(board.id);
 
   return (
-    <div className="flex h-14 flex-none items-center gap-1.5 bg-black/10 px-4">
+    <div className="flex h-14 flex-none items-center gap-1.5 bg-black/30 px-4">
       <BoardTitle boardId={board.id} name={board.name} />
 
       <div className="flex-1" />
@@ -64,7 +65,10 @@ export function BoardHeader({
               type="button"
               aria-label={board.isStarred ? "Unstar board" : "Star board"}
               onClick={() => toggleStar.mutate({ boardId: board.id, isStarred: board.isStarred })}
-              className="flex size-8 cursor-pointer items-center justify-center rounded-md text-white hover:bg-white/15"
+              className={cn(
+                "flex size-8 cursor-pointer items-center justify-center rounded-md hover:bg-white/15",
+                board.isStarred ? "text-yellow-400" : "text-white",
+              )}
             />
           }
         >
@@ -85,22 +89,7 @@ export function BoardHeader({
         Share
       </Button>
 
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <button
-              type="button"
-              aria-label="More options"
-              className="flex size-8 items-center justify-center rounded-md text-white hover:bg-white/15"
-            />
-          }
-        >
-          <Ellipsis className="size-4" />
-        </TooltipTrigger>
-        <TooltipContent side="bottom" showArrow={false}>
-          More options
-        </TooltipContent>
-      </Tooltip>
+      <BoardMoreOptionsMenu board={board} onOpenShare={() => setIsShareOpen(true)} />
 
       <BoardShareDialog open={isShareOpen} onOpenChange={setIsShareOpen} boardId={board.id} />
     </div>

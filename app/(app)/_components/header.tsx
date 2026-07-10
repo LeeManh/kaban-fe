@@ -20,9 +20,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "flex h-14 flex-none items-center gap-3.5 px-3.5 border-b",
-        background ? "bg-black/20" : "bg-white",
-        background ? "border-transparent" : "border-slate-200",
+        "flex h-14 flex-none items-center gap-3.5 px-3.5  border-b-[0.5px]",
+        background ? "bg-black/40" : "bg-white",
+        background ? "border-white/15" : "border-slate-200",
       )}
     >
       <Logo className={cn("shrink-0", background ? "text-white" : "text-slate-900")} />
