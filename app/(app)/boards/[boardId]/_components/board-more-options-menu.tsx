@@ -8,7 +8,6 @@ import {
   useUnsplashSearch,
   useUnsplashSearchPhotos,
 } from "@/app/(app)/boards/_hooks/use-unsplash-photos";
-import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -19,7 +18,7 @@ import {
 } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { BoardDetail } from "@/lib/api/boards";
-import { cn, getInitials, toBackgroundStyle } from "@/lib/utils";
+import { cn, toBackgroundStyle } from "@/lib/utils";
 
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { useUpdateBoard } from "../_hooks/use-update-board";
@@ -186,22 +185,7 @@ export function BoardMoreOptionsMenu({
               </PopoverClose>
             </div>
 
-            <MenuItem
-              icon={<UserPlus className="size-4" />}
-              label="Share"
-              trailing={
-                <AvatarGroup>
-                  {board.members.map((member) => (
-                    <Avatar key={member.id} size="sm" className="ring-2 ring-white">
-                      <AvatarFallback className="bg-violet-500 text-[9px] font-bold text-white">
-                        {getInitials(member)}
-                      </AvatarFallback>
-                    </Avatar>
-                  ))}
-                </AvatarGroup>
-              }
-              onClick={onOpenShare}
-            />
+            <MenuItem icon={<UserPlus className="size-4" />} label="Share" onClick={onOpenShare} />
             <MenuItem
               icon={
                 <Star
