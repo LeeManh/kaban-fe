@@ -1,6 +1,6 @@
 "use client";
 
-import { Ellipsis, ListFilter, Share2, Star } from "lucide-react";
+import { Ellipsis, Share2, Star } from "lucide-react";
 import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
@@ -9,13 +9,25 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { BoardDetail } from "@/lib/api/boards";
 import { getInitials } from "@/lib/utils";
 
+import { useLabels } from "../_hooks/use-labels";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
+import type { BoardFilterState } from "../_lib/board-filter";
+import { BoardFilterPopover } from "./board-filter-popover";
 import { BoardShareDialog } from "./board-share-dialog";
 import { BoardTitle } from "./board-title";
 
-export function BoardHeader({ board }: { board: BoardDetail }) {
+export function BoardHeader({
+  board,
+  filter,
+  onFilterChange,
+}: {
+  board: BoardDetail;
+  filter: BoardFilterState;
+  onFilterChange: (next: BoardFilterState) => void;
+}) {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const toggleStar = useToggleBoardStar();
+  const { data: labels = [] } = useLabels(board.id);
 
   return (
     <div className="flex h-14 flex-none items-center gap-1.5 bg-black/10 px-4">
@@ -38,22 +50,12 @@ export function BoardHeader({ board }: { board: BoardDetail }) {
 
       <div className="mx-1 h-5 w-px bg-white/25" />
 
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <button
-              type="button"
-              aria-label="Filter"
-              className="flex size-8 items-center justify-center rounded-md text-white hover:bg-white/15"
-            />
-          }
-        >
-          <ListFilter className="size-4" />
-        </TooltipTrigger>
-        <TooltipContent side="bottom" showArrow={false}>
-          Filter
-        </TooltipContent>
-      </Tooltip>
+      <BoardFilterPopover
+        filter={filter}
+        onFilterChange={onFilterChange}
+        members={board.members}
+        labels={labels}
+      />
 
       <Tooltip>
         <TooltipTrigger

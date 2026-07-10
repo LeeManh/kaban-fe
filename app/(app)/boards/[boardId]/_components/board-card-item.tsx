@@ -27,6 +27,7 @@ import { cn, getInitials, toBackgroundStyle } from "@/lib/utils";
 import { useUpdateCard } from "../_hooks/use-update-card";
 import { DUE_STATUS_BADGE_CLASSNAME, getDueStatus } from "../_lib/due-status";
 import { CardDetailDialog } from "./card-detail-dialog";
+import { getLabelTooltipText, LabelSwatch } from "./label-swatch";
 
 function DoneBadge({ className }: { className?: string }) {
   return (
@@ -59,13 +60,9 @@ function CardLabels({ labels }: { labels: CardLabel[] }) {
     <div className="mb-1.5 flex flex-wrap gap-1">
       {labels.map((label) => (
         <Tooltip key={label.id}>
-          <TooltipTrigger
-            render={
-              <span style={{ backgroundColor: label.color }} className="h-2 w-10 rounded-full" />
-            }
-          />
+          <TooltipTrigger render={<LabelSwatch label={label} showText={false} className="h-2 w-10 rounded-full" />} />
           <TooltipContent side="top" showArrow={false}>
-            {`Color: ${label.color}, title: "${label.name}"`}
+            {getLabelTooltipText(label)}
           </TooltipContent>
         </Tooltip>
       ))}

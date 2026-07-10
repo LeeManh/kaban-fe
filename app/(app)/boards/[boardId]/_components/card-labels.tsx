@@ -8,6 +8,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import type { CardLabel } from "@/lib/api/boards";
 
 import { CardLabelsPopoverContent } from "./card-labels-popover";
+import { getLabelTooltipText, LabelSwatch } from "./label-swatch";
 
 export function CardLabels({
   boardId,
@@ -34,18 +35,16 @@ export function CardLabels({
                   <PopoverTrigger
                     nativeButton={false}
                     render={
-                      <span
-                        style={{ backgroundColor: label.color }}
-                        className="flex h-7 min-w-10 cursor-pointer items-center justify-center rounded-md px-2.5 text-[13px] font-medium text-black"
+                      <LabelSwatch
+                        label={label}
+                        className="h-7 min-w-10 cursor-pointer justify-center rounded-md px-2.5 text-[13px]"
                       />
                     }
-                  >
-                    {label.name}
-                  </PopoverTrigger>
+                  />
                 }
               />
               <TooltipContent side="top" showArrow={false}>
-                {`Color: ${label.color}, title: "${label.name}"`}
+                {getLabelTooltipText(label)}
               </TooltipContent>
             </Tooltip>
           ))}

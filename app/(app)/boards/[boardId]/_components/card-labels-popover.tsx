@@ -14,6 +14,7 @@ import { useCreateLabel } from "../_hooks/use-create-label";
 import { useDeleteLabel } from "../_hooks/use-delete-label";
 import { useLabels } from "../_hooks/use-labels";
 import { useUpdateLabel } from "../_hooks/use-update-label";
+import { LabelSwatch } from "./label-swatch";
 
 const LABEL_COLORS = [
   "#baf3db",
@@ -272,12 +273,7 @@ export function CardLabelsPopoverContent({
                 checked={cardLabelIds.has(label.id)}
                 onCheckedChange={() => toggleLabel(label)}
               />
-              <div
-                style={{ backgroundColor: label.color }}
-                className="flex h-8 flex-1 items-center rounded-sm px-2.5 text-[13px] font-medium text-black"
-              >
-                {label.name}
-              </div>
+              <LabelSwatch label={label} className="h-8 flex-1 px-2.5 text-[13px]" />
               <button
                 type="button"
                 aria-label="Edit label"
