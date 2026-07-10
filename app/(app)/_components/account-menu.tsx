@@ -1,21 +1,9 @@
 "use client";
 
-import {
-  CreditCard,
-  ExternalLink,
-  HelpCircle,
-  Keyboard,
-  LogOut,
-  Settings,
-  SunMoon,
-  User,
-  Users,
-  Zap,
-} from "lucide-react";
+import { CreditCard, LogOut, Settings, SunMoon, User, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,13 +18,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearTokens } from "@/lib/api/tokens";
-import { cn } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 
 import { useBoardChrome } from "../_context/app-shell";
+import { useCurrentUser } from "../_hooks/use-current-user";
 
 export function AccountMenu() {
   const router = useRouter();
   const { background } = useBoardChrome();
+  const { data: user } = useCurrentUser();
 
   function handleLogout() {
     clearTokens();
@@ -63,8 +53,9 @@ export function AccountMenu() {
               }
             >
               <Avatar className="size-6">
+                {user?.avatar && <AvatarImage src={user.avatar} alt="" />}
                 <AvatarFallback className="bg-violet-500 text-xs font-bold text-white">
-                  L
+                  {user ? getInitials(user) : ""}
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
@@ -79,30 +70,23 @@ export function AccountMenu() {
           <DropdownMenuLabel>Account</DropdownMenuLabel>
           <div className="flex items-center gap-2.5 px-1.5 py-1.5">
             <Avatar className="size-8">
+              {user?.avatar && <AvatarImage src={user.avatar} alt="" />}
               <AvatarFallback className="bg-violet-500 text-xs font-bold text-white">
-                L
+                {user ? getInitials(user) : ""}
               </AvatarFallback>
             </Avatar>
             <div className="flex min-w-0 flex-col">
-              <span className="truncate text-sm font-medium">Kanvas User</span>
-              <span className="truncate text-xs text-muted-foreground">you@example.com</span>
+              <span className="truncate text-sm font-medium">{user?.name ?? user?.email}</span>
+              <span className="truncate text-xs text-muted-foreground">{user?.email}</span>
             </div>
           </div>
-          <DropdownMenuItem>
-            <User />
-            Switch accounts
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Manage account
-            <ExternalLink className="ml-auto" />
-          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuLabel>Kanvas</DropdownMenuLabel>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/profile")}>
             <User />
-            Profile and visibility
+            Profile
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Zap />
@@ -116,13 +100,6 @@ export function AccountMenu() {
             <Settings />
             Settings
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Zap />
-            Labs
-            <Badge variant="secondary" className="ml-auto">
-              Labs
-            </Badge>
-          </DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <SunMoon />
@@ -134,24 +111,6 @@ export function AccountMenu() {
               <DropdownMenuItem>System</DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Users />
-            Create Workspace
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <HelpCircle />
-            Help
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Keyboard />
-            Shortcuts
-          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
