@@ -1,6 +1,6 @@
 "use client";
 
-import { SquareKanban, FilePlusCorner } from "lucide-react";
+import { SquareKanban } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -13,10 +13,7 @@ interface NavLinkItem {
   danger?: boolean;
 }
 
-const PRIMARY_LINKS: NavLinkItem[] = [
-  { href: "/boards", label: "Boards", icon: SquareKanban },
-  { href: "/templates", label: "Templates", icon: FilePlusCorner },
-];
+const PRIMARY_LINKS: NavLinkItem[] = [{ href: "/boards", label: "Boards", icon: SquareKanban }];
 
 export function Sidebar() {
   const pathname = usePathname();

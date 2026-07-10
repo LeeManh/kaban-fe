@@ -1,7 +1,8 @@
 "use client";
 
 import { Share2, Star } from "lucide-react";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -26,9 +27,36 @@ export function BoardHeader({
   filter: BoardFilterState;
   onFilterChange: (next: BoardFilterState) => void;
 }) {
-  const [isShareOpen, setIsShareOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const shareTabParam = searchParams.get("share");
+  const shareRequested = shareTabParam === "requests";
+  const [isShareOpen, setIsShareOpen] = useState(shareRequested);
+  const [wasShareRequested, setWasShareRequested] = useState(shareRequested);
+  const openedAtRef = useRef(0);
   const toggleStar = useToggleBoardStar();
   const { data: labels = [] } = useLabels(board.id);
+
+  if (shareRequested !== wasShareRequested) {
+    setWasShareRequested(shareRequested);
+    if (shareRequested) setIsShareOpen(true);
+  }
+
+  useEffect(() => {
+    if (isShareOpen) openedAtRef.current = Date.now();
+  }, [isShareOpen]);
+
+  function handleShareOpenChange(open: boolean) {
+    if (!open && Date.now() - openedAtRef.current < 400) return;
+    setIsShareOpen(open);
+    if (!open && shareTabParam) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("share");
+      const query = params.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    }
+  }
 
   return (
     <div className="flex h-14 flex-none items-center gap-1.5 bg-black/30 px-4">
@@ -91,7 +119,12 @@ export function BoardHeader({
 
       <BoardMoreOptionsMenu board={board} onOpenShare={() => setIsShareOpen(true)} />
 
-      <BoardShareDialog open={isShareOpen} onOpenChange={setIsShareOpen} boardId={board.id} />
+      <BoardShareDialog
+        open={isShareOpen}
+        onOpenChange={handleShareOpenChange}
+        boardId={board.id}
+        initialTab={shareTabParam === "requests" ? "requests" : undefined}
+      />
     </div>
   );
 }

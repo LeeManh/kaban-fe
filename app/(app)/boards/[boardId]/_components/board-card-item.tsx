@@ -13,7 +13,7 @@ import {
   TextAlignStart,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -253,10 +253,23 @@ export function BoardCardItem({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [isDetailOpen, setIsDetailOpen] = useState(() => searchParams.get("card") === card.id);
+  const cardParamMatches = searchParams.get("card") === card.id;
+  const [isDetailOpen, setIsDetailOpen] = useState(cardParamMatches);
+  const [wasCardParamMatch, setWasCardParamMatch] = useState(cardParamMatches);
+  const openedAtRef = useRef(0);
   const updateCard = useUpdateCard(boardId);
 
+  if (cardParamMatches !== wasCardParamMatch) {
+    setWasCardParamMatch(cardParamMatches);
+    if (cardParamMatches) setIsDetailOpen(true);
+  }
+
+  useEffect(() => {
+    if (isDetailOpen) openedAtRef.current = Date.now();
+  }, [isDetailOpen]);
+
   function handleDetailOpenChange(open: boolean) {
+    if (!open && Date.now() - openedAtRef.current < 400) return;
     setIsDetailOpen(open);
     const params = new URLSearchParams(searchParams.toString());
     if (open) {

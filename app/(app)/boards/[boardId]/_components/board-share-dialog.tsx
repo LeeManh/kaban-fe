@@ -19,12 +19,20 @@ export function BoardShareDialog({
   open,
   onOpenChange,
   boardId,
+  initialTab,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   boardId: string;
+  initialTab?: "members" | "requests";
 }) {
-  const [activeTab, setActiveTab] = useState<"members" | "requests">("members");
+  const [activeTab, setActiveTab] = useState<"members" | "requests">(initialTab ?? "members");
+  const [wasOpen, setWasOpen] = useState(open);
+
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open && initialTab) setActiveTab(initialTab);
+  }
 
   const { data: members = [] } = useBoardMembers(boardId, { enabled: open });
   const { data: joinRequests = [] } = useJoinRequests(boardId, { enabled: open });
