@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import type { CurrentUser } from "@/lib/api/users";
 import { cn, getInitials } from "@/lib/utils";
 
-import { useUpdateProfile } from "../../_hooks/use-update-profile";
-import { useUploadAvatar } from "../../_hooks/use-upload-avatar";
+import { useUpdateProfile } from "../../../_hooks/use-update-profile";
+import { useUploadAvatar } from "../../../_hooks/use-upload-avatar";
 
 export function ProfileAvatarUpload({ user }: { user?: CurrentUser }) {
   const inputRef = useRef<HTMLInputElement>(null);

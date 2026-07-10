@@ -1,6 +1,6 @@
 "use client";
 
-import { CreditCard, LogOut, Settings, SunMoon, User, Zap } from "lucide-react";
+import { LogOut, Settings, SunMoon, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -88,15 +88,7 @@ export function AccountMenu() {
             <User />
             Profile
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Zap />
-            Activity
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Cards
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/settings")}>
             <Settings />
             Settings
           </DropdownMenuItem>

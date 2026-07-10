@@ -1,8 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -15,10 +13,9 @@ import { getApiErrorMessage } from "@/lib/api/client";
 import { applyApiFormErrors } from "@/lib/api/form-errors";
 import type { CurrentUser } from "@/lib/api/users";
 
-import { useCurrentUser } from "../../_hooks/use-current-user";
-import { useUpdateProfile } from "../../_hooks/use-update-profile";
+import { useCurrentUser } from "../../../_hooks/use-current-user";
+import { useUpdateProfile } from "../../../_hooks/use-update-profile";
 import { ProfileAvatarUpload } from "./profile-avatar-upload";
-import { ProfileSidebar } from "./profile-sidebar";
 
 const profileAboutSchema = z.object({
   name: z.string().trim().min(1, "Full name is required").max(100, "Full name is too long"),
@@ -121,42 +118,25 @@ function ProfileAboutFields({ user }: { user: CurrentUser }) {
 }
 
 export function ProfilePageContent() {
-  const router = useRouter();
   const { data: user } = useCurrentUser();
 
   return (
-    <div className="flex min-h-0 flex-1 overflow-hidden bg-white">
-      <ProfileSidebar />
+    <>
+      <h1 className="text-2xl font-semibold text-slate-900">Profile and Visibility</h1>
 
-      <div className="relative flex-1 overflow-y-auto">
-        <button
-          type="button"
-          aria-label="Close"
-          onClick={() => router.back()}
-          className="absolute top-6 right-6 flex size-8 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:bg-slate-100"
-        >
-          <X className="size-4" />
-        </button>
-
-        <div className="mx-auto max-w-2xl px-10 py-10">
-          <h1 className="text-2xl font-semibold text-slate-900">Profile and Visibility</h1>
-
-          <div className="mt-8">
-            <div className="mb-2 text-sm font-semibold text-slate-700">Photo</div>
-            <ProfileAvatarUpload user={user} />
-          </div>
-
-          <div className="mt-8 border-t border-slate-200 pt-8">
-            <h2 className="text-lg font-semibold text-slate-900">About</h2>
-            <p className="mt-1 text-xs text-slate-500">
-              Required fields are marked with an asterisk{" "}
-              <span className="text-destructive">*</span>
-            </p>
-
-            {user && <ProfileAboutFields key={user.id} user={user} />}
-          </div>
-        </div>
+      <div className="mt-8">
+        <div className="mb-2 text-sm font-semibold text-slate-700">Photo</div>
+        <ProfileAvatarUpload user={user} />
       </div>
-    </div>
+
+      <div className="mt-8 border-t border-slate-200 pt-8">
+        <h2 className="text-lg font-semibold text-slate-900">About</h2>
+        <p className="mt-1 text-xs text-slate-500">
+          Required fields are marked with an asterisk <span className="text-destructive">*</span>
+        </p>
+
+        {user && <ProfileAboutFields key={user.id} user={user} />}
+      </div>
+    </>
   );
 }
