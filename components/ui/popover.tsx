@@ -2,7 +2,9 @@
 
 import * as React from "react"
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover"
+import { ChevronLeft, X } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
@@ -73,6 +75,39 @@ function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   )
 }
 
+function PopoverSubHeader({
+  title,
+  onBack,
+  className,
+}: {
+  title: string
+  onBack?: () => void
+  className?: string
+}) {
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      {onBack && (
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          aria-label="Back"
+          className="cursor-pointer"
+          onClick={onBack}
+        >
+          <ChevronLeft className="size-4" />
+        </Button>
+      )}
+      <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
+        {title}
+      </PopoverTitle>
+      <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
+        <X className="size-3.5" />
+        <span className="sr-only">Close</span>
+      </PopoverClose>
+    </div>
+  )
+}
+
 function PopoverDescription({
   className,
   ...props
@@ -92,6 +127,7 @@ export {
   PopoverContent,
   PopoverDescription,
   PopoverHeader,
+  PopoverSubHeader,
   PopoverTitle,
   PopoverTrigger,
 }

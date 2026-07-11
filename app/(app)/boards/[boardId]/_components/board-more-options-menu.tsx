@@ -1,32 +1,19 @@
 "use client";
 
-import { ChevronLeft, Ellipsis, Star, Tag, UserPlus, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Ellipsis, Star, Tag, UserPlus } from "lucide-react";
+import { useState } from "react";
 
-import {
-  useUnsplashPhotos,
-  useUnsplashSearch,
-  useUnsplashSearchPhotos,
-} from "@/app/(app)/boards/_hooks/use-unsplash-photos";
-import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverClose,
-  PopoverContent,
-  PopoverTitle,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverSubHeader, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { BoardDetail } from "@/lib/api/boards";
 import { cn, toBackgroundStyle } from "@/lib/utils";
 
+import { BoardBackgroundFlow } from "../../_components/board-background-flow";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { useUpdateBoard } from "../_hooks/use-update-board";
-import { CardCoverPicker } from "./card-cover-picker";
-import { CardCoverSearch } from "./card-cover-search";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 
-type MenuView = "menu" | "background" | "background-search" | "labels";
+type MenuView = "menu" | "background" | "labels";
 
 function MenuItem({
   icon,
@@ -61,44 +48,13 @@ export function BoardMoreOptionsMenu({
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<MenuView>("menu");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleStar = useToggleBoardStar();
   const updateBoard = useUpdateBoard(board.id);
 
-  const { data: unsplashPhotos } = useUnsplashPhotos(open && view === "background", 6);
-
-  const hasQuery = searchQuery.trim().length > 0;
-
-  const {
-    data: randomPages,
-    fetchNextPage: fetchNextRandomPage,
-    hasNextPage: hasNextRandomPage,
-    isFetchingNextPage: isFetchingNextRandomPage,
-  } = useUnsplashSearchPhotos(open && view === "background-search" && !hasQuery, 20);
-
-  const {
-    data: searchPages,
-    fetchNextPage: fetchNextSearchPage,
-    hasNextPage: hasNextSearchPage,
-    isFetchingNextPage: isFetchingNextSearchPage,
-  } = useUnsplashSearch(open && view === "background-search" && hasQuery, searchQuery, 20);
-
-  const photos = useMemo(() => {
-    const pages = hasQuery ? searchPages?.pages.map((page) => page.photos) : randomPages?.pages;
-    return pages?.flat();
-  }, [hasQuery, searchPages, randomPages]);
-
-  const fetchNextPage = hasQuery ? fetchNextSearchPage : fetchNextRandomPage;
-  const hasNextPage = hasQuery ? hasNextSearchPage : hasNextRandomPage;
-  const isFetchingNextPage = hasQuery ? isFetchingNextSearchPage : isFetchingNextRandomPage;
-
   function handleOpenChange(next: boolean) {
     setOpen(next);
-    if (!next) {
-      setView("menu");
-      setSearchQuery("");
-    }
+    if (!next) setView("menu");
   }
 
   function handleBackgroundChange(value: string) {
@@ -129,61 +85,18 @@ export function BoardMoreOptionsMenu({
       </Tooltip>
       <PopoverContent align="end" className="max-h-[80vh] w-80 gap-3 overflow-y-auto">
         {view === "background" ? (
-          <>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon-xs"
-                aria-label="Back"
-                className="cursor-pointer"
-                onClick={() => setView("menu")}
-              >
-                <ChevronLeft className="size-4" />
-              </Button>
-              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
-                Change background
-              </PopoverTitle>
-              <PopoverClose
-                render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}
-              >
-                <X className="size-3.5" />
-                <span className="sr-only">Close</span>
-              </PopoverClose>
-            </div>
-            <CardCoverPicker
-              value={board.background}
-              onChange={handleBackgroundChange}
-              photos={unsplashPhotos}
-              onSearchClick={() => setView("background-search")}
-            />
-          </>
-        ) : view === "background-search" ? (
-          <CardCoverSearch
+          <BoardBackgroundFlow
+            open={open}
             value={board.background}
             onChange={handleBackgroundChange}
-            photos={photos}
-            searchQuery={searchQuery}
-            onSearchQueryChange={setSearchQuery}
-            onBack={() => setView("background")}
-            onLoadMore={fetchNextPage}
-            hasMore={hasNextPage}
-            isLoadingMore={isFetchingNextPage}
+            onBack={() => setView("menu")}
+            title="Change background"
           />
         ) : view === "labels" ? (
           <CardLabelsPopoverContent boardId={board.id} onBack={() => setView("menu")} />
         ) : (
           <div className="flex flex-col gap-1">
-            <div className="mb-1 flex items-center justify-between">
-              <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
-                Menu
-              </PopoverTitle>
-              <PopoverClose
-                render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}
-              >
-                <X className="size-3.5" />
-                <span className="sr-only">Close</span>
-              </PopoverClose>
-            </div>
+            <PopoverSubHeader title="Menu" className="mb-1" />
 
             <MenuItem icon={<UserPlus className="size-4" />} label="Share" onClick={onOpenShare} />
             <MenuItem

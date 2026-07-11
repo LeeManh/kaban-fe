@@ -4,7 +4,7 @@ import type { UnsplashPhoto } from "@/app/api/unsplash/random/route";
 import { Button } from "@/components/ui/button";
 import { PopoverClose, PopoverTitle } from "@/components/ui/popover";
 
-const COVER_COLORS = [
+export const COVER_COLORS = [
   "#4bce97",
   "#f5cd47",
   "#fea362",
