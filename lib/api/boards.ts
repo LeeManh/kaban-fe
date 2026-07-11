@@ -34,6 +34,24 @@ export async function listBoards(): Promise<BoardWithMembers[]> {
   return data.data;
 }
 
+export interface RecentlyViewedBoard {
+  viewedAt: string;
+  board: {
+    id: string;
+    name: string;
+    background: string;
+    createdAt: string;
+    isStarred: boolean;
+  };
+}
+
+export async function listRecentlyViewedBoards(): Promise<RecentlyViewedBoard[]> {
+  const { data } = await apiClient.get<ApiSuccessResponse<RecentlyViewedBoard[]>>(
+    "/boards/recently-viewed",
+  );
+  return data.data;
+}
+
 export type CardPriority = "LOW" | "MEDIUM" | "HIGH";
 
 export interface CardLabel {

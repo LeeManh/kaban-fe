@@ -1,7 +1,6 @@
 "use client";
 
-import { Check, LogOut, Settings, SunMoon, User } from "lucide-react";
-import { useTheme } from "next-themes";
+import { LogOut, Settings, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,9 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -28,7 +24,6 @@ export function AccountMenu() {
   const router = useRouter();
   const { background } = useBoardChrome();
   const { data: user } = useCurrentUser();
-  const { theme, setTheme } = useTheme();
 
   function handleLogout() {
     clearTokens();
@@ -94,26 +89,6 @@ export function AccountMenu() {
             <Settings />
             Settings
           </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <SunMoon />
-              Theme
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                Light
-                {theme === "light" && <Check className="ml-auto size-4" />}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                Dark
-                {theme === "dark" && <Check className="ml-auto size-4" />}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
-                System
-                {theme === "system" && <Check className="ml-auto size-4" />}
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

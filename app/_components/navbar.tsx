@@ -1,40 +1,12 @@
-"use client";
-
-import { Menu, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Menu } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 import { Container } from "@/components/container";
 import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-
-function ThemeToggle({ className }: { className?: string }) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => setMounted(true), 0);
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
-
-  return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={className}
-    >
-      {mounted ? isDark ? <Sun /> : <Moon /> : null}
-    </Button>
-  );
-}
 
 const NAV_LINKS = [
   { href: "#features", label: "Features" },
@@ -60,7 +32,7 @@ export function Navbar() {
           ))}
         </nav>
         <div className="ml-auto hidden items-center gap-2.5 lg:flex">
-          <ThemeToggle />
+          <ThemeToggle className="text-muted-foreground hover:bg-accent hover:text-foreground" />
           <Link href="/login" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
             Log in
           </Link>
@@ -75,7 +47,7 @@ export function Navbar() {
           </Link>
         </div>
 
-        <ThemeToggle className="ml-auto lg:hidden" />
+        <ThemeToggle className="ml-auto text-muted-foreground hover:bg-accent hover:text-foreground lg:hidden" />
 
         <Sheet>
           <SheetTrigger render={<Button variant="ghost" size="icon" className="lg:hidden" />}>

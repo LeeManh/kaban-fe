@@ -1,21 +1,19 @@
 "use client";
 
-import { Search } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 import { AccountMenu } from "./account-menu";
+import { BoardSearch } from "./board-search";
 import { useBoardChrome } from "../_context/app-shell";
 import { NotificationsButton } from "./notifications-button";
 import { CreateBoardPopover } from "../boards/_components/create-board-popover";
 
 export function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
   const { background } = useBoardChrome();
 
   return (
@@ -31,26 +29,8 @@ export function Header() {
       </Link>
 
       <div className="flex flex-1 items-center justify-center gap-2.5">
-        <div className="relative max-w-2xl flex-1">
-          <Search
-            className={cn(
-              "absolute top-1/2 left-2.75 size-4 -translate-y-1/2",
-              background ? "text-white/70" : "text-muted-foreground",
-            )}
-          />
-          <Input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search"
-            aria-label="Search boards"
-            className={cn(
-              "w-full h-8 pl-8.5 focus-visible:ring-0",
-              background
-                ? "border-transparent bg-white/20 text-white placeholder:text-white/70 focus-visible:border-transparent focus-visible:bg-white/25"
-                : "bg-muted focus-visible:border-border focus-visible:bg-background",
-            )}
-          />
+        <div className="max-w-2xl flex-1">
+          <BoardSearch background={!!background} />
         </div>
         <CreateBoardPopover>
           <Button
@@ -63,6 +43,11 @@ export function Header() {
       </div>
 
       <div className="flex shrink-0 items-center gap-2">
+        <ThemeToggle
+          className={cn(
+            background ? "text-white hover:bg-white/15" : "text-muted-foreground hover:bg-accent",
+          )}
+        />
         <NotificationsButton />
         <AccountMenu />
       </div>
