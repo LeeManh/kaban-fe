@@ -31,9 +31,6 @@ function neighborsOf<T extends { id: string }>(items: T[], id: string) {
     afterId: index !== -1 && index < items.length - 1 ? items[index + 1].id : undefined,
   };
 }
-
-// When dragging a list, restrict collision candidates to other lists — otherwise
-// closestCenter can resolve `over` to a card nested inside another list's body.
 const collisionDetection: CollisionDetection = (args) => {
   if (args.active.data.current?.type === "list") {
     const listContainers = args.droppableContainers.filter(
@@ -58,9 +55,7 @@ export function BoardCanvas({ boardId, lists }: { boardId: string; lists: ListWi
     if (!isDragging.current) setOrderedLists(lists);
   }, [lists]);
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-  );
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
 
   function findListByCardId(cardId: string) {
     return orderedLists.find((list) => list.cards.some((card) => card.id === cardId));

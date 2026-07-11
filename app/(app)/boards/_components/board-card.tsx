@@ -48,7 +48,7 @@ export function BoardCard({
           aria-label="Favorite board"
           className={cn(
             "absolute top-2 right-2 flex size-6 items-center justify-center rounded-md bg-black/20 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 hover:bg-black/30",
-            favorite && "bg-black/35 opacity-100",
+            favorite && "bg-black/35 text-yellow-400 opacity-100",
           )}
         >
           <Star className="size-4" fill={favorite ? "currentColor" : "none"} />

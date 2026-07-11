@@ -23,7 +23,7 @@ function CardBannerActions({
   overlay: boolean;
 }) {
   const buttonClassName = overlay
-    ? "cursor-pointer rounded-full bg-white/90 hover:bg-white"
+    ? "cursor-pointer rounded-full bg-white/90 text-slate-800 hover:bg-white"
     : "cursor-pointer rounded-full";
 
   return (

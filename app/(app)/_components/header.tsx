@@ -1,6 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import { Logo } from "@/components/logo";
@@ -25,7 +26,9 @@ export function Header() {
         background ? "border-white/15" : "border-border",
       )}
     >
-      <Logo className={cn("shrink-0", background ? "text-white" : "text-foreground")} />
+      <Link href="/boards" className="shrink-0 cursor-pointer">
+        <Logo className={cn(background ? "text-white" : "text-foreground")} />
+      </Link>
 
       <div className="flex flex-1 items-center justify-center gap-2.5">
         <div className="relative max-w-2xl flex-1">
@@ -51,7 +54,7 @@ export function Header() {
         </div>
         <CreateBoardPopover>
           <Button
-            size="default"
+            size="sm"
             className="shrink-0 gap-1.75 shadow-[0_1px_2px_--theme(--color-primary/30%)]"
           >
             Create

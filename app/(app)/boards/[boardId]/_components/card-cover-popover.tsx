@@ -71,7 +71,7 @@ export function CardCoverPopover({
                   variant="secondary"
                   size="icon-sm"
                   aria-label="Cover image"
-                  className="cursor-pointer rounded-full bg-white/90 hover:bg-white"
+                  className="cursor-pointer rounded-full bg-white/90 text-slate-800 hover:bg-white"
                 />
               }
             >

@@ -220,7 +220,7 @@ function CardEditView({
             }
             if (e.key === "Escape") onCancel();
           }}
-          className="resize-none border-none p-0 text-[13.5px] leading-snug text-foreground shadow-none focus-visible:ring-0"
+          className="resize-none border-none bg-transparent p-0 text-[13.5px] leading-snug text-foreground shadow-none focus-visible:ring-0 dark:bg-transparent"
         />
 
         <CardMeta card={card} isDone={card.isDone} />
@@ -296,7 +296,7 @@ export function BoardCardItem({
           : cn(
               "group relative overflow-hidden rounded-md border-2 p-2.5 transition-shadow",
               isDragging
-                ? "border-transparent bg-muted-foreground/10"
+                ? "border-dashed border-muted-foreground/30 bg-muted-foreground/5"
                 : "cursor-pointer border-transparent bg-card shadow-sm hover:border-primary hover:shadow-md focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2",
             )
       }

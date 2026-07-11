@@ -22,8 +22,10 @@ export function BoardList({ list }: { list: ListWithCards }) {
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
-        "flex w-70 shrink-0 flex-col rounded-md p-2",
-        isDragging ? "bg-muted-foreground/10" : "bg-muted",
+        "flex w-70 shrink-0 flex-col rounded-md border-2 p-2",
+        isDragging
+          ? "border-dashed border-muted-foreground/30 bg-muted-foreground/5"
+          : "border-transparent bg-muted",
       )}
     >
       <div className={cn("flex flex-1 flex-col", isDragging && "invisible")}>
