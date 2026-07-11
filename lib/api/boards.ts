@@ -22,6 +22,7 @@ export interface BoardMember {
   id: string;
   email: string;
   name: string | null;
+  avatar: string | null;
 }
 
 export interface BoardWithMembers extends Board {
@@ -64,6 +65,7 @@ export interface CardAssignee {
   id: string;
   name: string | null;
   email: string;
+  avatar: string | null;
 }
 
 export interface Card {
@@ -186,6 +188,7 @@ export interface BoardMemberWithRole {
     id: string;
     email: string;
     name: string;
+    avatar: string | null;
   };
 }
 

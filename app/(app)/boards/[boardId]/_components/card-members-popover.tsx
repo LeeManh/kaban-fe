@@ -3,12 +3,11 @@
 import { X } from "lucide-react";
 import { useState } from "react";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PopoverClose, PopoverTitle } from "@/components/ui/popover";
+import { UserAvatar } from "@/components/user-avatar";
 import type { CardAssignee } from "@/lib/api/boards";
-import { getInitials } from "@/lib/utils";
 
 import { useBoardMembers } from "../_hooks/use-board-members";
 import { useAssignCardMember, useUnassignCardMember } from "../_hooks/use-card-members";
@@ -66,11 +65,7 @@ export function CardMembersPopoverContent({
                 key={assignee.id}
                 className="flex items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-accent"
               >
-                <Avatar className="size-7">
-                  <AvatarFallback className="bg-violet-500 text-[11px] font-bold text-white">
-                    {getInitials(assignee)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar user={assignee} className="size-7" fallbackClassName="text-[11px]" />
                 <span className="flex-1 text-[13.5px] text-foreground">
                   {assignee.name ?? assignee.email}
                 </span>
@@ -99,11 +94,7 @@ export function CardMembersPopoverContent({
                 onClick={() => assignMember.mutate({ cardId, userId: user.id })}
                 className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-accent"
               >
-                <Avatar className="size-7">
-                  <AvatarFallback className="bg-violet-500 text-[11px] font-bold text-white">
-                    {getInitials(user)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar user={user} className="size-7" fallbackClassName="text-[11px]" />
                 <span className="text-[13.5px] text-foreground">{user.name ?? user.email}</span>
               </button>
             ))}

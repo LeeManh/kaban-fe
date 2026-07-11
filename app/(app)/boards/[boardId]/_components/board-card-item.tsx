@@ -16,13 +16,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { UserAvatar } from "@/components/user-avatar";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import type { CardLabel, CardSummary } from "@/lib/api/boards";
-import { cn, getInitials, toBackgroundStyle } from "@/lib/utils";
+import { cn, toBackgroundStyle } from "@/lib/utils";
 
 import { useUpdateCard } from "../_hooks/use-update-card";
 import { DUE_STATUS_BADGE_CLASSNAME, getDueStatus } from "../_lib/due-status";
@@ -119,11 +119,12 @@ function CardMeta({ card, isDone }: { card: CardSummary; isDone: boolean }) {
       {card.assignees.length > 0 && (
         <div className="ml-auto flex -space-x-1.5">
           {card.assignees.map((assignee) => (
-            <Avatar key={assignee.id} className="size-5.5 ring-2 ring-white">
-              <AvatarFallback className="bg-violet-500 text-[9px] font-bold text-white">
-                {getInitials(assignee)}
-              </AvatarFallback>
-            </Avatar>
+            <UserAvatar
+              key={assignee.id}
+              user={assignee}
+              className="size-5.5 ring-2 ring-white"
+              fallbackClassName="text-[9px]"
+            />
           ))}
         </div>
       )}

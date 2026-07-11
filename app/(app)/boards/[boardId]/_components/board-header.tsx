@@ -4,11 +4,12 @@ import { Share2, Star } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarGroup } from "@/components/ui/avatar";
+import { AvatarGroup } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { UserAvatar } from "@/components/user-avatar";
 import type { BoardDetail } from "@/lib/api/boards";
-import { cn, getInitials } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 import { useLabels } from "../_hooks/use-labels";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
@@ -64,17 +65,14 @@ export function BoardHeader({
 
       <div className="flex-1" />
       <AvatarGroup>
-        {board.members.map((member) => {
-          return (
-            <div key={member.id} className="relative">
-              <Avatar key={member.id} className="size-5.5 ring-2 ring-white">
-                <AvatarFallback className="bg-violet-500 text-[9px] font-bold text-white">
-                  {getInitials(member)}
-                </AvatarFallback>
-              </Avatar>
-            </div>
-          );
-        })}
+        {board.members.map((member) => (
+          <UserAvatar
+            key={member.id}
+            user={member}
+            className="size-5.5 ring-2 ring-white"
+            fallbackClassName="text-[9px]"
+          />
+        ))}
       </AvatarGroup>
 
       <div className="mx-1 h-5 w-px bg-white/25" />

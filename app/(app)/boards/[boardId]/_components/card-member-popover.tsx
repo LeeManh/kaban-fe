@@ -2,11 +2,10 @@
 
 import { X } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PopoverClose } from "@/components/ui/popover";
+import { UserAvatar } from "@/components/user-avatar";
 import type { CardAssignee } from "@/lib/api/boards";
-import { getInitials } from "@/lib/utils";
 
 export function CardMemberPopoverContent({
   assignee,
@@ -32,11 +31,11 @@ export function CardMemberPopoverContent({
           <X className="size-4" />
           <span className="sr-only">Close</span>
         </PopoverClose>
-        <Avatar className="size-14 shrink-0 ring-3 ring-white">
-          <AvatarFallback className="bg-violet-500 text-lg font-bold text-white">
-            {getInitials(assignee)}
-          </AvatarFallback>
-        </Avatar>
+        <UserAvatar
+          user={assignee}
+          className="size-14 shrink-0 ring-3 ring-white"
+          fallbackClassName="text-lg"
+        />
         <div className="min-w-0">
           <div className="truncate text-base font-bold">{assignee.name ?? assignee.email}</div>
           <div className="truncate text-sm text-blue-100">@{handle}</div>

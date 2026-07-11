@@ -2,10 +2,9 @@
 
 import { UserPlus } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { UserAvatar } from "@/components/user-avatar";
 import type { CardAssignee } from "@/lib/api/boards";
-import { getInitials } from "@/lib/utils";
 
 import { useUnassignCardMember } from "../_hooks/use-card-members";
 import { CardMemberPopoverContent } from "./card-member-popover";
@@ -29,11 +28,7 @@ export function CardMembers({
         {assignees.map((assignee) => (
           <Popover key={assignee.id}>
             <PopoverTrigger render={<button type="button" className="cursor-pointer rounded-full" />}>
-              <Avatar className="size-7">
-                <AvatarFallback className="bg-violet-500 text-[11px] font-bold text-white">
-                  {getInitials(assignee)}
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar user={assignee} className="size-7" fallbackClassName="text-[11px]" />
             </PopoverTrigger>
             <PopoverContent align="start" className="w-72 gap-0 overflow-hidden p-0">
               <CardMemberPopoverContent
