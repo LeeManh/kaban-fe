@@ -6,6 +6,7 @@ import { useBoardChrome } from "@/app/(app)/_context/app-shell";
 import { getCurrentUserId } from "@/lib/api/tokens";
 
 import { useBoard } from "../_hooks/use-board";
+import { useBoardRealtime } from "../_hooks/use-board-realtime";
 import { useBoardRoom } from "../_hooks/use-board-room";
 import { EMPTY_BOARD_FILTER, matchesBoardFilter, type BoardFilterState } from "../_lib/board-filter";
 import { BoardCanvas } from "./board-canvas";
@@ -18,6 +19,7 @@ export function BoardDetailContent({ boardId }: { boardId: string }) {
   const currentUserId = getCurrentUserId();
 
   useBoardRoom(boardId);
+  useBoardRealtime(boardId);
 
   useEffect(() => {
     setBoardBackground(board?.background ?? null);

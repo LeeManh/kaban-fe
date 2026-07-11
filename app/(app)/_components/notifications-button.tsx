@@ -23,6 +23,7 @@ import { useBoardChrome } from "../_context/app-shell";
 import { useMarkAllNotificationsRead } from "../_hooks/use-mark-all-notifications-read";
 import { useMarkNotificationRead } from "../_hooks/use-mark-notification-read";
 import { useNotifications } from "../_hooks/use-notifications";
+import { useNotificationsRealtime } from "../_hooks/use-notifications-realtime";
 import { useUnreadNotificationsCount } from "../_hooks/use-unread-notifications-count";
 import { NotificationRow } from "./notification-row";
 
@@ -31,6 +32,8 @@ export function NotificationsButton() {
   const { background } = useBoardChrome();
   const [open, setOpen] = useState(false);
   const [onlyUnread, setOnlyUnread] = useState(true);
+
+  useNotificationsRealtime();
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useNotifications(
     open,
