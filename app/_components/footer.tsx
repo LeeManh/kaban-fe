@@ -30,11 +30,11 @@ const FOOTER_COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 bg-white">
+    <footer className="border-t border-border bg-background">
       <Container className="flex flex-col justify-between gap-10 pt-12 pb-8 sm:flex-row">
         <div className="max-w-65">
-          <Logo className="mb-3.5" />
-          <p className="text-[13px] leading-[1.6] text-slate-400">
+          <Logo className="mb-3.5 dark:text-slate-100" />
+          <p className="text-[13px] leading-[1.6] text-muted-foreground">
             Organize work the simple way. Boards, lists, and cards for teams
             of any size.
           </p>
@@ -47,8 +47,8 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-slate-100">
-        <Container className="py-5 text-[12.5px] text-slate-400">
+      <div className="border-t border-border">
+        <Container className="py-5 text-[12.5px] text-muted-foreground">
           © 2026 Kanvas, Inc. All rights reserved.
         </Container>
       </div>
@@ -65,7 +65,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <div className="mb-3.5 text-xs font-bold tracking-[0.05em] text-slate-400 uppercase">
+      <div className="mb-3.5 text-xs font-bold tracking-[0.05em] text-muted-foreground uppercase">
         {title}
       </div>
       <div className="flex flex-col gap-2.5">
@@ -73,7 +73,7 @@ function FooterColumn({
           <a
             key={link.label}
             href={link.href}
-            className="text-[13.5px] font-medium text-slate-600 transition-colors hover:text-primary"
+            className="text-[13.5px] font-medium text-muted-foreground transition-colors hover:text-primary"
           >
             {link.label}
           </a>

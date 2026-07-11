@@ -42,7 +42,7 @@ export function Faq() {
       <Container>
         <div className="mb-12 text-center">
           <SectionEyebrow className="mx-auto">FAQ</SectionEyebrow>
-          <h2 className="text-4xl font-extrabold tracking-[-0.03em] text-slate-900">
+          <h2 className="text-4xl font-extrabold tracking-[-0.03em] text-foreground">
             Frequently asked questions
           </h2>
         </div>
@@ -58,12 +58,12 @@ export function Faq() {
             <AccordionItem
               key={faq.q}
               value={index}
-              className="rounded-md border border-slate-200 bg-white px-5"
+              className="rounded-md border border-border bg-card px-5"
             >
-              <AccordionTrigger className="py-4 text-[14.5px] font-medium text-slate-900 hover:no-underline">
+              <AccordionTrigger className="py-4 text-[14.5px] font-medium text-foreground hover:no-underline">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="pb-4 text-sm leading-[1.6] text-slate-600">
+              <AccordionContent className="pb-4 text-sm leading-[1.6] text-muted-foreground">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

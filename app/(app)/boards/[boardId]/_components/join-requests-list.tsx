@@ -26,7 +26,7 @@ export function JoinRequestsList({ boardId, open }: { boardId: string; open: boo
   }
 
   if (joinRequests.length === 0) {
-    return <p className="py-6 text-center text-[13.5px] text-slate-500">No join requests</p>;
+    return <p className="py-6 text-center text-[13.5px] text-muted-foreground">No join requests</p>;
   }
 
   return (
@@ -40,10 +40,10 @@ export function JoinRequestsList({ boardId, open }: { boardId: string; open: boo
               </AvatarFallback>
             </Avatar>
             <div>
-              <div className="text-[13.5px] font-medium text-slate-900">
+              <div className="text-[13.5px] font-medium text-foreground">
                 {request.user.name ?? request.user.email}
               </div>
-              <div className="text-xs text-slate-500">{request.user.email}</div>
+              <div className="text-xs text-muted-foreground">{request.user.email}</div>
             </div>
           </div>
           <div className="flex items-center gap-1.5">

@@ -28,8 +28,8 @@ export function Sidebar() {
           className={cn(
             "flex items-center gap-3 rounded-md px-3.5 py-2 text-[13.5px]",
             active
-              ? "bg-blue-50 font-semibold text-primary"
-              : "font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900",
+              ? "bg-primary/10 font-semibold text-primary"
+              : "font-medium text-muted-foreground hover:bg-accent hover:text-foreground",
           )}
         >
           <link.icon className="size-4.5 shrink-0" />
@@ -45,8 +45,8 @@ export function Sidebar() {
         className={cn(
           "flex items-center gap-3 rounded-md px-3.5 py-2.75 text-left text-[13.5px] font-medium",
           link.danger
-            ? "text-red-600 hover:bg-red-50"
-            : "text-slate-600 hover:bg-slate-50 hover:text-slate-900",
+            ? "text-destructive hover:bg-destructive/10"
+            : "text-muted-foreground hover:bg-accent hover:text-foreground",
         )}
       >
         <link.icon className="size-4.5 shrink-0" />

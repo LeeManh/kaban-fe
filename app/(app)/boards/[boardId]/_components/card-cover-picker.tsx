@@ -31,7 +31,7 @@ export function CardCoverPicker({
   return (
     <>
       <div className="flex items-center justify-between">
-        <PopoverTitle className="text-sm font-semibold text-slate-900">Cover</PopoverTitle>
+        <PopoverTitle className="text-sm font-semibold text-foreground">Cover</PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
           <X className="size-3.5" />
           <span className="sr-only">Close</span>
@@ -40,7 +40,7 @@ export function CardCoverPicker({
 
       <div className="flex max-h-96 flex-col gap-3 overflow-y-aut">
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Colors</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Colors</div>
           <div className="grid grid-cols-5 gap-1.5">
             {COVER_COLORS.map((color) => (
               <button
@@ -62,7 +62,7 @@ export function CardCoverPicker({
         </div>
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Photos from Unsplash</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Photos from Unsplash</div>
           <div className="grid grid-cols-3 gap-1.5">
             {photos?.map((photo) => (
               <button
@@ -91,13 +91,13 @@ export function CardCoverPicker({
           </Button>
         </div>
 
-        <p className="text-[11px] leading-snug text-slate-500">
+        <p className="text-[11px] leading-snug text-muted-foreground">
           By using images from Unsplash, you agree to their{" "}
           <a
             href="https://unsplash.com/license"
             target="_blank"
             rel="noreferrer"
-            className="underline hover:text-slate-700"
+            className="underline hover:text-foreground"
           >
             license
           </a>{" "}
@@ -106,7 +106,7 @@ export function CardCoverPicker({
             href="https://unsplash.com/tos"
             target="_blank"
             rel="noreferrer"
-            className="underline hover:text-slate-700"
+            className="underline hover:text-foreground"
           >
             Terms of Service
           </a>

@@ -148,7 +148,7 @@ export function CardLabelsPopoverContent({
           >
             <ChevronLeft className="size-4" />
           </Button>
-          <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+          <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
             {isEdit ? "Edit label" : "Create label"}
           </PopoverTitle>
           <PopoverClose
@@ -159,7 +159,7 @@ export function CardLabelsPopoverContent({
           </PopoverClose>
         </div>
 
-        <div className="flex h-16 items-center justify-center rounded-md bg-slate-100 p-3">
+        <div className="flex h-16 items-center justify-center rounded-md bg-muted p-3">
           <div
             style={{ backgroundColor: formColor }}
             className="flex h-8 w-full items-center justify-center rounded-md px-2.5 text-[13px] font-medium text-black"
@@ -169,7 +169,7 @@ export function CardLabelsPopoverContent({
         </div>
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Title</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Title</div>
           <Input
             autoFocus
             value={formName}
@@ -189,7 +189,7 @@ export function CardLabelsPopoverContent({
         </div>
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Select a color</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Select a color</div>
           <div className="grid grid-cols-5 gap-1.5">
             {LABEL_COLORS.map((color) => (
               <button
@@ -265,7 +265,7 @@ export function CardLabelsPopoverContent({
           </Button>
         ) : null}
         <PopoverTitle
-          className={onBack ? "flex-1 text-center text-sm font-semibold text-slate-900" : "mx-auto text-sm font-semibold text-slate-900"}
+          className={onBack ? "flex-1 text-center text-sm font-semibold text-foreground" : "mx-auto text-sm font-semibold text-foreground"}
         >
           Labels
         </PopoverTitle>
@@ -283,7 +283,7 @@ export function CardLabelsPopoverContent({
       />
 
       <div>
-        <div className="mb-1.5 text-xs font-semibold text-slate-700">Labels</div>
+        <div className="mb-1.5 text-xs font-semibold text-foreground">Labels</div>
         <div className="flex flex-col gap-1.5">
           {filteredLabels.map((label) => (
             <div key={label.id} className="flex items-center gap-2">
@@ -298,7 +298,7 @@ export function CardLabelsPopoverContent({
                 type="button"
                 aria-label="Edit label"
                 onClick={() => openEdit(label)}
-                className="flex size-7 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:bg-slate-100"
+                className="flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:bg-accent"
               >
                 <Pencil className="size-3.5" />
               </button>

@@ -87,14 +87,14 @@ export function ProfileAvatarUpload({ user }: { user?: CurrentUser }) {
               variant="ghost"
               size="sm"
               disabled={updateProfile.isPending}
-              className="cursor-pointer text-slate-500"
+              className="cursor-pointer text-muted-foreground"
               onClick={handleRemove}
             >
               Remove
             </Button>
           )}
         </div>
-        <p className="text-xs text-slate-500">Image files up to 5MB.</p>
+        <p className="text-xs text-muted-foreground">Image files up to 5MB.</p>
       </div>
 
       <input

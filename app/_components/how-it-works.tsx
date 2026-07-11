@@ -7,11 +7,11 @@ import { SectionEyebrow } from "@/app/_components/section-eyebrow";
 
 export function HowItWorks() {
   return (
-    <section id="how" className="scroll-mt-17 border-y border-slate-200 bg-slate-50">
+    <section id="how" className="scroll-mt-17 border-y border-border bg-muted">
       <Container className="py-22">
         <div className="mb-13 text-center">
           <SectionEyebrow className="mx-auto">How it works</SectionEyebrow>
-          <h2 className="text-4xl font-extrabold tracking-[-0.03em] text-slate-900">
+          <h2 className="text-4xl font-extrabold tracking-[-0.03em] text-foreground">
             Up and running in three steps
           </h2>
         </div>
@@ -19,13 +19,13 @@ export function HowItWorks() {
         <div className="flex flex-col items-stretch gap-6 lg:flex-row">
           <BlurFade inView delay={0 * 0.1} className="flex-1">
             <StepCard number={1} title="Create a board">
-              <p className="mb-4.5 text-[13.5px] leading-[1.55] text-slate-500">
+              <p className="mb-4.5 text-[13.5px] leading-[1.55] text-muted-foreground">
                 Start from scratch or a template. Name it and pick a color.
               </p>
               <div className="flex h-19.5 items-center justify-center rounded-md bg-gradient-to-br from-primary to-blue-500">
-                <div className="flex h-11.5 w-32.5 items-center gap-2 rounded-md bg-white/90 px-3">
+                <div className="flex h-11.5 w-32.5 items-center gap-2 rounded-md bg-card/90 px-3">
                   <span className="size-2.5 rounded-md bg-primary" />
-                  <span className="h-1.75 w-15 rounded-md bg-slate-300" />
+                  <span className="h-1.75 w-15 rounded-md bg-muted-foreground/40" />
                 </div>
               </div>
             </StepCard>
@@ -35,17 +35,17 @@ export function HowItWorks() {
 
           <BlurFade inView delay={1 * 0.1} className="flex-1">
             <StepCard number={2} title="Add lists & cards">
-              <p className="mb-4.5 text-[13.5px] leading-[1.55] text-slate-500">
+              <p className="mb-4.5 text-[13.5px] leading-[1.55] text-muted-foreground">
                 Break work into lists. Drop in cards with due dates and labels.
               </p>
-              <div className="flex h-19.5 items-start gap-1.75 rounded-md bg-slate-200 p-2.25">
-                <div className="flex-1 rounded-md bg-white p-1.75 shadow-sm">
+              <div className="flex h-19.5 items-start gap-1.75 rounded-md bg-muted p-2.25">
+                <div className="flex-1 rounded-md bg-card p-1.75 shadow-sm">
                   <div className="mb-1.25 h-1.25 w-6.5 rounded-md bg-emerald-400" />
-                  <div className="h-1.25 w-4/5 rounded-md bg-slate-200" />
+                  <div className="h-1.25 w-4/5 rounded-md bg-muted-foreground/25" />
                 </div>
-                <div className="flex-1 rounded-md bg-white p-1.75 shadow-sm">
+                <div className="flex-1 rounded-md bg-card p-1.75 shadow-sm">
                   <div className="mb-1.25 h-1.25 w-6.5 rounded-md bg-sky-500" />
-                  <div className="h-1.25 w-2/3 rounded-md bg-slate-200" />
+                  <div className="h-1.25 w-2/3 rounded-md bg-muted-foreground/25" />
                 </div>
               </div>
             </StepCard>
@@ -55,10 +55,10 @@ export function HowItWorks() {
 
           <BlurFade inView delay={2 * 0.1} className="flex-1">
             <StepCard number={3} title="Invite your team">
-              <p className="mb-4.5 text-[13.5px] leading-[1.55] text-slate-500">
+              <p className="mb-4.5 text-[13.5px] leading-[1.55] text-muted-foreground">
                 Share the board and collaborate in real time, anywhere.
               </p>
-              <div className="flex h-19.5 items-center justify-center rounded-md bg-gradient-to-br from-blue-50 to-blue-100">
+              <div className="flex h-19.5 items-center justify-center rounded-md bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
                 <AvatarGroup>
                   <Avatar className="size-8.5">
                     <AvatarFallback className="bg-sky-500 text-[11px] font-bold text-white">
@@ -75,7 +75,7 @@ export function HowItWorks() {
                       SO
                     </AvatarFallback>
                   </Avatar>
-                  <AvatarGroupCount className="size-8.5 bg-slate-100 text-[11px] font-bold text-slate-600">
+                  <AvatarGroupCount className="size-8.5 bg-muted text-[11px] font-bold text-muted-foreground">
                     +3
                   </AvatarGroupCount>
                 </AvatarGroup>
@@ -98,12 +98,12 @@ function StepCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full rounded-md border border-slate-200 bg-white p-7 shadow-xs">
+    <div className="h-full rounded-md border border-border bg-card p-7 shadow-xs">
       <div className="mb-4.5 flex items-center gap-3">
         <span className="flex size-9.5 shrink-0 items-center justify-center rounded-md bg-primary text-[17px] font-extrabold text-primary-foreground shadow-[0_3px_8px_--theme(--color-primary/30%)]">
           {number}
         </span>
-        <h3 className="text-[17px] font-bold tracking-[-0.01em] text-slate-900">{title}</h3>
+        <h3 className="text-[17px] font-bold tracking-[-0.01em] text-foreground">{title}</h3>
       </div>
       {children}
     </div>
@@ -112,7 +112,7 @@ function StepCard({
 
 function StepArrow() {
   return (
-    <div className="hidden items-center text-slate-300 lg:flex">
+    <div className="hidden items-center text-muted-foreground/50 lg:flex">
       <ArrowRight className="size-6.5" strokeWidth={2.2} />
     </div>
   );

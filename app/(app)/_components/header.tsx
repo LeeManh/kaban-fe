@@ -21,18 +21,18 @@ export function Header() {
     <header
       className={cn(
         "flex h-14 flex-none items-center gap-3.5 px-3.5  border-b-[0.5px]",
-        background ? "bg-black/40" : "bg-white",
-        background ? "border-white/15" : "border-slate-200",
+        background ? "bg-black/40" : "bg-background",
+        background ? "border-white/15" : "border-border",
       )}
     >
-      <Logo className={cn("shrink-0", background ? "text-white" : "text-slate-900")} />
+      <Logo className={cn("shrink-0", background ? "text-white" : "text-foreground")} />
 
       <div className="flex flex-1 items-center justify-center gap-2.5">
         <div className="relative max-w-2xl flex-1">
           <Search
             className={cn(
               "absolute top-1/2 left-2.75 size-4 -translate-y-1/2",
-              background ? "text-white/70" : "text-slate-400",
+              background ? "text-white/70" : "text-muted-foreground",
             )}
           />
           <Input
@@ -45,7 +45,7 @@ export function Header() {
               "w-full h-8 pl-8.5 focus-visible:ring-0",
               background
                 ? "border-transparent bg-white/20 text-white placeholder:text-white/70 focus-visible:border-transparent focus-visible:bg-white/25"
-                : "bg-slate-50 focus-visible:border-slate-300 focus-visible:bg-white",
+                : "bg-muted focus-visible:border-border focus-visible:bg-background",
             )}
           />
         </div>

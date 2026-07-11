@@ -26,7 +26,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         style={background ? { background: toBackgroundStyle(background) } : undefined}
         className={cn(
           "flex h-screen w-full flex-col overflow-hidden",
-          background ? "bg-cover bg-center" : "bg-white",
+          background ? "bg-cover bg-center" : "bg-background",
         )}
       >
         {children}

@@ -52,7 +52,7 @@ function ProfileAboutFields({ user }: { user: CurrentUser }) {
               <FieldLabel
                 htmlFor="profile-name"
                 required
-                className="mb-1.5 text-xs font-semibold text-slate-700"
+                className="mb-1.5 text-xs font-semibold text-foreground"
               >
                 Full name
               </FieldLabel>
@@ -76,7 +76,7 @@ function ProfileAboutFields({ user }: { user: CurrentUser }) {
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel
                 htmlFor="profile-bio"
-                className="mb-1.5 text-xs font-semibold text-slate-700"
+                className="mb-1.5 text-xs font-semibold text-foreground"
               >
                 Bio
               </FieldLabel>
@@ -97,7 +97,7 @@ function ProfileAboutFields({ user }: { user: CurrentUser }) {
         <Field>
           <FieldLabel
             htmlFor="profile-email"
-            className="mb-1.5 text-xs font-semibold text-slate-700"
+            className="mb-1.5 text-xs font-semibold text-foreground"
           >
             Email
           </FieldLabel>
@@ -122,16 +122,16 @@ export function ProfilePageContent() {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold text-slate-900">Profile and Visibility</h1>
+      <h1 className="text-2xl font-semibold text-foreground">Profile and Visibility</h1>
 
       <div className="mt-8">
-        <div className="mb-2 text-sm font-semibold text-slate-700">Photo</div>
+        <div className="mb-2 text-sm font-semibold text-foreground">Photo</div>
         <ProfileAvatarUpload user={user} />
       </div>
 
-      <div className="mt-8 border-t border-slate-200 pt-8">
-        <h2 className="text-lg font-semibold text-slate-900">About</h2>
-        <p className="mt-1 text-xs text-slate-500">
+      <div className="mt-8 border-t border-border pt-8">
+        <h2 className="text-lg font-semibold text-foreground">About</h2>
+        <p className="mt-1 text-xs text-muted-foreground">
           Required fields are marked with an asterisk <span className="text-destructive">*</span>
         </p>
 

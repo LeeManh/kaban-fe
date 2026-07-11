@@ -1,11 +1,40 @@
-import { Menu } from "lucide-react";
+"use client";
+
+import { Menu, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { Container } from "@/components/container";
 import { Logo } from "@/components/logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+
+function ThemeToggle({ className }: { className?: string }) {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
+
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      size="icon"
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className={className}
+    >
+      {mounted ? isDark ? <Sun /> : <Moon /> : null}
+    </Button>
+  );
+}
 
 const NAV_LINKS = [
   { href: "#features", label: "Features" },
@@ -16,21 +45,22 @@ const NAV_LINKS = [
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <Container className="flex h-17 items-center gap-8">
-        <Logo />
+        <Logo className="dark:text-slate-100" />
         <nav className="hidden flex-1 items-center justify-center gap-7.5 lg:flex">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-slate-600 transition-colors hover:text-primary"
+              className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
             >
               {link.label}
             </a>
           ))}
         </nav>
         <div className="ml-auto hidden items-center gap-2.5 lg:flex">
+          <ThemeToggle />
           <Link href="/login" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
             Log in
           </Link>
@@ -45,10 +75,10 @@ export function Navbar() {
           </Link>
         </div>
 
+        <ThemeToggle className="ml-auto lg:hidden" />
+
         <Sheet>
-          <SheetTrigger
-            render={<Button variant="ghost" size="icon" className="ml-auto lg:hidden" />}
-          >
+          <SheetTrigger render={<Button variant="ghost" size="icon" className="lg:hidden" />}>
             <Menu />
             <span className="sr-only">Open menu</span>
           </SheetTrigger>
@@ -62,7 +92,7 @@ export function Navbar() {
                   render={
                     <a
                       href={link.href}
-                      className="rounded-md px-2.5 py-2.5 text-[15px] font-semibold text-slate-600 hover:bg-slate-50 hover:text-primary"
+                      className="rounded-md px-2.5 py-2.5 text-[15px] font-semibold text-muted-foreground hover:bg-accent hover:text-primary"
                     />
                   }
                 >

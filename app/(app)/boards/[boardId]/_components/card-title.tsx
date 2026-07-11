@@ -31,14 +31,14 @@ export function CardTitle({
               <Check className="size-2.5 text-white" strokeWidth={3} />
             </span>
           ) : (
-            <Circle className="size-4 text-slate-400" />
+            <Circle className="size-4 text-muted-foreground" />
           )}
         </TooltipTrigger>
         <TooltipContent side="top" showArrow={false}>
           {isDone ? "Mark incomplete" : "Mark complete"}
         </TooltipContent>
       </Tooltip>
-      <h2 className="text-xl leading-snug font-semibold text-slate-900">{title}</h2>
+      <h2 className="text-xl leading-snug font-semibold text-foreground">{title}</h2>
     </div>
   );
 }

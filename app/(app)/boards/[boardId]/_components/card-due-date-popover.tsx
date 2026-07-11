@@ -81,7 +81,7 @@ export function CardDueDatePopoverContent({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">Dates</PopoverTitle>
+        <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">Dates</PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
           <X className="size-3.5" />
           <span className="sr-only">Close</span>
@@ -99,7 +99,7 @@ export function CardDueDatePopoverContent({
       />
 
       <div>
-        <div className="mb-1.5 text-xs font-semibold text-slate-700">Due date</div>
+        <div className="mb-1.5 text-xs font-semibold text-foreground">Due date</div>
         <div className="flex items-center gap-2">
           <Checkbox checked={hasDueDate} onCheckedChange={(checked) => setHasDueDate(!!checked)} />
           <Input

@@ -79,7 +79,7 @@ export function CardCoverBanner({
   if (!cover) {
     return (
       <div className="flex items-center justify-between gap-3 p-3">
-        <Button variant="secondary" size="sm" className="cursor-pointer gap-1 text-slate-700">
+        <Button variant="secondary" size="sm" className="cursor-pointer gap-1 text-foreground">
           {listTitle}
           <ChevronDown className="size-3.5" />
         </Button>

@@ -75,14 +75,14 @@ export function SettingsPageContent() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-semibold text-slate-900">Settings</h1>
+      <h1 className="text-2xl font-semibold text-foreground">Settings</h1>
 
       <div className="">
-        <h2 className="text-lg font-semibold text-slate-900">Email notifications</h2>
+        <h2 className="text-lg font-semibold text-foreground">Email notifications</h2>
 
         <div className="mt-5">
-          <div className="text-sm font-semibold text-slate-700">Frequency</div>
-          <p className="mt-1 text-xs text-slate-500">
+          <div className="text-sm font-semibold text-foreground">Frequency</div>
+          <p className="mt-1 text-xs text-muted-foreground">
             Email notifications can be sent &lsquo;Instantly&rsquo; (as soon as they occur). If
             you&apos;d like to opt-out of all notification emails, set the frequency as
             &lsquo;Never&rsquo;.
@@ -95,19 +95,19 @@ export function SettingsPageContent() {
             {FREQUENCY_OPTIONS.map((option) => (
               <label key={option.value} className="flex cursor-pointer items-center gap-2.5">
                 <RadioGroupItem value={option.value} disabled={!isReady || isMutating} />
-                <span className="text-[13.5px] text-slate-700">{option.label}</span>
+                <span className="text-[13.5px] text-foreground">{option.label}</span>
               </label>
             ))}
           </RadioGroup>
         </div>
 
         <div className="mt-6">
-          <div className="text-sm font-semibold text-slate-700">Email notification preferences</div>
-          <p className="mt-1 text-xs text-slate-500">
+          <div className="text-sm font-semibold text-foreground">Email notification preferences</div>
+          <p className="mt-1 text-xs text-muted-foreground">
             These preferences only apply to email notifications for cards you&apos;re assigned to.
             Select which notifications you&apos;d like to receive via email.
           </p>
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-muted-foreground">
             You&apos;ll always get emails for invites, direct mentions, and more.
           </p>
 
@@ -118,7 +118,7 @@ export function SettingsPageContent() {
                 onCheckedChange={(v) => toggleAll(!!v)}
                 disabled={!isReady || isMutating}
               />
-              <span className="text-[13.5px] font-medium text-slate-700">Select all</span>
+              <span className="text-[13.5px] font-medium text-foreground">Select all</span>
             </label>
 
             {NOTIFICATION_PREFERENCES.map((preference) => (
@@ -130,8 +130,8 @@ export function SettingsPageContent() {
                   className="mt-0.5"
                 />
                 <span className="flex flex-col">
-                  <span className="text-[13.5px] text-slate-700">{preference.label}</span>
-                  <span className="text-xs text-slate-500">{preference.description}</span>
+                  <span className="text-[13.5px] text-foreground">{preference.label}</span>
+                  <span className="text-xs text-muted-foreground">{preference.description}</span>
                 </span>
               </label>
             ))}

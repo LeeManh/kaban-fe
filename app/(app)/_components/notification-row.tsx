@@ -21,7 +21,7 @@ const NOTIFICATION_TYPE_META: Record<
   DUE_REMINDER: { icon: Clock, className: "bg-amber-100 text-amber-600" },
   COMMENT_MENTION: { icon: MessageSquare, className: "bg-blue-100 text-blue-600" },
   BOARD_INVITATION: { icon: UserPlus, className: "bg-emerald-100 text-emerald-600" },
-  CARD_REMOVED: { icon: UserMinus, className: "bg-slate-200 text-slate-600" },
+  CARD_REMOVED: { icon: UserMinus, className: "bg-muted text-muted-foreground" },
   ATTACHMENT_ADDED: { icon: Paperclip, className: "bg-orange-100 text-orange-600" },
   CARD_MOVED: { icon: ArrowRightLeft, className: "bg-cyan-100 text-cyan-600" },
 };
@@ -49,8 +49,8 @@ export function NotificationRow({
       href={getNotificationHref(notification)}
       onClick={onClick}
       className={cn(
-        "flex items-start gap-3 rounded-md px-2.5 py-2.5 hover:bg-slate-50",
-        !notification.isRead && "bg-blue-50/60",
+        "flex items-start gap-3 rounded-md px-2.5 py-2.5 hover:bg-accent",
+        !notification.isRead && "bg-primary/10",
       )}
     >
       <span
@@ -62,10 +62,10 @@ export function NotificationRow({
         <Icon className="size-4" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[13.5px] leading-snug text-slate-800">
+        <span className="block text-[13.5px] leading-snug text-foreground">
           {notification.message}
         </span>
-        <span className="mt-0.5 block text-xs text-slate-500">
+        <span className="mt-0.5 block text-xs text-muted-foreground">
           {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
         </span>
       </span>

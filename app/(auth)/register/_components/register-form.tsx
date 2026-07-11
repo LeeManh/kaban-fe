@@ -70,10 +70,10 @@ export function RegisterForm() {
 
   return (
     <div className="w-full max-w-95">
-      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
+      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-foreground">
         Create your account
       </h1>
-      <p className="mb-6.5 text-sm text-slate-500">Start organizing your work in minutes.</p>
+      <p className="mb-6.5 text-sm text-muted-foreground">Start organizing your work in minutes.</p>
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <FieldGroup className="gap-4.5">
@@ -85,7 +85,7 @@ export function RegisterForm() {
                 <FieldLabel
                   htmlFor="register-name"
                   required
-                  className="text-[13px] font-semibold text-slate-700"
+                  className="text-[13px] font-semibold text-foreground"
                 >
                   Full name
                 </FieldLabel>
@@ -110,7 +110,7 @@ export function RegisterForm() {
                 <FieldLabel
                   htmlFor="register-email"
                   required
-                  className="text-[13px] font-semibold text-slate-700"
+                  className="text-[13px] font-semibold text-foreground"
                 >
                   Email
                 </FieldLabel>
@@ -137,7 +137,7 @@ export function RegisterForm() {
                 <FieldLabel
                   htmlFor="register-password"
                   required
-                  className="text-[13px] font-semibold text-slate-700"
+                  className="text-[13px] font-semibold text-foreground"
                 >
                   Password
                 </FieldLabel>
@@ -161,7 +161,7 @@ export function RegisterForm() {
                 <FieldLabel
                   htmlFor="register-confirm"
                   required
-                  className="text-[13px] font-semibold text-slate-700"
+                  className="text-[13px] font-semibold text-foreground"
                 >
                   Confirm password
                 </FieldLabel>
@@ -187,7 +187,7 @@ export function RegisterForm() {
         </FieldGroup>
       </form>
 
-      <p className="mt-5.5 text-center text-[13.5px] text-slate-500">
+      <p className="mt-5.5 text-center text-[13.5px] text-muted-foreground">
         Already have an account?{" "}
         <Link href={loginHref} className="font-bold text-primary hover:underline">
           Sign in

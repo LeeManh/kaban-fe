@@ -15,8 +15,8 @@ export function ProfileSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-64 shrink-0 border-r border-slate-200 px-4 py-6">
-      <div className="mb-2 px-3 text-xs font-semibold tracking-wide text-slate-500 uppercase">
+    <div className="w-64 shrink-0 border-r border-border px-4 py-6">
+      <div className="mb-2 px-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
         Personal Settings
       </div>
       <nav className="flex flex-col gap-0.5">
@@ -29,8 +29,8 @@ export function ProfileSidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 text-[13.5px]",
                 active
-                  ? "bg-blue-50 font-semibold text-primary"
-                  : "font-medium text-slate-500 hover:bg-slate-50 hover:text-slate-700",
+                  ? "bg-primary/10 font-semibold text-primary"
+                  : "font-medium text-muted-foreground hover:bg-accent hover:text-foreground",
               )}
             >
               <item.icon className="size-4.5 shrink-0" />

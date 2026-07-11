@@ -69,7 +69,7 @@ export function MarkdownEditor({
   const isEmpty = showSource ? !sourceText.trim() : editor.isEmpty;
 
   return (
-    <div className="rounded-md border border-slate-300 bg-white p-2">
+    <div className="rounded-md border border-border bg-card p-2">
       <CardDescriptionToolbar
         boardId={boardId}
         cardId={cardId}

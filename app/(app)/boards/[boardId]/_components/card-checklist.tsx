@@ -48,7 +48,7 @@ export function CardChecklist({ boardId, checklist }: { boardId: string; checkli
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <CheckSquare className="size-4" />
           {checklist.title}
         </div>
@@ -59,8 +59,8 @@ export function CardChecklist({ boardId, checklist }: { boardId: string; checkli
       </div>
 
       <div className="mb-2 flex items-center gap-2">
-        <span className="text-xs font-medium text-slate-500">{percent}%</span>
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-200">
+        <span className="text-xs font-medium text-muted-foreground">{percent}%</span>
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
           <div
             className="h-full rounded-full bg-emerald-500 transition-all"
             style={{ width: `${percent}%` }}
@@ -72,7 +72,7 @@ export function CardChecklist({ boardId, checklist }: { boardId: string; checkli
         {checklist.items.map((item) => (
           <div
             key={item.id}
-            className="group flex items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-slate-100"
+            className="group flex items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-accent"
           >
             <Checkbox
               checked={item.isDone}
@@ -80,8 +80,8 @@ export function CardChecklist({ boardId, checklist }: { boardId: string; checkli
             />
             <span
               className={cn(
-                "flex-1 text-[13.5px] text-slate-700",
-                item.isDone && "text-slate-400 line-through",
+                "flex-1 text-[13.5px] text-foreground",
+                item.isDone && "text-muted-foreground line-through",
               )}
             >
               {item.content}
@@ -91,7 +91,7 @@ export function CardChecklist({ boardId, checklist }: { boardId: string; checkli
                 type="button"
                 aria-label="Delete item"
                 onClick={() => deleteChecklistItem.mutate(item.id)}
-                className="flex size-6 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:bg-slate-200"
+                className="flex size-6 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:bg-accent"
               >
                 <Trash2 className="size-3.5" />
               </button>
@@ -134,7 +134,7 @@ export function CardChecklist({ boardId, checklist }: { boardId: string; checkli
         <button
           type="button"
           onClick={() => setIsAddingItem(true)}
-          className="mt-1.5 flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-slate-500 hover:bg-slate-200"
+          className="mt-1.5 flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-muted-foreground hover:bg-accent"
         >
           <Plus className="size-3.75" />
           Add an item

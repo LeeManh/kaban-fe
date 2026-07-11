@@ -191,17 +191,17 @@ export function BoardCanvas({ boardId, lists }: { boardId: string; lists: ListWi
 
       <DragOverlay>
         {activeList && (
-          <div className="flex w-70 shrink-0 rotate-3 flex-col rounded-md bg-slate-100 p-2 shadow-lg">
+          <div className="flex w-70 shrink-0 rotate-3 flex-col rounded-md bg-muted p-2 shadow-lg">
             <div className="mb-1 flex items-center gap-1.5 px-1.5 py-1">
-              <span className="flex-1 truncate text-[13.5px] font-semibold text-slate-700">
+              <span className="flex-1 truncate text-[13.5px] font-semibold text-foreground">
                 {activeList.title}
               </span>
               {activeList.cards.length > 0 && (
-                <span className="text-xs font-medium text-slate-600">
+                <span className="text-xs font-medium text-muted-foreground">
                   {activeList.cards.length}
                 </span>
               )}
-              <span className="flex size-6 items-center justify-center rounded-md text-slate-500">
+              <span className="flex size-6 items-center justify-center rounded-md text-muted-foreground">
                 <Ellipsis className="size-3.75" />
               </span>
             </div>
@@ -212,7 +212,7 @@ export function BoardCanvas({ boardId, lists }: { boardId: string; lists: ListWi
               ))}
             </div>
 
-            <div className="mt-1.5 flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-slate-500">
+            <div className="mt-1.5 flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-muted-foreground">
               <Plus className="size-3.75" />
               Add a card
             </div>

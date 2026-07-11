@@ -72,7 +72,7 @@ export function NotificationsButton() {
                     "flex size-8 items-center justify-center rounded-md",
                     background
                       ? "text-white hover:bg-white/15"
-                      : "text-slate-600 hover:bg-slate-100",
+                      : "text-muted-foreground hover:bg-accent",
                   )}
                 />
               }
@@ -80,7 +80,7 @@ export function NotificationsButton() {
               <span className="relative flex">
                 <Bell className="size-4" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+                  <span className="absolute -top-1.5 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold text-white">
                     {unreadCount > 9 ? "9+" : unreadCount}
                   </span>
                 )}
@@ -94,12 +94,12 @@ export function NotificationsButton() {
       </Tooltip>
 
       <PopoverContent align="end" className="max-h-[80vh] w-96 gap-0 overflow-hidden p-0">
-        <div className="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-3">
-          <PopoverTitle className="text-base font-semibold text-slate-900">
+        <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+          <PopoverTitle className="text-base font-semibold text-foreground">
             Notifications
           </PopoverTitle>
           <div className="flex items-center gap-3">
-            <label className="flex cursor-pointer items-center gap-1.5 text-xs text-slate-600">
+            <label className="flex cursor-pointer items-center gap-1.5 text-xs text-muted-foreground">
               Only show unread
               <Switch checked={onlyUnread} onCheckedChange={setOnlyUnread} size="sm" />
             </label>
@@ -109,7 +109,7 @@ export function NotificationsButton() {
                   <button
                     type="button"
                     aria-label="More options"
-                    className="flex size-7 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:bg-slate-100"
+                    className="flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:bg-accent"
                   />
                 }
               >
@@ -138,12 +138,12 @@ export function NotificationsButton() {
         <div className="max-h-100 overflow-y-auto p-2">
           {isLoading ? (
             <div className="flex flex-col items-center gap-3 px-6 py-16 text-center">
-              <p className="text-sm text-slate-500">Loading…</p>
+              <p className="text-sm text-muted-foreground">Loading…</p>
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center gap-3 px-6 py-16 text-center">
-              <BellOff className="size-10 text-slate-300" />
-              <p className="text-sm text-slate-500">
+              <BellOff className="size-10 text-muted-foreground/50" />
+              <p className="text-sm text-muted-foreground">
                 {onlyUnread ? "No unread notifications" : "No notifications yet"}
               </p>
             </div>

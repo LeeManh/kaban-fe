@@ -95,7 +95,7 @@ function AddToCardButton({
           <>
             <div className="flex items-center justify-between px-1">
               <span className="w-6" />
-              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
                 Add to card
               </PopoverTitle>
               <PopoverClose
@@ -113,12 +113,12 @@ function AddToCardButton({
                     key={title}
                     type="button"
                     onClick={targetView ? () => setView(targetView) : undefined}
-                    className="flex cursor-pointer items-start gap-3 rounded-md p-2 text-left hover:bg-slate-100"
+                    className="flex cursor-pointer items-start gap-3 rounded-md p-2 text-left hover:bg-accent"
                   >
-                    <Icon className="mt-0.5 size-4 shrink-0 text-slate-600" />
+                    <Icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
                     <div>
-                      <div className="text-[13.5px] font-medium text-slate-800">{title}</div>
-                      <div className="text-xs text-slate-500">{description}</div>
+                      <div className="text-[13.5px] font-medium text-foreground">{title}</div>
+                      <div className="text-xs text-muted-foreground">{description}</div>
                     </div>
                   </button>
                 );

@@ -27,13 +27,13 @@ export function CardDueDate({
 
   return (
     <div>
-      <div className="mb-1.5 text-xs font-semibold text-slate-500">Due date</div>
+      <div className="mb-1.5 text-xs font-semibold text-muted-foreground">Due date</div>
       <Popover>
         <PopoverTrigger
           render={
             <button
               type="button"
-              className="flex cursor-pointer items-center gap-2 rounded-md bg-slate-100 px-2.5 py-1.5 text-[13px] font-medium text-slate-700 hover:bg-slate-200"
+              className="flex cursor-pointer items-center gap-2 rounded-md bg-muted px-2.5 py-1.5 text-[13px] font-medium text-foreground hover:bg-accent"
             />
           }
         >

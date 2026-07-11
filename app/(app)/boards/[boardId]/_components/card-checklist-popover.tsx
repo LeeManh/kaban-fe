@@ -28,7 +28,7 @@ export function CardChecklistPopoverContent({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">Add checklist</PopoverTitle>
+        <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">Add checklist</PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
           <X className="size-3.5" />
           <span className="sr-only">Close</span>
@@ -36,7 +36,7 @@ export function CardChecklistPopoverContent({
       </div>
 
       <div>
-        <div className="mb-1.5 text-xs font-semibold text-slate-700">Title</div>
+        <div className="mb-1.5 text-xs font-semibold text-foreground">Title</div>
         <Input
           autoFocus
           value={title}

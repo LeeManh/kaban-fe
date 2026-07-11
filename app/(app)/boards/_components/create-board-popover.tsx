@@ -77,7 +77,7 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
       <PopoverContent align="start" className="w-80 gap-3.5 p-4">
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="contents">
           <div className="flex items-center justify-between">
-            <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">
+            <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
               Create board
             </PopoverTitle>
             <PopoverClose render={<Button variant="ghost" size="icon-xs" />}>
@@ -117,7 +117,7 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
                 </div>
 
                 <div>
-                  <div className="mb-1.5 text-xs font-semibold text-slate-700">
+                  <div className="mb-1.5 text-xs font-semibold text-foreground">
                     Background <span className="text-destructive">*</span>
                   </div>
                   <div className="grid grid-cols-4 gap-1.5">
@@ -134,8 +134,8 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
                         className="relative h-11 rounded-md bg-cover bg-center hover:brightness-110 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                       >
                         {field.value === photo.regularUrl && (
-                          <span className="absolute top-1 right-1 flex size-4 items-center justify-center rounded-full bg-white">
-                            <Check className="size-2.5 text-slate-900" strokeWidth={3} />
+                          <span className="absolute top-1 right-1 flex size-4 items-center justify-center rounded-full bg-background">
+                            <Check className="size-2.5 text-foreground" strokeWidth={3} />
                           </span>
                         )}
                       </button>
@@ -155,8 +155,8 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
                         className="relative h-8 rounded-md hover:brightness-110 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                       >
                         {field.value === swatch.value && (
-                          <span className="absolute top-1 right-1 flex size-4 items-center justify-center rounded-full bg-white">
-                            <Check className="size-2.5 text-slate-900" strokeWidth={3} />
+                          <span className="absolute top-1 right-1 flex size-4 items-center justify-center rounded-full bg-background">
+                            <Check className="size-2.5 text-foreground" strokeWidth={3} />
                           </span>
                         )}
                       </button>
@@ -164,7 +164,7 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
                     <button
                       type="button"
                       aria-label="More colors"
-                      className="relative flex h-8 items-center justify-center rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                      className="relative flex h-8 items-center justify-center rounded-md bg-muted text-muted-foreground hover:bg-accent focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                     >
                       <Ellipsis className="size-4" />
                     </button>
@@ -187,7 +187,7 @@ export function CreateBoardPopover({ children }: { children: ReactElement }) {
                 <FieldLabel
                   htmlFor="popover-board-name"
                   required
-                  className="mb-1.5 text-xs font-semibold text-slate-700"
+                  className="mb-1.5 text-xs font-semibold text-foreground"
                 >
                   Board title
                 </FieldLabel>

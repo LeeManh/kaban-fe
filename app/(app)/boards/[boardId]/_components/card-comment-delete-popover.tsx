@@ -19,7 +19,7 @@ export function CardCommentDeletePopover({
       </PopoverTrigger>
       <PopoverContent align="start" className="w-72 gap-3">
         <div className="flex items-center justify-between">
-          <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">
+          <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
             Delete comment?
           </PopoverTitle>
           <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
@@ -28,7 +28,7 @@ export function CardCommentDeletePopover({
           </PopoverClose>
         </div>
 
-        <p className="text-[13px] text-slate-600">
+        <p className="text-[13px] text-muted-foreground">
           Deleting a comment is permanent and there is no way to get it back.
         </p>
 

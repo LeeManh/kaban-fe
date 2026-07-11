@@ -34,7 +34,7 @@ export function AddCardForm({ boardId, listId }: { boardId: string; listId: stri
       <button
         type="button"
         onClick={() => setIsAdding(true)}
-        className="mt-1.5 flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-slate-500 hover:bg-slate-200"
+        className="mt-1.5 flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-muted-foreground hover:bg-accent"
       >
         <Plus className="size-3.75" />
         Add a card
@@ -63,7 +63,7 @@ export function AddCardForm({ boardId, listId }: { boardId: string; listId: stri
           if (e.key === "Escape") close();
         }}
         placeholder="Enter a title or paste a link"
-        className="min-h-16 resize-none bg-white text-sm shadow-sm"
+        className="min-h-16 resize-none bg-card text-sm shadow-sm"
       />
       <div className="flex items-center gap-2">
         <Button type="submit" size="sm" disabled={!title.trim() || createCard.isPending}>

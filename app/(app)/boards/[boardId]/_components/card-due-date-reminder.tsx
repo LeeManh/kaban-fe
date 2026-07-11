@@ -33,7 +33,7 @@ export function CardDueDateReminder({
 
   return (
     <div>
-      <div className="mb-1.5 text-xs font-semibold text-slate-700">Set due date reminder</div>
+      <div className="mb-1.5 text-xs font-semibold text-foreground">Set due date reminder</div>
       <DropdownMenu>
         <DropdownMenuTrigger
           render={<Button variant="outline" className="w-full cursor-pointer justify-between" />}
@@ -49,7 +49,7 @@ export function CardDueDateReminder({
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <p className="mt-1.5 text-xs text-slate-500">
+      <p className="mt-1.5 text-xs text-muted-foreground">
         Reminders will be sent to all members and watchers of this card.
       </p>
     </div>

@@ -23,7 +23,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
         "flex w-70 shrink-0 flex-col rounded-md p-2",
-        isDragging ? "bg-slate-300/20" : "bg-slate-100",
+        isDragging ? "bg-muted-foreground/10" : "bg-muted",
       )}
     >
       <div className={cn("flex flex-1 flex-col", isDragging && "invisible")}>
@@ -34,13 +34,13 @@ export function BoardList({ list }: { list: ListWithCards }) {
         >
           <ListTitle boardId={list.boardId} listId={list.id} title={list.title} />
           {list.cards.length > 0 && (
-            <span className="text-xs font-medium text-slate-600">{list.cards.length}</span>
+            <span className="text-xs font-medium text-muted-foreground">{list.cards.length}</span>
           )}
           <button
             type="button"
             aria-label="List actions"
             onPointerDown={(e) => e.stopPropagation()}
-            className="flex size-6 items-center justify-center rounded-md text-slate-500 hover:bg-slate-200"
+            className="flex size-6 items-center justify-center rounded-md text-muted-foreground hover:bg-accent"
           >
             <Ellipsis className="size-3.75" />
           </button>

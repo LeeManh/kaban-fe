@@ -51,7 +51,7 @@ export function CardCoverSearch({
         >
           <ChevronLeft className="size-4" />
         </Button>
-        <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+        <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
           Photo search
         </PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
@@ -70,7 +70,7 @@ export function CardCoverSearch({
         />
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Suggested searches</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Suggested searches</div>
           <div className="flex flex-wrap gap-1.5">
             {SUGGESTED_SEARCHES.map((term) => (
               <button
@@ -80,8 +80,8 @@ export function CardCoverSearch({
                 className={cn(
                   "cursor-pointer rounded-md border px-2.5 py-1 text-[13px] font-medium",
                   searchQuery === term
-                    ? "border-slate-300 bg-slate-100 text-slate-900"
-                    : "border-slate-300 text-slate-700 hover:bg-slate-50",
+                    ? "border-border bg-muted text-foreground"
+                    : "border-border text-foreground hover:bg-accent",
                 )}
               >
                 {term}
@@ -91,7 +91,7 @@ export function CardCoverSearch({
         </div>
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Top photos</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Top photos</div>
           <div className="grid grid-cols-3 gap-1.5">
             {photos?.map((photo) => (
               <button
@@ -123,7 +123,7 @@ export function CardCoverSearch({
           )}
         </div>
 
-        <p className="text-right text-[11px] text-slate-500">
+        <p className="text-right text-[11px] text-muted-foreground">
           Photos from{" "}
           <a
             href="https://unsplash.com"

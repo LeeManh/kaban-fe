@@ -49,7 +49,7 @@ export function CardComments({
   return (
     <div className="flex h-full flex-col gap-3 overflow-y-auto p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <MessageSquare className="size-4" />
           Comments
         </div>
@@ -89,17 +89,17 @@ export function CardComments({
               ) : (
                 <>
                   <div className="flex items-center gap-1.5 text-[13px]">
-                    <span className="font-semibold text-slate-800">
+                    <span className="font-semibold text-foreground">
                       {comment.author.name ?? comment.author.email}
                     </span>
-                    <span className="text-slate-500">{formatTimeAgo(comment.createdAt)}</span>
-                    <Link2 className="size-3 text-slate-400" />
+                    <span className="text-muted-foreground">{formatTimeAgo(comment.createdAt)}</span>
+                    <Link2 className="size-3 text-muted-foreground" />
                   </div>
-                  <div className="mt-1 rounded-md border border-slate-200 px-2.5 py-1.5 text-[13.5px] text-slate-700">
+                  <div className="mt-1 rounded-md border border-border px-2.5 py-1.5 text-[13.5px] text-foreground">
                     <CardDescriptionViewer description={comment.content} expanded />
                   </div>
                   {comment.authorId === currentUserId && (
-                    <div className="mt-1 flex items-center gap-2 text-xs font-medium text-slate-500">
+                    <div className="mt-1 flex items-center gap-2 text-xs font-medium text-muted-foreground">
                       <button
                         type="button"
                         className="cursor-pointer hover:underline"

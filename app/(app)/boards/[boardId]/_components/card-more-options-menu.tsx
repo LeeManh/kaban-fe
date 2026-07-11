@@ -32,7 +32,7 @@ function CopyField({ label, value }: { label: string; value: string }) {
       type="button"
       aria-label={label}
       onClick={handleCopy}
-      className="w-full cursor-pointer truncate rounded-md bg-slate-100 px-2.5 py-2 text-left text-sm text-slate-700 hover:bg-slate-200"
+      className="w-full cursor-pointer truncate rounded-md bg-muted px-2.5 py-2 text-left text-sm text-foreground hover:bg-accent"
     >
       {copied ? "Copied to clipboard!" : value}
     </button>
@@ -134,7 +134,7 @@ export function CardMoreOptionsMenu({
               >
                 <ChevronLeft className="size-4" />
               </Button>
-              <span className="flex-1 text-center text-sm font-semibold text-slate-900">
+              <span className="flex-1 text-center text-sm font-semibold text-foreground">
                 Share and more…
               </span>
               <Button
@@ -149,7 +149,7 @@ export function CardMoreOptionsMenu({
             </div>
 
             <div>
-              <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+              <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-foreground">
                 Link to this card
                 <Lock className="size-3" />
               </div>

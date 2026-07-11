@@ -73,7 +73,7 @@ export function CardAttachmentActions({
             variant="ghost"
             size="icon-sm"
             aria-label="Attachment actions"
-            className="cursor-pointer text-slate-500 hover:bg-slate-200"
+            className="cursor-pointer text-muted-foreground hover:bg-accent"
           />
         }
       >
@@ -90,7 +90,7 @@ export function CardAttachmentActions({
                 className={
                   item === "Remove"
                     ? "cursor-pointer rounded-md p-2 text-left text-[13.5px] font-medium text-destructive hover:bg-destructive/10"
-                    : "cursor-pointer rounded-md p-2 text-left text-[13.5px] font-medium text-slate-800 hover:bg-slate-100"
+                    : "cursor-pointer rounded-md p-2 text-left text-[13.5px] font-medium text-foreground hover:bg-accent"
                 }
               >
                 {item}
@@ -111,7 +111,7 @@ export function CardAttachmentActions({
               >
                 <ChevronLeft className="size-4" />
               </Button>
-              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
                 Edit attachment
               </PopoverTitle>
               <PopoverClose
@@ -123,7 +123,7 @@ export function CardAttachmentActions({
             </div>
 
             <div>
-              <div className="mb-1.5 text-xs font-semibold text-slate-700">File name</div>
+              <div className="mb-1.5 text-xs font-semibold text-foreground">File name</div>
               <Input
                 autoFocus
                 value={filename}
@@ -159,7 +159,7 @@ export function CardAttachmentActions({
               >
                 <ChevronLeft className="size-4" />
               </Button>
-              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
                 Remove attachment?
               </PopoverTitle>
               <PopoverClose
@@ -170,7 +170,7 @@ export function CardAttachmentActions({
               </PopoverClose>
             </div>
 
-            <p className="text-[13px] text-slate-600">
+            <p className="text-[13px] text-muted-foreground">
               Remove this attachment? There is no undo.
             </p>
 

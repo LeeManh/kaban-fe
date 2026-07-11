@@ -81,7 +81,7 @@ function CardMeta({ card, isDone }: { card: CardSummary; isDone: boolean }) {
   if (!hasMeta && card.assignees.length === 0) return null;
 
   return (
-    <div className="mt-2 flex flex-wrap items-center gap-1 text-slate-500">
+    <div className="mt-2 flex flex-wrap items-center gap-1 text-muted-foreground">
       {card.dueDate && (
         <span
           className={cn(
@@ -147,7 +147,7 @@ function CardBody({
       {card.cover && <CardCover cover={card.cover} />}
       <CardLabels labels={card.labels} />
 
-      <p className="flex items-center gap-2 text-[13.5px] leading-snug text-slate-800">
+      <p className="flex items-center gap-2 text-[13.5px] leading-snug text-foreground">
         {onToggleChecked ? (
           <Tooltip>
             <TooltipTrigger
@@ -166,7 +166,7 @@ function CardBody({
                 />
               }
             >
-              {isDone ? <DoneBadge /> : <Circle className="size-4 text-slate-400" />}
+              {isDone ? <DoneBadge /> : <Circle className="size-4 text-muted-foreground" />}
             </TooltipTrigger>
             <TooltipContent side="top" showArrow={false}>
               {isDone ? "Mark incomplete" : "Mark complete"}
@@ -205,7 +205,7 @@ function CardEditView({
 
   return (
     <div ref={rootRef} onPointerDown={(e) => e.stopPropagation()} className="w-full">
-      <div className="rounded-md border-2 border-transparent bg-white p-2.5 shadow-sm">
+      <div className="rounded-md border-2 border-transparent bg-card p-2.5 shadow-sm">
         <CardLabels labels={card.labels} />
 
         <Textarea
@@ -220,7 +220,7 @@ function CardEditView({
             }
             if (e.key === "Escape") onCancel();
           }}
-          className="resize-none border-none p-0 text-[13.5px] leading-snug text-slate-800 shadow-none focus-visible:ring-0"
+          className="resize-none border-none p-0 text-[13.5px] leading-snug text-foreground shadow-none focus-visible:ring-0"
         />
 
         <CardMeta card={card} isDone={card.isDone} />
@@ -296,8 +296,8 @@ export function BoardCardItem({
           : cn(
               "group relative overflow-hidden rounded-md border-2 p-2.5 transition-shadow",
               isDragging
-                ? "border-transparent bg-slate-300/30"
-                : "cursor-pointer border-transparent bg-white shadow-sm hover:border-primary hover:shadow-md focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2",
+                ? "border-transparent bg-muted-foreground/10"
+                : "cursor-pointer border-transparent bg-card shadow-sm hover:border-primary hover:shadow-md focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2",
             )
       }
     >
@@ -328,7 +328,7 @@ export function BoardCardItem({
                     e.stopPropagation();
                     setIsEditing(true);
                   }}
-                  className="absolute top-1.5 right-1.5 hidden size-6 items-center justify-center rounded-md bg-white text-slate-500 shadow-sm group-hover:flex hover:bg-slate-100"
+                  className="absolute top-1.5 right-1.5 hidden size-6 items-center justify-center rounded-md bg-card text-muted-foreground shadow-sm group-hover:flex hover:bg-accent"
                 />
               }
             >
@@ -355,7 +355,7 @@ export function BoardCardItem({
 
 export function BoardCardPreview({ card }: { card: CardSummary }) {
   return (
-    <div className="cursor-grabbing overflow-hidden rounded-md bg-white p-2.5 shadow-lg">
+    <div className="cursor-grabbing overflow-hidden rounded-md bg-card p-2.5 shadow-lg">
       <CardBody card={card} />
     </div>
   );

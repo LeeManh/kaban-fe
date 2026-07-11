@@ -55,7 +55,7 @@ function ToolbarButton({
             aria-label={ariaLabel}
             aria-pressed={active}
             onClick={onClick}
-            className={cn("cursor-pointer", active && "bg-slate-200 text-slate-900")}
+            className={cn("cursor-pointer", active && "bg-muted text-foreground")}
           >
             {children}
           </Button>
@@ -107,7 +107,7 @@ export function CardDescriptionToolbar({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-0.5 border-b border-slate-200 pb-1.5">
+    <div className="flex flex-wrap items-center gap-0.5 border-b border-border pb-1.5">
       <DropdownMenu>
         <Tooltip>
           <TooltipTrigger
@@ -122,7 +122,7 @@ export function CardDescriptionToolbar({
                     disabled={showSource}
                     className={cn(
                       "cursor-pointer gap-0.5 disabled:opacity-40",
-                      isHeadingActive && "bg-slate-200 text-slate-900",
+                      isHeadingActive && "bg-muted text-foreground",
                     )}
                   />
                 }
@@ -145,7 +145,7 @@ export function CardDescriptionToolbar({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <div className="mx-1 h-4 w-px bg-slate-200" />
+      <div className="mx-1 h-4 w-px bg-muted" />
 
       <ToolbarButton
         ariaLabel="Bold"
@@ -176,7 +176,7 @@ export function CardDescriptionToolbar({
         <Code className="size-3.5" />
       </ToolbarButton>
 
-      <div className="mx-1 h-4 w-px bg-slate-200" />
+      <div className="mx-1 h-4 w-px bg-muted" />
 
       <DropdownMenu>
         <Tooltip>
@@ -192,7 +192,7 @@ export function CardDescriptionToolbar({
                     disabled={showSource}
                     className={cn(
                       "cursor-pointer disabled:opacity-40",
-                      isListActive && "bg-slate-200 text-slate-900",
+                      isListActive && "bg-muted text-foreground",
                     )}
                   />
                 }
@@ -229,7 +229,7 @@ export function CardDescriptionToolbar({
         <Minus className="size-3.5" />
       </ToolbarButton>
 
-      <div className="mx-1 h-4 w-px bg-slate-200" />
+      <div className="mx-1 h-4 w-px bg-muted" />
 
       <ToolbarButton ariaLabel="Link" active={editor.isActive("link")} onClick={setLink}>
         <LinkIcon className="size-3.5" />
@@ -247,7 +247,7 @@ export function CardDescriptionToolbar({
                 aria-label="Toggle markdown source"
                 aria-pressed={showSource}
                 onClick={onToggleSource}
-                className={cn("cursor-pointer font-mono", showSource && "bg-slate-200 text-slate-900")}
+                className={cn("cursor-pointer font-mono", showSource && "bg-muted text-foreground")}
               >
                 M↓
               </Button>

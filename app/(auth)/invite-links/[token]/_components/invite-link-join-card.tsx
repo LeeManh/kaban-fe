@@ -38,16 +38,16 @@ export function InviteLinkJoinCard({ token }: { token: string }) {
   }
 
   if (isLoading) {
-    return <p className="text-sm text-slate-500">Loading invite…</p>;
+    return <p className="text-sm text-muted-foreground">Loading invite…</p>;
   }
 
   if (isError || !preview) {
     return (
       <div className="w-full max-w-95 text-center">
-        <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
+        <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-foreground">
           Invite link not found
         </h1>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-muted-foreground">
           This invite link is invalid or has been revoked by a board admin.
         </p>
       </div>
@@ -57,10 +57,10 @@ export function InviteLinkJoinCard({ token }: { token: string }) {
   if (pendingSent) {
     return (
       <div className="w-full max-w-95 text-center">
-        <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
+        <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-foreground">
           Request sent
         </h1>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-muted-foreground">
           Your request to join &quot;{preview.boardName}&quot; has been sent. A board admin will
           review it shortly.
         </p>
@@ -70,10 +70,10 @@ export function InviteLinkJoinCard({ token }: { token: string }) {
 
   return (
     <div className="w-full max-w-95 text-center">
-      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
+      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-foreground">
         Join &quot;{preview.boardName}&quot;
       </h1>
-      <p className="mb-6.5 text-sm text-slate-500">
+      <p className="mb-6.5 text-sm text-muted-foreground">
         {preview.permission === "OPEN"
           ? "You've been invited via a shareable link. You'll join instantly."
           : "You've been invited via a shareable link. Joining requires approval from a board admin."}
@@ -93,7 +93,7 @@ export function InviteLinkJoinCard({ token }: { token: string }) {
         </Button>
       ) : (
         <div className="flex flex-col gap-2.5">
-          <p className="text-xs text-slate-500">Log in or create an account to continue.</p>
+          <p className="text-xs text-muted-foreground">Log in or create an account to continue.</p>
           <Button render={<Link href={authHref("/login", token)} />} className="w-full">
             Log in
           </Button>

@@ -34,7 +34,7 @@ export function AddListForm({ boardId }: { boardId: string }) {
       <button
         type="button"
         onClick={() => setIsAdding(true)}
-        className="flex w-70 shrink-0 items-center gap-1.5 rounded-md bg-white px-3 py-2 text-[13.5px] font-medium text-slate-700 shadow-sm hover:bg-slate-200"
+        className="flex w-70 shrink-0 items-center gap-1.5 rounded-md bg-card px-3 py-2 text-[13.5px] font-medium text-foreground shadow-sm hover:bg-accent"
       >
         <Plus className="size-4" />
         Add another list
@@ -49,7 +49,7 @@ export function AddListForm({ boardId }: { boardId: string }) {
         e.preventDefault();
         submit();
       }}
-      className="flex w-70 shrink-0 flex-col gap-2 rounded-md bg-slate-100 p-2"
+      className="flex w-70 shrink-0 flex-col gap-2 rounded-md bg-muted p-2"
     >
       <Input
         autoFocus
@@ -59,7 +59,7 @@ export function AddListForm({ boardId }: { boardId: string }) {
           if (e.key === "Escape") close();
         }}
         placeholder="Enter list name…"
-        className="bg-white text-sm shadow-sm"
+        className="bg-card text-sm shadow-sm"
       />
       <div className="flex items-center gap-2">
         <Button type="submit" size="sm" disabled={!title.trim() || createList.isPending}>

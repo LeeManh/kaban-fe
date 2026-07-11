@@ -43,7 +43,7 @@ export function CardMembersPopoverContent({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">Members</PopoverTitle>
+        <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">Members</PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
           <X className="size-3.5" />
           <span className="sr-only">Close</span>
@@ -59,26 +59,26 @@ export function CardMembersPopoverContent({
 
       {filteredAssignees.length > 0 && (
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Card members</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Card members</div>
           <div className="flex flex-col gap-0.5">
             {filteredAssignees.map((assignee) => (
               <div
                 key={assignee.id}
-                className="flex items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-slate-100"
+                className="flex items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-accent"
               >
                 <Avatar className="size-7">
                   <AvatarFallback className="bg-violet-500 text-[11px] font-bold text-white">
                     {getInitials(assignee)}
                   </AvatarFallback>
                 </Avatar>
-                <span className="flex-1 text-[13.5px] text-slate-800">
+                <span className="flex-1 text-[13.5px] text-foreground">
                   {assignee.name ?? assignee.email}
                 </span>
                 <button
                   type="button"
                   aria-label="Remove member"
                   onClick={() => unassignMember.mutate({ cardId, userId: assignee.id })}
-                  className="flex size-6 cursor-pointer items-center justify-center rounded-md text-slate-500 hover:bg-slate-200"
+                  className="flex size-6 cursor-pointer items-center justify-center rounded-md text-muted-foreground hover:bg-accent"
                 >
                   <X className="size-3.5" />
                 </button>
@@ -89,7 +89,7 @@ export function CardMembersPopoverContent({
       )}
 
       <div>
-        <div className="mb-1.5 text-xs font-semibold text-slate-700">Board members</div>
+        <div className="mb-1.5 text-xs font-semibold text-foreground">Board members</div>
         {filteredOtherMembers.length > 0 ? (
           <div className="flex flex-col gap-0.5">
             {filteredOtherMembers.map((user) => (
@@ -97,19 +97,19 @@ export function CardMembersPopoverContent({
                 key={user.id}
                 type="button"
                 onClick={() => assignMember.mutate({ cardId, userId: user.id })}
-                className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-slate-100"
+                className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-accent"
               >
                 <Avatar className="size-7">
                   <AvatarFallback className="bg-violet-500 text-[11px] font-bold text-white">
                     {getInitials(user)}
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-[13.5px] text-slate-800">{user.name ?? user.email}</span>
+                <span className="text-[13.5px] text-foreground">{user.name ?? user.email}</span>
               </button>
             ))}
           </div>
         ) : (
-          <p className="px-1.5 py-1 text-[13px] text-slate-500">No results</p>
+          <p className="px-1.5 py-1 text-[13px] text-muted-foreground">No results</p>
         )}
       </div>
     </div>

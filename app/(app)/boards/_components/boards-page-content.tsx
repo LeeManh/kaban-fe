@@ -22,16 +22,16 @@ export function BoardsPageContent() {
       <main className="flex-1 overflow-y-auto px-8 py-6.5">
         <div className="mx-auto max-w-4xl">
           <div className="mb-4 flex items-center gap-2">
-            <SquareKanban className="size-4 text-slate-500" />
-            <span className="text-[13px] font-bold tracking-[0.04em] text-slate-500 uppercase">
+            <SquareKanban className="size-4 text-muted-foreground" />
+            <span className="text-[13px] font-bold tracking-[0.04em] text-muted-foreground uppercase">
               Your Boards
             </span>
           </div>
 
           {isLoading ? (
-            <div className="py-16 text-center text-sm text-slate-400">Loading boards…</div>
+            <div className="py-16 text-center text-sm text-muted-foreground">Loading boards…</div>
           ) : isError ? (
-            <div className="py-16 text-center text-sm text-slate-400">
+            <div className="py-16 text-center text-sm text-muted-foreground">
               Could not load boards. Please try again.
             </div>
           ) : boards.length === 0 ? (

@@ -24,7 +24,7 @@ export function CardMembers({
 
   return (
     <div>
-      <div className="mb-1.5 text-xs font-semibold text-slate-500">Members</div>
+      <div className="mb-1.5 text-xs font-semibold text-muted-foreground">Members</div>
       <div className="flex items-center gap-1">
         {assignees.map((assignee) => (
           <Popover key={assignee.id}>
@@ -49,7 +49,7 @@ export function CardMembers({
             render={
               <span
                 aria-label="Add member"
-                className="flex size-7 cursor-pointer items-center justify-center rounded-full border border-slate-300 text-slate-500 hover:bg-slate-100"
+                className="flex size-7 cursor-pointer items-center justify-center rounded-full border border-border text-muted-foreground hover:bg-accent"
               />
             }
           >

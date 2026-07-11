@@ -7,19 +7,22 @@ import { Hero } from "@/app/_components/hero";
 import { HowItWorks } from "@/app/_components/how-it-works";
 import { Navbar } from "@/app/_components/navbar";
 import { Showcase } from "@/app/_components/showcase";
+import { GuestGuard } from "@/components/auth-guard";
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col">
-      <Navbar />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <Showcase />
-      <About />
-      <Faq />
-      <Cta />
-      <Footer />
-    </div>
+    <GuestGuard>
+      <div className="flex flex-1 flex-col">
+        <Navbar />
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <Showcase />
+        <About />
+        <Faq />
+        <Cta />
+        <Footer />
+      </div>
+    </GuestGuard>
   );
 }

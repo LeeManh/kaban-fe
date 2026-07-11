@@ -53,7 +53,7 @@ export function BoardShareDialog({
         <ShareInviteLinkPanel boardId={boardId} open={open} />
 
         <div>
-          <div className="flex items-center gap-4 border-b border-slate-200">
+          <div className="flex items-center gap-4 border-b border-border">
             <button
               type="button"
               onClick={() => setActiveTab("members")}
@@ -61,7 +61,7 @@ export function BoardShareDialog({
                 "flex cursor-pointer items-center gap-1.5 border-b-2 pb-2 text-[13.5px] font-medium",
                 activeTab === "members"
                   ? "border-primary text-primary"
-                  : "border-transparent text-slate-600 hover:text-slate-800",
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
               Board members
@@ -74,7 +74,7 @@ export function BoardShareDialog({
                 "flex cursor-pointer items-center gap-1.5 border-b-2 pb-2 text-[13.5px] font-medium",
                 activeTab === "requests"
                   ? "border-primary text-primary"
-                  : "border-transparent text-slate-600 hover:text-slate-800",
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
               Join requests

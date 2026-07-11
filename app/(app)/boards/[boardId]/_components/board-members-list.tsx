@@ -72,16 +72,16 @@ export function BoardMembersList({ boardId, open }: { boardId: string; open: boo
                 </AvatarFallback>
               </Avatar>
               <div>
-                <div className="text-[13.5px] font-medium text-slate-900">
+                <div className="text-[13.5px] font-medium text-foreground">
                   {member.user.name ?? member.user.email}
                   {isYou && " (you)"}
                 </div>
-                <div className="text-xs text-slate-500">@{handle}</div>
+                <div className="text-xs text-muted-foreground">@{handle}</div>
               </div>
             </div>
 
             {member.role === "OWNER" ? (
-              <span className="w-24 text-center text-xs font-medium text-slate-500">Owner</span>
+              <span className="w-24 text-center text-xs font-medium text-muted-foreground">Owner</span>
             ) : (
               <DropdownMenu>
                 <DropdownMenuTrigger
@@ -121,18 +121,18 @@ export function BoardMembersList({ boardId, open }: { boardId: string; open: boo
 
       {invites.length > 0 && (
         <>
-          <div className="mt-1 text-xs font-semibold text-slate-500">Pending invitations</div>
+          <div className="mt-1 text-xs font-semibold text-muted-foreground">Pending invitations</div>
           {invites.map((invite) => (
             <div key={invite.id} className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
                 <Avatar className="size-9">
-                  <AvatarFallback className="bg-slate-300 text-[12px] font-bold text-slate-600">
+                  <AvatarFallback className="bg-muted text-[12px] font-bold text-muted-foreground">
                     {invite.email.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <div className="text-[13.5px] font-medium text-slate-900">{invite.email}</div>
-                  <div className="text-xs text-slate-500">Pending invite</div>
+                  <div className="text-[13.5px] font-medium text-foreground">{invite.email}</div>
+                  <div className="text-xs text-muted-foreground">Pending invite</div>
                 </div>
               </div>
               <Button

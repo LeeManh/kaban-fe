@@ -52,7 +52,7 @@ export function ListTitle({
           if (e.key === "Enter") e.currentTarget.blur();
           if (e.key === "Escape") cancel();
         }}
-        className="h-7 flex-1 px-2 py-1 text-[13.5px] font-semibold text-slate-700"
+        className="h-7 flex-1 px-2 py-1 text-[13.5px] font-semibold text-foreground"
       />
     );
   }
@@ -62,7 +62,7 @@ export function ListTitle({
       type="button"
       onClick={() => setIsEditing(true)}
       onPointerDown={(e) => e.stopPropagation()}
-      className="flex-1 truncate rounded-sm px-1 py-1 text-left text-[13.5px] font-semibold text-slate-700 hover:bg-slate-200"
+      className="flex-1 truncate rounded-sm px-1 py-1 text-left text-[13.5px] font-semibold text-foreground hover:bg-accent"
     >
       {title}
     </button>

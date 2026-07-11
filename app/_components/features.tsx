@@ -24,27 +24,27 @@ function KanbanIcon({ className }: { className?: string }) {
 const FEATURES = [
   {
     icon: KanbanIcon,
-    iconClassName: "bg-blue-50 text-primary",
+    iconClassName: "bg-blue-50 text-primary dark:bg-blue-950",
     title: "Drag & drop Kanban",
     description:
       "Move cards across lists effortlessly — your board updates in real time.",
   },
   {
     icon: Users,
-    iconClassName: "bg-emerald-50 text-green-600",
+    iconClassName: "bg-emerald-50 text-green-600 dark:bg-emerald-950",
     title: "Real-time collaboration",
     description:
       "See teammates' changes the moment they happen, no refresh needed.",
   },
   {
     icon: Lock,
-    iconClassName: "bg-violet-50 text-violet-600",
+    iconClassName: "bg-violet-50 text-violet-600 dark:bg-violet-950",
     title: "Roles & permissions",
     description: "Control who can view or edit each board with granular roles.",
   },
   {
     icon: SquareCheckBig,
-    iconClassName: "bg-orange-50 text-orange-600",
+    iconClassName: "bg-orange-50 text-orange-600 dark:bg-orange-950",
     title: "Checklists & attachments",
     description:
       "Keep everything about a task — files, steps, due dates — in one card.",
@@ -57,10 +57,10 @@ export function Features() {
       <Container>
         <div className="mb-12 text-center">
           <SectionEyebrow className="mx-auto">Features</SectionEyebrow>
-          <h2 className="mb-3 text-4xl font-extrabold tracking-[-0.03em] text-slate-900">
+          <h2 className="mb-3 text-4xl font-extrabold tracking-[-0.03em] text-foreground">
             Everything your team needs to ship
           </h2>
-          <p className="mx-auto max-w-130 text-base leading-relaxed text-slate-600">
+          <p className="mx-auto max-w-130 text-base leading-relaxed text-muted-foreground">
             Powerful enough for complex projects, simple enough to start in
             seconds.
           </p>
@@ -90,16 +90,16 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="h-full rounded-md border border-slate-200 bg-white p-6 shadow-xs transition-all hover:-translate-y-0.75 hover:shadow-lg">
+    <div className="h-full rounded-md border border-border bg-card p-6 shadow-xs transition-all hover:-translate-y-0.75 hover:shadow-lg">
       <div
         className={`mb-4 flex size-11.5 items-center justify-center rounded-md ${iconClassName}`}
       >
         <Icon className="size-5.5" />
       </div>
-      <h3 className="mb-1.75 text-base font-bold tracking-[-0.01em] text-slate-900">
+      <h3 className="mb-1.75 text-base font-bold tracking-[-0.01em] text-foreground">
         {title}
       </h3>
-      <p className="text-[13.5px] leading-[1.55] text-slate-500">
+      <p className="text-[13.5px] leading-[1.55] text-muted-foreground">
         {description}
       </p>
     </div>

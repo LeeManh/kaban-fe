@@ -25,7 +25,7 @@ export function CardLabels({
 
   return (
     <div ref={labelsAnchorRef}>
-      <div className="mb-1.5 text-xs font-semibold text-slate-500">Labels</div>
+      <div className="mb-1.5 text-xs font-semibold text-muted-foreground">Labels</div>
       <Popover>
         <div className="flex flex-wrap items-center gap-1.5">
           {labels.map((label) => (
@@ -53,7 +53,7 @@ export function CardLabels({
             render={
               <span
                 aria-label="Add label"
-                className="flex size-7 cursor-pointer items-center justify-center rounded-md bg-slate-100 text-slate-600 hover:bg-slate-200"
+                className="flex size-7 cursor-pointer items-center justify-center rounded-md bg-muted text-muted-foreground hover:bg-accent"
               />
             }
           >

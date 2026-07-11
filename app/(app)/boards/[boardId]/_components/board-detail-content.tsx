@@ -31,7 +31,7 @@ export function BoardDetailContent({ boardId }: { boardId: string }) {
 
   if (isLoading) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-slate-400">
+      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
         Loading board…
       </div>
     );
@@ -39,7 +39,7 @@ export function BoardDetailContent({ boardId }: { boardId: string }) {
 
   if (isError || !board) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-slate-400">
+      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
         Could not load board. Please try again.
       </div>
     );

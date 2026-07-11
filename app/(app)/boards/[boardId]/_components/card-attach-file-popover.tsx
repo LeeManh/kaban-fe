@@ -46,7 +46,7 @@ export function CardAttachFilePopoverContent({ boardId, cardId }: { boardId: str
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">Attach</PopoverTitle>
+        <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">Attach</PopoverTitle>
         <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
           <X className="size-3.5" />
           <span className="sr-only">Close</span>
@@ -54,10 +54,10 @@ export function CardAttachFilePopoverContent({ boardId, cardId }: { boardId: str
       </div>
 
       <div>
-        <div className="text-sm font-semibold text-slate-900">
+        <div className="text-sm font-semibold text-foreground">
           Attach a file from your computer
         </div>
-        <p className="mt-0.5 text-xs text-slate-500">
+        <p className="mt-0.5 text-xs text-muted-foreground">
           You can also drag and drop files to upload them.
         </p>
         <Button
@@ -83,10 +83,10 @@ export function CardAttachFilePopoverContent({ boardId, cardId }: { boardId: str
         />
       </div>
 
-      <div className="border-t border-slate-200" />
+      <div className="border-t border-border" />
 
       <div>
-        <div className="mb-1.5 text-xs font-semibold text-slate-700">
+        <div className="mb-1.5 text-xs font-semibold text-foreground">
           Display text <span className="text-destructive">*</span>
         </div>
         <Input
@@ -94,7 +94,7 @@ export function CardAttachFilePopoverContent({ boardId, cardId }: { boardId: str
           onChange={(e) => setDisplayText(e.target.value)}
           placeholder="Text to display"
         />
-        <p className="mt-1 text-xs text-slate-500">Give this link a title or description</p>
+        <p className="mt-1 text-xs text-muted-foreground">Give this link a title or description</p>
       </div>
 
       {error && <p className="text-xs text-destructive">{error}</p>}

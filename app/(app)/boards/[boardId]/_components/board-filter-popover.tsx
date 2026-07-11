@@ -36,10 +36,10 @@ function FilterRow({
   onCheckedChange: (checked: boolean) => void;
 }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-slate-100">
+    <label className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-accent">
       <Checkbox checked={checked} onCheckedChange={(value) => onCheckedChange(!!value)} />
       {icon}
-      <span className="text-[13.5px] text-slate-700">{label}</span>
+      <span className="text-[13.5px] text-foreground">{label}</span>
     </label>
   );
 }
@@ -115,7 +115,7 @@ export function BoardFilterPopover({
       </Tooltip>
       <PopoverContent align="end" className="max-h-[80vh] w-80 gap-4 overflow-y-auto">
         <div className="flex items-center justify-between">
-          <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">
+          <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
             Filter
           </PopoverTitle>
           <PopoverClose
@@ -126,13 +126,13 @@ export function BoardFilterPopover({
         </div>
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Keyword</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Keyword</div>
           <Input
             value={filter.keyword}
             onChange={(e) => set("keyword", e.target.value)}
             placeholder="Enter a keyword…"
           />
-          <p className="mt-1 text-xs text-slate-500">Search cards, members, labels, and more.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Search cards, members, labels, and more.</p>
         </div>
 
         {isBoardFilterActive(filter) && (
@@ -146,11 +146,11 @@ export function BoardFilterPopover({
         )}
 
         <div>
-          <div className="mb-1 text-xs font-semibold text-slate-700">Members</div>
+          <div className="mb-1 text-xs font-semibold text-foreground">Members</div>
           <div className="flex flex-col">
             <FilterRow
               icon={
-                <span className="flex size-6 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+                <span className="flex size-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <User className="size-3.5" />
                 </span>
               }
@@ -210,7 +210,7 @@ export function BoardFilterPopover({
                   className="max-h-64 w-64 gap-0.5 overflow-y-auto p-1"
                 >
                   {filteredMembers.length === 0 ? (
-                    <p className="px-1.5 py-2 text-center text-[13px] text-slate-500">
+                    <p className="px-1.5 py-2 text-center text-[13px] text-muted-foreground">
                       No members found
                     </p>
                   ) : (
@@ -219,13 +219,13 @@ export function BoardFilterPopover({
                         key={member.id}
                         type="button"
                         onClick={() => toggleMemberId(member.id)}
-                        className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-slate-100"
+                        className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-accent"
                       >
                         <Checkbox checked={filter.memberIds.includes(member.id)} />
                         <span className="flex size-6 items-center justify-center rounded-full bg-violet-500 text-[10px] font-bold text-white">
                           {getInitials(member)}
                         </span>
-                        <span className="truncate text-[13.5px] text-slate-700">
+                        <span className="truncate text-[13.5px] text-foreground">
                           {member.name ?? member.email}
                         </span>
                       </button>
@@ -238,7 +238,7 @@ export function BoardFilterPopover({
         </div>
 
         <div>
-          <div className="mb-1 text-xs font-semibold text-slate-700">Card status</div>
+          <div className="mb-1 text-xs font-semibold text-foreground">Card status</div>
           <div className="flex flex-col">
             <FilterRow
               icon={<span className="size-6" />}
@@ -256,11 +256,11 @@ export function BoardFilterPopover({
         </div>
 
         <div>
-          <div className="mb-1 text-xs font-semibold text-slate-700">Due date</div>
+          <div className="mb-1 text-xs font-semibold text-foreground">Due date</div>
           <div className="flex flex-col">
             <FilterRow
               icon={
-                <span className="flex size-6 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+                <span className="flex size-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <Calendar className="size-3.5" />
                 </span>
               }
@@ -290,7 +290,7 @@ export function BoardFilterPopover({
             />
             <FilterRow
               icon={
-                <span className="flex size-6 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+                <span className="flex size-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <Clock className="size-3.5" />
                 </span>
               }
@@ -300,7 +300,7 @@ export function BoardFilterPopover({
             />
             <FilterRow
               icon={
-                <span className="flex size-6 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+                <span className="flex size-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <Clock className="size-3.5" />
                 </span>
               }
@@ -312,11 +312,11 @@ export function BoardFilterPopover({
         </div>
 
         <div>
-          <div className="mb-1 text-xs font-semibold text-slate-700">Labels</div>
+          <div className="mb-1 text-xs font-semibold text-foreground">Labels</div>
           <div className="flex flex-col">
             <FilterRow
               icon={
-                <span className="flex size-6 items-center justify-center rounded-full bg-slate-200 text-slate-500">
+                <span className="flex size-6 items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <Tag className="size-3.5" />
                 </span>
               }
@@ -327,7 +327,7 @@ export function BoardFilterPopover({
             {labels.slice(0, 3).map((label) => (
               <label
                 key={label.id}
-                className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-slate-100"
+                className="flex cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 hover:bg-accent"
               >
                 <Checkbox
                   checked={filter.labelIds.includes(label.id)}
@@ -379,7 +379,7 @@ export function BoardFilterPopover({
                   className="max-h-64 w-64 gap-0.5 overflow-y-auto p-1"
                 >
                   {filteredLabels.length === 0 ? (
-                    <p className="px-1.5 py-2 text-center text-[13px] text-slate-500">
+                    <p className="px-1.5 py-2 text-center text-[13px] text-muted-foreground">
                       No labels found
                     </p>
                   ) : (
@@ -388,7 +388,7 @@ export function BoardFilterPopover({
                         key={label.id}
                         type="button"
                         onClick={() => toggleLabelId(label.id)}
-                        className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-slate-100"
+                        className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-1.5 py-1 text-left hover:bg-accent"
                       >
                         <Checkbox checked={filter.labelIds.includes(label.id)} />
                         <Tooltip>

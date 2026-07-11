@@ -66,10 +66,10 @@ export function LoginForm() {
 
   return (
     <div className="w-full max-w-95">
-      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-slate-900">
+      <h1 className="mb-1.5 text-[25px] font-extrabold tracking-[-0.025em] text-foreground">
         Welcome back
       </h1>
-      <p className="mb-6.5 text-sm text-slate-500">Sign in to continue to your boards.</p>
+      <p className="mb-6.5 text-sm text-muted-foreground">Sign in to continue to your boards.</p>
 
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <FieldGroup className="gap-4.5">
@@ -81,7 +81,7 @@ export function LoginForm() {
                 <FieldLabel
                   htmlFor="login-email"
                   required
-                  className="text-[13px] font-semibold text-slate-700"
+                  className="text-[13px] font-semibold text-foreground"
                 >
                   Email
                 </FieldLabel>
@@ -109,7 +109,7 @@ export function LoginForm() {
                   <FieldLabel
                     htmlFor="login-password"
                     required
-                    className="text-[13px] font-semibold text-slate-700"
+                    className="text-[13px] font-semibold text-foreground"
                   >
                     Password
                   </FieldLabel>
@@ -139,7 +139,7 @@ export function LoginForm() {
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
-                <Label htmlFor="login-remember" className="text-[13px] font-medium text-slate-600">
+                <Label htmlFor="login-remember" className="text-[13px] font-medium text-muted-foreground">
                   Remember me
                 </Label>
               </Field>
@@ -156,7 +156,7 @@ export function LoginForm() {
         </FieldGroup>
       </form>
 
-      <p className="mt-5.5 text-center text-[13.5px] text-slate-500">
+      <p className="mt-5.5 text-center text-[13.5px] text-muted-foreground">
         Don&apos;t have an account?{" "}
         <Link href={registerHref} className="font-bold text-primary hover:underline">
           Sign up

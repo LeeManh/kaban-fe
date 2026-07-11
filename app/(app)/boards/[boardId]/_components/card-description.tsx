@@ -39,7 +39,7 @@ export function CardDescription({
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+        <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <AlignLeft className="size-4" />
           Description
         </div>
@@ -81,7 +81,7 @@ export function CardDescription({
             <Button
               variant="outline"
               size="sm"
-              className="mt-1 w-full cursor-pointer justify-center gap-1.5 text-slate-700"
+              className="mt-1 w-full cursor-pointer justify-center gap-1.5 text-foreground"
               onClick={onToggleExpanded}
             >
               <ChevronDown className={cn("size-3.5 transition-transform", expanded && "rotate-180")} />
@@ -93,7 +93,7 @@ export function CardDescription({
         <button
           type="button"
           onClick={() => setIsEditing(true)}
-          className="w-full cursor-pointer rounded-md bg-slate-100 px-3 py-2 text-left text-[13.5px] text-slate-500 hover:bg-slate-200"
+          className="w-full cursor-pointer rounded-md bg-muted px-3 py-2 text-left text-[13.5px] text-muted-foreground hover:bg-accent"
         >
           Add a more detailed description…
         </button>

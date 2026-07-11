@@ -43,7 +43,7 @@ function MenuItem({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-slate-700 hover:bg-slate-100"
+      className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-foreground hover:bg-accent"
     >
       {icon}
       <span className="flex-1">{label}</span>
@@ -140,7 +140,7 @@ export function BoardMoreOptionsMenu({
               >
                 <ChevronLeft className="size-4" />
               </Button>
-              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-slate-900">
+              <PopoverTitle className="flex-1 text-center text-sm font-semibold text-foreground">
                 Change background
               </PopoverTitle>
               <PopoverClose
@@ -174,7 +174,7 @@ export function BoardMoreOptionsMenu({
         ) : (
           <div className="flex flex-col gap-1">
             <div className="mb-1 flex items-center justify-between">
-              <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">
+              <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
                 Menu
               </PopoverTitle>
               <PopoverClose
@@ -197,7 +197,7 @@ export function BoardMoreOptionsMenu({
               onClick={() => toggleStar.mutate({ boardId: board.id, isStarred: board.isStarred })}
             />
 
-            <div className="my-1 h-px bg-slate-200" />
+            <div className="my-1 h-px bg-border" />
 
             <MenuItem
               icon={

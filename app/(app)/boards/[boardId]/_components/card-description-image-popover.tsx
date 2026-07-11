@@ -94,7 +94,7 @@ export function CardDescriptionImagePopover({
       </Tooltip>
       <PopoverContent align="start" className="w-80 gap-3">
         <div className="flex items-center justify-between">
-          <PopoverTitle className="mx-auto text-sm font-semibold text-slate-900">
+          <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
             Select image
           </PopoverTitle>
           <PopoverClose render={<Button variant="ghost" size="icon-xs" className="cursor-pointer" />}>
@@ -105,7 +105,7 @@ export function CardDescriptionImagePopover({
 
         {recentImages.length > 0 && (
           <div>
-            <div className="mb-1.5 text-xs font-semibold text-slate-700">Recently uploaded</div>
+            <div className="mb-1.5 text-xs font-semibold text-foreground">Recently uploaded</div>
             <div className="grid grid-cols-4 gap-1.5">
               {recentImages.map((src) => (
                 <button
@@ -114,7 +114,7 @@ export function CardDescriptionImagePopover({
                   aria-label="Insert image"
                   onClick={() => insertImage(src)}
                   style={{ backgroundImage: `url(${src})` }}
-                  className="h-16 cursor-pointer rounded-md bg-slate-100 bg-cover bg-center hover:brightness-95 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                  className="h-16 cursor-pointer rounded-md bg-muted bg-cover bg-center hover:brightness-95 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                 />
               ))}
             </div>
@@ -122,7 +122,7 @@ export function CardDescriptionImagePopover({
         )}
 
         <div>
-          <div className="mb-1.5 text-xs font-semibold text-slate-700">Attach an image link</div>
+          <div className="mb-1.5 text-xs font-semibold text-foreground">Attach an image link</div>
           <div className="flex gap-2">
             <Input
               autoFocus

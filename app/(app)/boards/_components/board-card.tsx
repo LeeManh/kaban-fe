@@ -33,7 +33,7 @@ export function BoardCard({
           onOpen();
         }
       }}
-      className="group flex h-30 flex-col overflow-hidden rounded-md bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+      className="group flex h-30 flex-col overflow-hidden rounded-md bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
     >
       <div
         style={{ background: toBackgroundStyle(background) }}
@@ -56,7 +56,7 @@ export function BoardCard({
       </div>
 
       <div className="flex h-9 shrink-0 items-center px-3.5">
-        <span className="truncate text-[14px] font-medium text-slate-900">{title}</span>
+        <span className="truncate text-[14px] font-medium text-foreground">{title}</span>
       </div>
     </div>
   );
@@ -68,7 +68,7 @@ export function CreateBoardCard() {
       <button
         type="button"
         aria-label="Create new board"
-        className="flex h-30 flex-col items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-slate-300 text-slate-600 hover:border-primary hover:bg-blue-50/50 hover:text-primary"
+        className="flex h-30 flex-col items-center justify-center gap-2 rounded-md border-[1.5px] border-dashed border-border text-muted-foreground hover:border-primary hover:bg-primary/10 hover:text-primary"
       >
         <Plus className="size-5.5" strokeWidth={2.2} />
         <span className="text-[13px] font-semibold">Create new board</span>

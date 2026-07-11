@@ -45,15 +45,15 @@ export function CardMemberPopoverContent({
       <div className="flex flex-col py-1.5">
         <button
           type="button"
-          className="cursor-pointer px-4 py-2.5 text-left text-[13.5px] text-slate-700 hover:bg-slate-100"
+          className="cursor-pointer px-4 py-2.5 text-left text-[13.5px] text-foreground hover:bg-accent"
         >
           View profile
         </button>
-        <div className="h-px bg-slate-200" />
+        <div className="h-px bg-border" />
         <button
           type="button"
           onClick={onRemove}
-          className="cursor-pointer px-4 py-2.5 text-left text-[13.5px] text-slate-700 hover:bg-slate-100"
+          className="cursor-pointer px-4 py-2.5 text-left text-[13.5px] text-foreground hover:bg-accent"
         >
           Remove from card
         </button>

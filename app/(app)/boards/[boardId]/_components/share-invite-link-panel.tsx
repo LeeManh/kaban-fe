@@ -62,9 +62,9 @@ export function ShareInviteLinkPanel({ boardId, open }: { boardId: string; open:
   if (!inviteLink) {
     return (
       <div className="flex items-center gap-3">
-        <Link2 className="size-4 shrink-0 text-slate-500" />
+        <Link2 className="size-4 shrink-0 text-muted-foreground" />
         <div>
-          <div className="text-[13.5px] text-slate-800">Share this board with a link</div>
+          <div className="text-[13.5px] text-foreground">Share this board with a link</div>
           <button
             type="button"
             onClick={handleCreateLink}
@@ -81,9 +81,9 @@ export function ShareInviteLinkPanel({ boardId, open }: { boardId: string; open:
   return (
     <div className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-3">
-        <Link2 className="size-4 shrink-0 text-slate-500" />
+        <Link2 className="size-4 shrink-0 text-muted-foreground" />
         <div>
-          <div className="text-[13.5px] text-slate-800">
+          <div className="text-[13.5px] text-foreground">
             {inviteLink.permission === "OPEN"
               ? "Anyone with the link can join as a"
               : "Anyone with the link can request to join as a"}{" "}
@@ -97,7 +97,7 @@ export function ShareInviteLinkPanel({ boardId, open }: { boardId: string; open:
             >
               {linkCopied ? "Copied!" : "Copy link"}
             </button>
-            <span className="text-slate-400">·</span>
+            <span className="text-muted-foreground">·</span>
             <button
               type="button"
               onClick={handleDeleteLink}
