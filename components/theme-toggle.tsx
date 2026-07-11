@@ -24,7 +24,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn("flex size-8 cursor-pointer items-center justify-center rounded-md", className)}
     >
-      {mounted ? isDark ? <Sun className="size-4" /> : <Moon className="size-4" /> : <span className="size-4" />}
+      {mounted ? isDark ? <Moon className="size-4" /> : <Sun className="size-4" /> : <span className="size-4" />}
     </button>
   );
 }
