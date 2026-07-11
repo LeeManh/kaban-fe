@@ -9,6 +9,7 @@ export function useJoinInviteLink() {
 
   return useMutation({
     mutationFn: (token: string) => joinInviteLink(token),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
     },

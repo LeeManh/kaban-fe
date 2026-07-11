@@ -9,6 +9,7 @@ export function useAcceptInvite() {
 
   return useMutation({
     mutationFn: (token: string) => acceptInvite(token),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
     },

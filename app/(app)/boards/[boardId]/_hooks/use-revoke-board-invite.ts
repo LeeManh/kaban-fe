@@ -9,6 +9,7 @@ export function useRevokeBoardInvite(boardId: string) {
 
   return useMutation({
     mutationFn: (inviteId: string) => revokeBoardInvite(boardId, inviteId),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards", boardId, "invites"] });
     },

@@ -1,11 +1,8 @@
 "use client";
 
-import { toast } from "sonner";
-
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getApiErrorMessage } from "@/lib/api/client";
 import type { EmailFrequency } from "@/lib/api/notifications";
 
 import { useNotificationPreferences } from "../../../_hooks/use-notification-preferences";
@@ -54,23 +51,19 @@ export function SettingsPageContent() {
   const isMutating = updatePreferences.isPending;
   const allSelected = data ? NOTIFICATION_PREFERENCES.every((p) => data[p.key]) : false;
 
-  function handleError(error: unknown) {
-    toast.error(getApiErrorMessage(error));
-  }
-
   function handleFrequencyChange(value: EmailFrequency) {
-    updatePreferences.mutate({ emailFrequency: value }, { onError: handleError });
+    updatePreferences.mutate({ emailFrequency: value });
   }
 
   function toggleAll(checked: boolean) {
     const payload = Object.fromEntries(
       NOTIFICATION_PREFERENCES.map((p) => [p.key, checked]),
     ) as Record<PreferenceKey, boolean>;
-    updatePreferences.mutate(payload, { onError: handleError });
+    updatePreferences.mutate(payload);
   }
 
   function togglePreference(key: PreferenceKey, checked: boolean) {
-    updatePreferences.mutate({ [key]: checked }, { onError: handleError });
+    updatePreferences.mutate({ [key]: checked });
   }
 
   return (

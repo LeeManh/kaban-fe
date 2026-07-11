@@ -3,7 +3,6 @@
 import { Bell, BellOff, Ellipsis } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +14,6 @@ import {
 import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { getApiErrorMessage } from "@/lib/api/client";
 import type { Notification } from "@/lib/api/notifications";
 import { cn } from "@/lib/utils";
 
@@ -47,17 +45,13 @@ export function NotificationsButton() {
   const markRead = useMarkNotificationRead();
 
   function handleMarkAllRead() {
-    markAllRead.mutate(undefined, {
-      onError: (error) => toast.error(getApiErrorMessage(error)),
-    });
+    markAllRead.mutate();
   }
 
   function handleNotificationClick(notification: Notification) {
     setOpen(false);
     if (!notification.isRead) {
-      markRead.mutate(notification.id, {
-        onError: (error) => toast.error(getApiErrorMessage(error)),
-      });
+      markRead.mutate(notification.id);
     }
   }
 

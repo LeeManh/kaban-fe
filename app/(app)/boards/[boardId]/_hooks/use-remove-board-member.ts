@@ -9,6 +9,7 @@ export function useRemoveBoardMember(boardId: string) {
 
   return useMutation({
     mutationFn: (userId: string) => removeBoardMember(boardId, userId),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
     },

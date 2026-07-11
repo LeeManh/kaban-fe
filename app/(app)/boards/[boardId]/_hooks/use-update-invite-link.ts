@@ -9,6 +9,7 @@ export function useUpdateInviteLink(boardId: string) {
 
   return useMutation({
     mutationFn: (payload: UpdateInviteLinkPayload) => updateInviteLink(boardId, payload),
+    meta: { skipErrorToast: true },
     onSuccess: (link) => {
       queryClient.setQueryData<InviteLink>(["boards", boardId, "invite-link"], link);
     },

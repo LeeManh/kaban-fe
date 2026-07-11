@@ -9,6 +9,7 @@ export function useUpdateProfile() {
 
   return useMutation({
     mutationFn: (payload: UpdateProfilePayload) => updateProfile(payload),
+    meta: { skipErrorToast: true },
     onSuccess: (data) => {
       queryClient.setQueryData<CurrentUser>(["users", "me"], data);
     },

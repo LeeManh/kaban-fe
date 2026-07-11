@@ -10,6 +10,7 @@ export function useDecideJoinRequest(boardId: string) {
   return useMutation({
     mutationFn: ({ requestId, status }: { requestId: string; status: "APPROVED" | "REJECTED" }) =>
       decideJoinRequest(boardId, requestId, status),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards", boardId] });
     },

@@ -1,10 +1,17 @@
 "use client";
 
-import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  environmentManager,
+  MutationCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
+import { toast } from "sonner";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { getApiErrorMessage } from "@/lib/api/client";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -13,6 +20,12 @@ function makeQueryClient() {
         retry: 1,
       },
     },
+    mutationCache: new MutationCache({
+      onError: (error, _variables, _context, mutation) => {
+        if (mutation.meta?.skipErrorToast) return;
+        toast.error(getApiErrorMessage(error));
+      },
+    }),
   });
 }
 

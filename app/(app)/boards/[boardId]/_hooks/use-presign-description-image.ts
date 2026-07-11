@@ -15,5 +15,6 @@ export function usePresignDescriptionImage(boardId: string, cardId: string) {
       await uploadDescriptionImageFile(uploadUrl, file);
       return viewUrl;
     },
+    meta: { skipErrorToast: true },
   });
 }

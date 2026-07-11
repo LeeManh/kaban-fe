@@ -10,6 +10,7 @@ export function useUpdateBoardMemberRole(boardId: string) {
   return useMutation({
     mutationFn: ({ userId, role }: { userId: string; role: BoardRole }) =>
       updateBoardMemberRole(boardId, userId, role),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards"] });
     },

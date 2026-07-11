@@ -9,6 +9,7 @@ export function useRevokeInviteLink(boardId: string) {
 
   return useMutation({
     mutationFn: () => revokeInviteLink(boardId),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.setQueryData<InviteLink | null>(["boards", boardId, "invite-link"], null);
     },
