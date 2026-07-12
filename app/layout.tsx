@@ -15,13 +15,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL as string;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(appUrl),
   title: {
     default: "Kanvas — Organize your work, together",
     template: "%s — Kanvas",
   },
   description:
     "Kanvas is a simple, fast board for organizing tasks and projects — boards, lists, and cards that keep your team moving.",
+  openGraph: {
+    type: "website",
+    siteName: "Kanvas",
+    title: "Kanvas — Organize your work, together",
+    description:
+      "Kanvas is a simple, fast board for organizing tasks and projects — boards, lists, and cards that keep your team moving.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kanvas — Organize your work, together",
+    description:
+      "Kanvas is a simple, fast board for organizing tasks and projects — boards, lists, and cards that keep your team moving.",
+  },
 };
 
 export default function RootLayout({
