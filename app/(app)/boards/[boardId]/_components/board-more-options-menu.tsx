@@ -1,19 +1,21 @@
 "use client";
 
-import { Ellipsis, Star, Tag, UserPlus } from "lucide-react";
+import { Ellipsis, Star, Tag, Trash2, UserPlus } from "lucide-react";
 import { useState } from "react";
 
 import { Popover, PopoverContent, PopoverSubHeader, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { BoardDetail } from "@/lib/api/boards";
+import { getCurrentUserId } from "@/lib/api/tokens";
 import { cn, toBackgroundStyle } from "@/lib/utils";
 
 import { BoardBackgroundFlow } from "../../_components/board-background-flow";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { useUpdateBoard } from "../_hooks/use-update-board";
+import { BoardDeleteConfirm } from "./board-delete-confirm";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 
-type MenuView = "menu" | "background" | "labels";
+type MenuView = "menu" | "background" | "labels" | "delete-confirm";
 
 function MenuItem({
   icon,
@@ -51,6 +53,7 @@ export function BoardMoreOptionsMenu({
 
   const toggleStar = useToggleBoardStar();
   const updateBoard = useUpdateBoard(board.id);
+  const isOwner = board.ownerId === getCurrentUserId();
 
   function handleOpenChange(next: boolean) {
     setOpen(next);
@@ -94,6 +97,8 @@ export function BoardMoreOptionsMenu({
           />
         ) : view === "labels" ? (
           <CardLabelsPopoverContent boardId={board.id} onBack={() => setView("menu")} />
+        ) : view === "delete-confirm" ? (
+          <BoardDeleteConfirm boardId={board.id} onBack={() => setView("menu")} />
         ) : (
           <div className="flex flex-col gap-1">
             <PopoverSubHeader title="Menu" className="mb-1" />
@@ -127,6 +132,21 @@ export function BoardMoreOptionsMenu({
               label="Labels"
               onClick={() => setView("labels")}
             />
+
+            {isOwner && (
+              <>
+                <div className="my-1 h-px bg-border" />
+
+                <button
+                  type="button"
+                  onClick={() => setView("delete-confirm")}
+                  className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-destructive hover:bg-destructive/10"
+                >
+                  <Trash2 className="size-4" />
+                  Delete board
+                </button>
+              </>
+            )}
           </div>
         )}
       </PopoverContent>

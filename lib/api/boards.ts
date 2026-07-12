@@ -142,6 +142,10 @@ export async function updateBoard(boardId: string, payload: UpdateBoardPayload):
   return data.data;
 }
 
+export async function deleteBoard(boardId: string): Promise<void> {
+  await apiClient.delete(`/boards/${boardId}`);
+}
+
 export const MAX_BOARD_BACKGROUND_SIZE = 5 * 1024 * 1024; // 5 MB
 
 export const ALLOWED_BOARD_BACKGROUND_MIME_TYPES = [
