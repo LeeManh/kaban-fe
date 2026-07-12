@@ -57,7 +57,7 @@ export function AccountMenu() {
           Account
         </TooltipContent>
       </Tooltip>
-      <DropdownMenuContent align="end" className="min-w-70">
+      <DropdownMenuContent align="end" className="min-w-72">
         <DropdownMenuGroup>
           <DropdownMenuLabel>Account</DropdownMenuLabel>
           <div className="flex items-center gap-2.5 px-1.5 py-1.5">

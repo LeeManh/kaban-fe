@@ -1,26 +1,17 @@
 "use client";
 
-import {
-  ArrowLeftRight,
-  ArrowRight,
-  ArrowUpDown,
-  Copy,
-  Ellipsis,
-  Plus,
-  Trash2,
-} from "lucide-react";
+import { ArrowLeftRight, ArrowRight, Copy, Ellipsis, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverSubHeader, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-import { useCopyList } from "../_hooks/use-copy-list";
-import { useDeleteList } from "../_hooks/use-delete-list";
+import { ListCopyForm } from "./list-copy-form";
+import { ListDeleteConfirm } from "./list-delete-confirm";
+import { ListMoveForm } from "./list-move-form";
 
-type MenuView = "menu" | "delete-confirm" | "copy-list";
+type MenuView = "menu" | "delete-confirm" | "copy-list" | "move-list";
 
 function MenuItem({
   icon,
@@ -56,42 +47,15 @@ export function ListActionsMenu({
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<MenuView>("menu");
-  const [copyTitle, setCopyTitle] = useState(listTitle);
-
-  const deleteList = useDeleteList(boardId);
-  const copyList = useCopyList(boardId);
 
   function handleOpenChange(next: boolean) {
     setOpen(next);
     if (!next) setView("menu");
   }
 
-  function handleDelete() {
-    deleteList.mutate(listId, { onSuccess: () => handleOpenChange(false) });
-  }
-
   function handleAddCard() {
     handleOpenChange(false);
     onAddCard();
-  }
-
-  function openCopyList() {
-    setCopyTitle(listTitle);
-    setView("copy-list");
-  }
-
-  function handleCopy() {
-    const trimmed = copyTitle.trim();
-    if (!trimmed) return;
-    copyList.mutate(
-      { listId, payload: { title: trimmed } },
-      {
-        onSuccess: () => {
-          toast.success("List copied.");
-          handleOpenChange(false);
-        },
-      },
-    );
   }
 
   return (
@@ -118,57 +82,48 @@ export function ListActionsMenu({
           List actions
         </TooltipContent>
       </Tooltip>
-      <PopoverContent align="start" className="w-64 gap-3">
+      <PopoverContent align="start" className="w-72 gap-3">
         {view === "delete-confirm" ? (
-          <>
-            <PopoverSubHeader title="Delete list?" onBack={() => setView("menu")} />
-            <p className="text-[13px] text-muted-foreground">
-              Deleting a list is permanent and will delete all cards in it. There is no way to get
-              it back.
-            </p>
-            <Button
-              variant="destructive"
-              className="w-full cursor-pointer"
-              disabled={deleteList.isPending}
-              onClick={handleDelete}
-            >
-              {deleteList.isPending ? "Deleting…" : "Delete list"}
-            </Button>
-          </>
+          <ListDeleteConfirm
+            boardId={boardId}
+            listId={listId}
+            onBack={() => setView("menu")}
+            onDone={() => handleOpenChange(false)}
+          />
         ) : view === "copy-list" ? (
-          <>
-            <PopoverSubHeader title="Copy list" onBack={() => setView("menu")} />
-            <div>
-              <div className="mb-1.5 text-xs font-semibold text-foreground">Name</div>
-              <Input
-                autoFocus
-                value={copyTitle}
-                onChange={(e) => setCopyTitle(e.target.value)}
-                onFocus={(e) => e.currentTarget.select()}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleCopy();
-                }}
-              />
-            </div>
-            <Button
-              className="w-full cursor-pointer"
-              disabled={!copyTitle.trim() || copyList.isPending}
-              onClick={handleCopy}
-            >
-              {copyList.isPending ? "Creating…" : "Create list"}
-            </Button>
-          </>
+          <ListCopyForm
+            boardId={boardId}
+            listId={listId}
+            listTitle={listTitle}
+            onBack={() => setView("menu")}
+            onDone={() => handleOpenChange(false)}
+          />
+        ) : view === "move-list" ? (
+          <ListMoveForm
+            open={open}
+            boardId={boardId}
+            listId={listId}
+            onBack={() => setView("menu")}
+            onDone={() => handleOpenChange(false)}
+          />
         ) : (
           <>
             <PopoverSubHeader title="List actions" />
             <MenuItem icon={<Plus className="size-4" />} label="Add card" onClick={handleAddCard} />
-            <MenuItem icon={<Copy className="size-4" />} label="Copy list" onClick={openCopyList} />
-            <MenuItem icon={<ArrowLeftRight className="size-4" />} label="Move list" />
+            <MenuItem
+              icon={<Copy className="size-4" />}
+              label="Copy list"
+              onClick={() => setView("copy-list")}
+            />
+            <MenuItem
+              icon={<ArrowLeftRight className="size-4" />}
+              label="Move list"
+              onClick={() => setView("move-list")}
+            />
             <MenuItem
               icon={<ArrowRight className="size-4" />}
               label="Move all cards in this list"
             />
-            <MenuItem icon={<ArrowUpDown className="size-4" />} label="Sort by" />
 
             <div className="my-1 h-px bg-border" />
 

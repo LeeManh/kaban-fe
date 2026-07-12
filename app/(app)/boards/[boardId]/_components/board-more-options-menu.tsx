@@ -83,7 +83,7 @@ export function BoardMoreOptionsMenu({
           More options
         </TooltipContent>
       </Tooltip>
-      <PopoverContent align="end" className="max-h-[80vh] w-64 gap-3 overflow-y-auto">
+      <PopoverContent align="end" className="max-h-[80vh] w-72 gap-3 overflow-y-auto">
         {view === "background" ? (
           <BoardBackgroundFlow
             open={open}

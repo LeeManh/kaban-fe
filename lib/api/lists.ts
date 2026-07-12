@@ -32,6 +32,8 @@ export async function updateList(
 export interface MoveListPayload {
   beforeId?: string;
   afterId?: string;
+  targetBoardId?: string;
+  position?: number;
 }
 
 export async function moveList(
