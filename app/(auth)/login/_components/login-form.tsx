@@ -113,9 +113,12 @@ export function LoginForm() {
                   >
                     Password
                   </FieldLabel>
-                  <a href="#" className="text-[13px] font-semibold text-primary hover:underline">
+                  <Link
+                    href="/forgot-password"
+                    className="text-[13px] font-semibold text-primary hover:underline"
+                  >
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
                 <PasswordInput
                   {...field}

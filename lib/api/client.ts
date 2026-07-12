@@ -42,7 +42,13 @@ interface RetryableRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-const AUTH_ENDPOINTS_WITHOUT_REFRESH = ["/auth/login", "/auth/register", "/auth/refresh"];
+const AUTH_ENDPOINTS_WITHOUT_REFRESH = [
+  "/auth/login",
+  "/auth/register",
+  "/auth/refresh",
+  "/auth/forgot-password",
+  "/auth/reset-password",
+];
 
 function isAuthEndpoint(url: string | undefined): boolean {
   return !!url && AUTH_ENDPOINTS_WITHOUT_REFRESH.some((path) => url.includes(path));
