@@ -67,3 +67,15 @@ export async function copyList(
   );
   return data.data;
 }
+
+export interface MoveAllCardsPayload {
+  targetListId: string;
+}
+
+export async function moveAllCards(
+  boardId: string,
+  listId: string,
+  payload: MoveAllCardsPayload,
+): Promise<void> {
+  await apiClient.patch(`/boards/${boardId}/lists/${listId}/move-all-cards`, payload);
+}

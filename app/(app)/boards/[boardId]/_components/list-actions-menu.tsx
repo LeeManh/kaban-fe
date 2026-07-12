@@ -9,9 +9,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 
 import { ListCopyForm } from "./list-copy-form";
 import { ListDeleteConfirm } from "./list-delete-confirm";
+import { ListMoveAllCardsForm } from "./list-move-all-cards-form";
 import { ListMoveForm } from "./list-move-form";
 
-type MenuView = "menu" | "delete-confirm" | "copy-list" | "move-list";
+type MenuView = "menu" | "delete-confirm" | "copy-list" | "move-list" | "move-all-cards";
 
 function MenuItem({
   icon,
@@ -106,6 +107,14 @@ export function ListActionsMenu({
             onBack={() => setView("menu")}
             onDone={() => handleOpenChange(false)}
           />
+        ) : view === "move-all-cards" ? (
+          <ListMoveAllCardsForm
+            open={open}
+            boardId={boardId}
+            listId={listId}
+            onBack={() => setView("menu")}
+            onDone={() => handleOpenChange(false)}
+          />
         ) : (
           <>
             <PopoverSubHeader title="List actions" />
@@ -123,6 +132,7 @@ export function ListActionsMenu({
             <MenuItem
               icon={<ArrowRight className="size-4" />}
               label="Move all cards in this list"
+              onClick={() => setView("move-all-cards")}
             />
 
             <div className="my-1 h-px bg-border" />
