@@ -12,6 +12,7 @@ export function useRegister() {
 
   return useMutation({
     mutationFn: register,
+    meta: { skipErrorToast: true },
     onSuccess: (tokens) => {
       setTokens(tokens);
       const redirect = searchParams.get("redirect");

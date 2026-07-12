@@ -12,6 +12,7 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: login,
+    meta: { skipErrorToast: true },
     onSuccess: (tokens) => {
       setTokens(tokens);
       const redirect = searchParams.get("redirect");

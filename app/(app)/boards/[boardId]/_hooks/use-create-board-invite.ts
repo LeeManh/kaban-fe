@@ -9,6 +9,7 @@ export function useCreateBoardInvite(boardId: string) {
 
   return useMutation({
     mutationFn: (payload: CreateBoardInvitePayload) => createBoardInvite(boardId, payload),
+    meta: { skipErrorToast: true },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boards", boardId, "invites"] });
     },
