@@ -9,15 +9,30 @@ import { useClickOutside } from "@/hooks/use-click-outside";
 
 import { useCreateCard } from "../_hooks/use-create-card";
 
-export function AddCardForm({ boardId, listId }: { boardId: string; listId: string }) {
+export function AddCardForm({
+  boardId,
+  listId,
+  addToTop = false,
+  forceOpen = false,
+  onClose,
+}: {
+  boardId: string;
+  listId: string;
+  addToTop?: boolean;
+  forceOpen?: boolean;
+  onClose?: () => void;
+}) {
   const [isAdding, setIsAdding] = useState(false);
   const [title, setTitle] = useState("");
   const createCard = useCreateCard(boardId, listId);
+
+  const open = forceOpen || isAdding;
 
   function close() {
     setIsAdding(false);
     setTitle("");
     createCard.reset();
+    onClose?.();
   }
 
   const formRef = useClickOutside<HTMLFormElement>(close);
@@ -26,15 +41,18 @@ export function AddCardForm({ boardId, listId }: { boardId: string; listId: stri
     const trimmed = title.trim();
     if (!trimmed || createCard.isPending) return;
 
-    createCard.mutate({ title: trimmed }, { onSuccess: () => setTitle("") });
+    createCard.mutate(
+      { title: trimmed, addToTop },
+      { onSuccess: () => setTitle("") },
+    );
   }
 
-  if (!isAdding) {
+  if (!open) {
     return (
       <button
         type="button"
         onClick={() => setIsAdding(true)}
-        className="mt-1.5 flex items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-muted-foreground hover:bg-accent"
+        className="mt-1.5 flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-muted-foreground hover:bg-foreground/10"
       >
         <Plus className="size-3.75" />
         Add a card
@@ -69,7 +87,7 @@ export function AddCardForm({ boardId, listId }: { boardId: string; listId: stri
         <Button type="submit" size="sm" disabled={!title.trim() || createCard.isPending}>
           Add card
         </Button>
-        <Button type="button" variant="ghost" size="icon-sm" aria-label="Cancel" onClick={close}>
+        <Button type="button" variant="subtle" size="icon-sm" aria-label="Cancel" onClick={close}>
           <X className="size-4" />
         </Button>
       </div>

@@ -45,3 +45,7 @@ export async function moveList(
   );
   return data.data;
 }
+
+export async function deleteList(boardId: string, listId: string): Promise<void> {
+  await apiClient.delete(`/boards/${boardId}/lists/${listId}`);
+}

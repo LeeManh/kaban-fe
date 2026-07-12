@@ -2,16 +2,18 @@
 
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Ellipsis } from "lucide-react";
+import { useState } from "react";
 
 import type { ListWithCards } from "@/lib/api/boards";
 import { cn } from "@/lib/utils";
 
 import { AddCardForm } from "./add-card-form";
 import { BoardCardItem } from "./board-card-item";
+import { ListActionsMenu } from "./list-actions-menu";
 import { ListTitle } from "./list-title";
 
 export function BoardList({ list }: { list: ListWithCards }) {
+  const [isAddingTop, setIsAddingTop] = useState(false);
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
     id: list.id,
     data: { type: "list" },
@@ -28,7 +30,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
           : "border-transparent bg-muted",
       )}
     >
-      <div className={cn("flex flex-1 flex-col", isDragging && "invisible")}>
+      <div className={cn("flex flex-1 flex-col gap-1.5", isDragging && "invisible")}>
         <div
           {...attributes}
           {...listeners}
@@ -38,15 +40,22 @@ export function BoardList({ list }: { list: ListWithCards }) {
           {list.cards.length > 0 && (
             <span className="text-xs font-medium text-muted-foreground">{list.cards.length}</span>
           )}
-          <button
-            type="button"
-            aria-label="List actions"
-            onPointerDown={(e) => e.stopPropagation()}
-            className="flex size-6 items-center justify-center rounded-md text-muted-foreground hover:bg-accent"
-          >
-            <Ellipsis className="size-3.75" />
-          </button>
+          <ListActionsMenu
+            boardId={list.boardId}
+            listId={list.id}
+            onAddCard={() => setIsAddingTop(true)}
+          />
         </div>
+
+        {isAddingTop && (
+          <AddCardForm
+            boardId={list.boardId}
+            listId={list.id}
+            addToTop
+            forceOpen
+            onClose={() => setIsAddingTop(false)}
+          />
+        )}
 
         <div className="flex flex-col gap-1.5 overflow-y-auto">
           <SortableContext

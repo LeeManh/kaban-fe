@@ -61,6 +61,7 @@ export interface CreateCardPayload {
   description?: string;
   priority?: CardPriority;
   dueDate?: string;
+  addToTop?: boolean;
 }
 
 export async function createCard(

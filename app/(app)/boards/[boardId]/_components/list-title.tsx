@@ -62,7 +62,7 @@ export function ListTitle({
       type="button"
       onClick={() => setIsEditing(true)}
       onPointerDown={(e) => e.stopPropagation()}
-      className="flex-1 truncate rounded-sm px-1 py-1 text-left text-[13.5px] font-semibold text-foreground hover:bg-accent"
+      className="flex-1 truncate rounded-sm px-1 py-1 text-left text-[13.5px] font-semibold text-foreground hover:bg-foreground/10 h-7"
     >
       {title}
     </button>
