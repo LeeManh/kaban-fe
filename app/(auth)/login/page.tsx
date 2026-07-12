@@ -7,7 +7,8 @@ import { AuthBrandPanel } from "../_components/auth-brand-panel";
 import { LoginForm } from "./_components/login-form";
 
 export const metadata = {
-  title: "Sign in — Kanvas",
+  title: "Sign in",
+  description: "Sign in to your Kanvas account to access your boards.",
 };
 
 export default function LoginPage() {

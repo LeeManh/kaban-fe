@@ -2,7 +2,8 @@ import { AuthBrandPanel } from "../../_components/auth-brand-panel";
 import { InviteAcceptCard } from "./_components/invite-accept-card";
 
 export const metadata = {
-  title: "Accept invite — Kanvas",
+  title: "Accept invite",
+  description: "You've been invited to join a board on Kanvas.",
 };
 
 export default async function InviteAcceptPage({

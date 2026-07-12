@@ -9,6 +9,12 @@ import { Navbar } from "@/app/_components/navbar";
 import { Showcase } from "@/app/_components/showcase";
 import { GuestGuard } from "@/components/auth-guard";
 
+export const metadata = {
+  title: "Organize your work, together",
+  description:
+    "Kanvas is a simple, fast board for organizing tasks and projects — boards, lists, and cards that keep your team moving.",
+};
+
 export default function Home() {
   return (
     <GuestGuard>

@@ -7,7 +7,8 @@ import { AuthBrandPanel } from "../_components/auth-brand-panel";
 import { RegisterForm } from "./_components/register-form";
 
 export const metadata = {
-  title: "Create your account — Kanvas",
+  title: "Create your account",
+  description: "Create a free Kanvas account and start organizing your team's work in minutes.",
 };
 
 export default function RegisterPage() {

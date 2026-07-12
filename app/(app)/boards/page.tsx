@@ -1,6 +1,10 @@
 import { Sidebar } from "../_components/sidebar";
 import { BoardsPageContent } from "./_components/boards-page-content";
 
+export const metadata = {
+  title: "Your boards",
+};
+
 export default function BoardsPage() {
   return (
     <div className="flex min-h-0 flex-1 overflow-hidden">

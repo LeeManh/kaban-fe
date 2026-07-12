@@ -2,7 +2,8 @@ import { AuthBrandPanel } from "../../_components/auth-brand-panel";
 import { InviteLinkJoinCard } from "./_components/invite-link-join-card";
 
 export const metadata = {
-  title: "Join board — Kanvas",
+  title: "Join board",
+  description: "You've been invited to join a board on Kanvas.",
 };
 
 export default async function InviteLinkJoinPage({
