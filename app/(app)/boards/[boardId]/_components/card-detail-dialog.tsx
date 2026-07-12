@@ -9,8 +9,11 @@ import { useCard } from "../_hooks/use-card";
 import { useUpdateCard } from "../_hooks/use-update-card";
 import { useUpdateCardCover } from "../_hooks/use-update-card-cover";
 import { CardAttachments } from "./card-attachments";
+import { CardAttachmentsSkeleton } from "./card-attachments-skeleton";
 import { CardChecklist } from "./card-checklist";
+import { CardChecklistSkeleton } from "./card-checklist-skeleton";
 import { CardComments } from "./card-comments";
+import { CardCommentsSkeleton } from "./card-comments-skeleton";
 import { CardCoverBanner } from "./card-cover-banner";
 import { CardDescription } from "./card-description";
 import { CardDueDate } from "./card-due-date";
@@ -34,7 +37,9 @@ export function CardDetailDialog({
 }) {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
-  const { data: detail } = useCard(boardId, card.id, { enabled: open });
+  const { data: detail, isLoading: isDetailLoading } = useCard(boardId, card.id, {
+    enabled: open,
+  });
   const checklists = detail?.checklists ?? [];
   const attachments = detail?.attachments ?? [];
   const comments = detail?.comments ?? [];
@@ -113,14 +118,26 @@ export function CardDetailDialog({
                 onToggleExpanded={() => setDescriptionExpanded((v) => !v)}
               />
 
-              <CardAttachments boardId={boardId} cardId={card.id} attachments={attachments} />
+              {isDetailLoading ? (
+                <CardAttachmentsSkeleton />
+              ) : (
+                <CardAttachments boardId={boardId} cardId={card.id} attachments={attachments} />
+              )}
 
-              {checklists.map((checklist) => (
-                <CardChecklist key={checklist.id} boardId={boardId} checklist={checklist} />
-              ))}
+              {isDetailLoading ? (
+                <CardChecklistSkeleton />
+              ) : (
+                checklists.map((checklist) => (
+                  <CardChecklist key={checklist.id} boardId={boardId} checklist={checklist} />
+                ))
+              )}
             </div>
 
-            <CardComments boardId={boardId} cardId={card.id} comments={comments} />
+            {isDetailLoading ? (
+              <CardCommentsSkeleton />
+            ) : (
+              <CardComments boardId={boardId} cardId={card.id} comments={comments} />
+            )}
           </div>
         </DialogContent>
       </Dialog>

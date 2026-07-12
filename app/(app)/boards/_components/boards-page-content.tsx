@@ -4,6 +4,7 @@ import { Clock, SquareKanban } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { BoardCard, CreateBoardCard } from "./board-card";
+import { BoardCardSkeleton } from "./board-card-skeleton";
 import { EmptyBoardsState } from "./empty-boards-state";
 import { useBoards } from "../_hooks/use-boards";
 import { useRecentlyViewedBoards } from "../_hooks/use-recently-viewed-boards";
@@ -61,7 +62,11 @@ export function BoardsPageContent() {
           <SectionHeading icon={SquareKanban} title="Your Boards" />
 
           {isLoading ? (
-            <div className="py-16 text-center text-sm text-muted-foreground">Loading boards…</div>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <BoardCardSkeleton key={index} />
+              ))}
+            </div>
           ) : isError ? (
             <div className="py-16 text-center text-sm text-muted-foreground">
               Could not load boards. Please try again.

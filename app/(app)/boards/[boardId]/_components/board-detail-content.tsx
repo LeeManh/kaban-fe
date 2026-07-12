@@ -8,8 +8,13 @@ import { getCurrentUserId } from "@/lib/api/tokens";
 import { useBoard } from "../_hooks/use-board";
 import { useBoardRealtime } from "../_hooks/use-board-realtime";
 import { useBoardRoom } from "../_hooks/use-board-room";
-import { EMPTY_BOARD_FILTER, matchesBoardFilter, type BoardFilterState } from "../_lib/board-filter";
+import {
+  EMPTY_BOARD_FILTER,
+  matchesBoardFilter,
+  type BoardFilterState,
+} from "../_lib/board-filter";
 import { BoardCanvas } from "./board-canvas";
+import { BoardDetailSkeleton } from "./board-detail-skeleton";
 import { BoardHeader } from "./board-header";
 
 export function BoardDetailContent({ boardId }: { boardId: string }) {
@@ -35,11 +40,7 @@ export function BoardDetailContent({ boardId }: { boardId: string }) {
   }, [board, filter, currentUserId]);
 
   if (isLoading) {
-    return (
-      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
-        Loading board…
-      </div>
-    );
+    return <BoardDetailSkeleton />;
   }
 
   if (isError || !board) {
