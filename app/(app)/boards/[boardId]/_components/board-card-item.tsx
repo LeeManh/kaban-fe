@@ -249,7 +249,6 @@ export function BoardCardItem({
     id: card.id,
     data: { type: "card", listId: card.listId },
   });
-  const [isDone, setIsDone] = useState(card.isDone);
   const [isEditing, setIsEditing] = useState(false);
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -306,7 +305,7 @@ export function BoardCardItem({
         <>
           {createPortal(<div className="fixed inset-0 z-40 bg-black/50" />, document.body)}
           <CardEditView
-            card={{ ...card, isDone }}
+            card={card}
             isSaving={updateCard.isPending}
             onCancel={() => setIsEditing(false)}
             onSave={(title) => {
@@ -339,7 +338,12 @@ export function BoardCardItem({
               Edit card
             </TooltipContent>
           </Tooltip>
-          <CardBody card={card} checked={isDone} onToggleChecked={() => setIsDone((v) => !v)} />
+          <CardBody
+            card={card}
+            onToggleChecked={() =>
+              updateCard.mutate({ cardId: card.id, version: card.version, isDone: !card.isDone })
+            }
+          />
         </div>
       )}
 
