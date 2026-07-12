@@ -72,8 +72,5 @@ export function useMoveCard(boardId: string) {
         queryClient.setQueryData(queryKey, context.previousBoard);
       }
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
-    },
   });
 }

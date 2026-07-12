@@ -6,10 +6,15 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 import { useSocket } from "@/app/(app)/_context/socket-provider";
+import { getCurrentUserId } from "@/lib/api/tokens";
 import { SOCKET_EVENT } from "@/lib/socket-events";
 
 interface BoardScopedPayload {
   boardId: string;
+}
+
+interface ActorScopedPayload extends BoardScopedPayload {
+  actorId: string;
 }
 
 export function useBoardRealtime(boardId: string) {
@@ -18,8 +23,9 @@ export function useBoardRealtime(boardId: string) {
   const router = useRouter();
 
   useEffect(() => {
-    function handleBoardStructureChanged(payload: BoardScopedPayload) {
+    function handleBoardStructureChanged(payload: ActorScopedPayload) {
       if (payload.boardId !== boardId) return;
+      if (payload.actorId === getCurrentUserId()) return;
       queryClient.invalidateQueries({ queryKey: ["boards", boardId] });
     }
 
