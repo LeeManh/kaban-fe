@@ -240,14 +240,17 @@ export function BoardCardItem({
   boardId,
   listTitle,
   card,
+  dndDisabled,
 }: {
   boardId: string;
   listTitle: string;
   card: CardSummary;
+  dndDisabled?: boolean;
 }) {
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
     id: card.id,
     data: { type: "card", listId: card.listId },
+    disabled: dndDisabled,
   });
   const [isEditing, setIsEditing] = useState(false);
   const searchParams = useSearchParams();

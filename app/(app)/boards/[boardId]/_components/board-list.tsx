@@ -12,11 +12,18 @@ import { BoardCardItem } from "./board-card-item";
 import { ListActionsMenu } from "./list-actions-menu";
 import { ListTitle } from "./list-title";
 
-export function BoardList({ list }: { list: ListWithCards }) {
+export function BoardList({
+  list,
+  dndDisabled,
+}: {
+  list: ListWithCards;
+  dndDisabled?: boolean;
+}) {
   const [isAddingTop, setIsAddingTop] = useState(false);
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
     id: list.id,
     data: { type: "list" },
+    disabled: dndDisabled,
   });
 
   return (
@@ -69,6 +76,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
                 boardId={list.boardId}
                 listTitle={list.title}
                 card={card}
+                dndDisabled={dndDisabled}
               />
             ))}
           </SortableContext>

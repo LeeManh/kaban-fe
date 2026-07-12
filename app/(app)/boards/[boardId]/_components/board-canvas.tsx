@@ -14,6 +14,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import { Ellipsis, Plus } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import type { CardSummary, ListWithCards } from "@/lib/api/boards";
@@ -47,6 +48,8 @@ export function BoardCanvas({ boardId, lists }: { boardId: string; lists: ListWi
   const isDragging = useRef(false);
   const [activeCard, setActiveCard] = useState<CardSummary | null>(null);
   const [activeList, setActiveList] = useState<ListWithCards | null>(null);
+  const searchParams = useSearchParams();
+  const dndDisabled = searchParams.has("card");
 
   const moveList = useMoveList(boardId);
   const moveCard = useMoveCard(boardId);
@@ -177,7 +180,7 @@ export function BoardCanvas({ boardId, lists }: { boardId: string; lists: ListWi
           strategy={horizontalListSortingStrategy}
         >
           {orderedLists.map((list) => (
-            <BoardList key={list.id} list={list} />
+            <BoardList key={list.id} list={list} dndDisabled={dndDisabled} />
           ))}
         </SortableContext>
 
