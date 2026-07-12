@@ -89,31 +89,32 @@ export function BoardFilterPopover({
   }
 
   return (
-    <Popover>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <PopoverTrigger
-              render={
-                <button
-                  type="button"
-                  aria-label="Filter"
-                  className={cn(
-                    "flex size-8 cursor-pointer items-center justify-center rounded-md text-white hover:bg-white/15",
-                    isBoardFilterActive(filter) && "bg-white/20",
-                  )}
-                />
-              }
-            />
-          }
-        >
-          <ListFilter className="size-4" />
-        </TooltipTrigger>
-        <TooltipContent side="bottom" showArrow={false}>
-          Filter
-        </TooltipContent>
-      </Tooltip>
-      <PopoverContent align="end" className="max-h-[80vh] w-80 gap-4 overflow-y-auto">
+    <>
+      <Popover>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <PopoverTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="Filter"
+                    className={cn(
+                      "flex size-8 cursor-pointer items-center justify-center rounded-md text-white hover:bg-white/15",
+                      isBoardFilterActive(filter) && "bg-white/20",
+                    )}
+                  />
+                }
+              />
+            }
+          >
+            <ListFilter className="size-4" />
+          </TooltipTrigger>
+          <TooltipContent side="bottom" showArrow={false}>
+            Filter
+          </TooltipContent>
+        </Tooltip>
+        <PopoverContent align="end" className="max-h-[80vh] w-80 gap-4 overflow-y-auto">
         <div className="flex items-center justify-between">
           <PopoverTitle className="mx-auto text-sm font-semibold text-foreground">
             Filter
@@ -134,16 +135,6 @@ export function BoardFilterPopover({
           />
           <p className="mt-1 text-xs text-muted-foreground">Search cards, members, labels, and more.</p>
         </div>
-
-        {isBoardFilterActive(filter) && (
-          <button
-            type="button"
-            onClick={() => onFilterChange(EMPTY_BOARD_FILTER)}
-            className="cursor-pointer self-start text-xs font-medium text-primary hover:underline"
-          >
-            Clear all filters
-          </button>
-        )}
 
         <div>
           <div className="mb-1 text-xs font-semibold text-foreground">Members</div>
@@ -408,6 +399,27 @@ export function BoardFilterPopover({
           </div>
         </div>
       </PopoverContent>
-    </Popover>
+      </Popover>
+
+      {isBoardFilterActive(filter) && (
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <button
+                type="button"
+                aria-label="Clear filters"
+                onClick={() => onFilterChange(EMPTY_BOARD_FILTER)}
+                className="flex h-8 cursor-pointer items-center rounded-md px-2.5 text-[13px] font-medium text-white hover:bg-white/15"
+              />
+            }
+          >
+            Clear all
+          </TooltipTrigger>
+          <TooltipContent side="bottom" showArrow={false}>
+            Clear filters
+          </TooltipContent>
+        </Tooltip>
+      )}
+    </>
   );
 }
