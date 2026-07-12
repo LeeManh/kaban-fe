@@ -49,3 +49,19 @@ export async function moveList(
 export async function deleteList(boardId: string, listId: string): Promise<void> {
   await apiClient.delete(`/boards/${boardId}/lists/${listId}`);
 }
+
+export interface CopyListPayload {
+  title?: string;
+}
+
+export async function copyList(
+  boardId: string,
+  listId: string,
+  payload: CopyListPayload,
+): Promise<List> {
+  const { data } = await apiClient.post<ApiSuccessResponse<List>>(
+    `/boards/${boardId}/lists/${listId}/copy`,
+    payload,
+  );
+  return data.data;
+}

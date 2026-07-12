@@ -43,6 +43,7 @@ export function BoardList({ list }: { list: ListWithCards }) {
           <ListActionsMenu
             boardId={list.boardId}
             listId={list.id}
+            listTitle={list.title}
             onAddCard={() => setIsAddingTop(true)}
           />
         </div>
