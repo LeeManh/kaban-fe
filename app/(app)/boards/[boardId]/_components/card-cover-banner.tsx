@@ -16,11 +16,13 @@ function CardBannerActions({
   cardId,
   assignees,
   overlay,
+  onCardDeleted,
 }: {
   boardId: string;
   cardId: string;
   assignees: CardAssignee[];
   overlay: boolean;
+  onCardDeleted: () => void;
 }) {
   const buttonClassName = overlay
     ? "cursor-pointer rounded-full bg-white/90 text-slate-800 hover:bg-white"
@@ -33,6 +35,7 @@ function CardBannerActions({
         cardId={cardId}
         assignees={assignees}
         buttonClassName={buttonClassName}
+        onDeleted={onCardDeleted}
       />
       <Tooltip>
         <TooltipTrigger
@@ -67,6 +70,7 @@ export function CardCoverBanner({
   cover,
   onCoverChange,
   onRemoveCover,
+  onCardDeleted,
 }: {
   boardId: string;
   cardId: string;
@@ -75,6 +79,7 @@ export function CardCoverBanner({
   cover: string | null;
   onCoverChange: (value: string) => void;
   onRemoveCover: () => void;
+  onCardDeleted: () => void;
 }) {
   if (!cover) {
     return (
@@ -91,6 +96,7 @@ export function CardCoverBanner({
             cardId={cardId}
             assignees={assignees}
             overlay={false}
+            onCardDeleted={onCardDeleted}
           />
         </div>
       </div>
@@ -122,7 +128,13 @@ export function CardCoverBanner({
 
       <div className="absolute top-3 right-3 flex items-center gap-1.5">
         <CardCoverPopover value={cover} onChange={onCoverChange} />
-        <CardBannerActions boardId={boardId} cardId={cardId} assignees={assignees} overlay />
+        <CardBannerActions
+          boardId={boardId}
+          cardId={cardId}
+          assignees={assignees}
+          overlay
+          onCardDeleted={onCardDeleted}
+        />
       </div>
     </div>
   );

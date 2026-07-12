@@ -1,6 +1,6 @@
 "use client";
 
-import { Archive, ChevronLeft, Ellipsis, Lock, Share2, UserPlus, UserX, X } from "lucide-react";
+import { ChevronLeft, Ellipsis, Lock, Share2, Trash2, UserPlus, UserX, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import { getCurrentUserId } from "@/lib/api/tokens";
 import { cn } from "@/lib/utils";
 
 import { useAssignCardMember, useUnassignCardMember } from "../_hooks/use-card-members";
+import { useDeleteCard } from "../_hooks/use-delete-card";
 
 function CopyField({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false);
@@ -44,14 +45,16 @@ export function CardMoreOptionsMenu({
   cardId,
   assignees,
   buttonClassName,
+  onDeleted,
 }: {
   boardId: string;
   cardId: string;
   assignees: CardAssignee[];
   buttonClassName: string;
+  onDeleted: () => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState<"menu" | "share">("menu");
+  const [view, setView] = useState<"menu" | "share" | "delete">("menu");
 
   const currentUserId = getCurrentUserId();
   const isJoined = assignees.some((assignee) => assignee.id === currentUserId);
@@ -59,6 +62,7 @@ export function CardMoreOptionsMenu({
   const assignCardMember = useAssignCardMember(boardId);
   const unassignCardMember = useUnassignCardMember(boardId);
   const isTogglingMembership = assignCardMember.isPending || unassignCardMember.isPending;
+  const deleteCard = useDeleteCard(boardId);
 
   function handleOpenChange(next: boolean) {
     setOpen(next);
@@ -72,6 +76,15 @@ export function CardMoreOptionsMenu({
     } else {
       assignCardMember.mutate({ cardId, userId: currentUserId });
     }
+  }
+
+  function handleDelete() {
+    deleteCard.mutate(cardId, {
+      onSuccess: () => {
+        handleOpenChange(false);
+        onDeleted();
+      },
+    });
   }
 
   const cardUrl = `${typeof window !== "undefined" ? window.location.origin : ""}/boards/${boardId}?card=${cardId}`;
@@ -99,7 +112,10 @@ export function CardMoreOptionsMenu({
           More options
         </TooltipContent>
       </Tooltip>
-      <DropdownMenuContent align="end" className={cn(view === "share" ? "w-72" : "w-52", "gap-1")}>
+      <DropdownMenuContent
+        align="end"
+        className={cn(view === "menu" ? "w-52" : "w-72", "gap-1")}
+      >
         {view === "menu" && (
           <>
             <DropdownMenuItem
@@ -115,9 +131,14 @@ export function CardMoreOptionsMenu({
               <Share2 className="size-4" />
               Share
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <Archive className="size-4" />
-              Archive
+            <DropdownMenuItem
+              variant="destructive"
+              className="cursor-pointer"
+              closeOnClick={false}
+              onClick={() => setView("delete")}
+            >
+              <Trash2 className="size-4" />
+              Delete
             </DropdownMenuItem>
           </>
         )}
@@ -155,6 +176,47 @@ export function CardMoreOptionsMenu({
               </div>
               <CopyField label="Copy link to this card" value={cardUrl} />
             </div>
+          </div>
+        )}
+
+        {view === "delete" && (
+          <div className="space-y-3 p-1">
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                size="icon-xs"
+                aria-label="Back"
+                className="cursor-pointer"
+                onClick={() => setView("menu")}
+              >
+                <ChevronLeft className="size-4" />
+              </Button>
+              <span className="flex-1 text-center text-sm font-semibold text-foreground">
+                Delete card?
+              </span>
+              <Button
+                variant="ghost"
+                size="icon-xs"
+                aria-label="Close"
+                className="cursor-pointer"
+                onClick={() => handleOpenChange(false)}
+              >
+                <X className="size-3.5" />
+              </Button>
+            </div>
+
+            <p className="px-1 text-[13px] text-muted-foreground">
+              Deleting a card is permanent and cannot be undone.
+            </p>
+
+            <Button
+              variant="destructive"
+              className="w-full cursor-pointer"
+              disabled={deleteCard.isPending}
+              onClick={handleDelete}
+            >
+              {deleteCard.isPending ? "Deleting…" : "Delete card"}
+            </Button>
           </div>
         )}
       </DropdownMenuContent>

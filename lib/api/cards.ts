@@ -117,6 +117,10 @@ export async function moveCard(
   return data.data;
 }
 
+export async function deleteCard(boardId: string, cardId: string): Promise<void> {
+  await apiClient.delete(`/boards/${boardId}/cards/${cardId}`);
+}
+
 export interface CardAssigneeLink {
   cardId: string;
   userId: string;

@@ -66,11 +66,15 @@ export function CardDetailDialog({
             onRemoveCover={() =>
               updateCardCover.mutate({ cardId: card.id, version: card.version, cover: null })
             }
+            onCardDeleted={() => onOpenChange(false)}
           />
 
           <div className="grid min-h-0 flex-1 grid-cols-1 md:grid-cols-[minmax(0,1fr)_420px]">
             <div className="flex h-full flex-col gap-5 overflow-y-auto p-5 md:border-r md:border-border">
               <CardTitle
+                boardId={boardId}
+                cardId={card.id}
+                version={card.version}
                 title={card.title}
                 isDone={card.isDone}
                 onToggleDone={() =>
