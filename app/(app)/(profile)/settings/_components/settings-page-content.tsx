@@ -5,8 +5,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { EmailFrequency } from "@/lib/api/notifications";
 
+import { useDesktopNotificationPermission } from "../../../_hooks/use-desktop-notification-permission";
 import { useNotificationPreferences } from "../../../_hooks/use-notification-preferences";
 import { useUpdateNotificationPreferences } from "../../../_hooks/use-update-notification-preferences";
+
+const DESKTOP_NOTIFICATION_LABEL = {
+  default: "Allow desktop notifications",
+  granted: "Desktop notifications allowed",
+  denied: "Desktop notifications blocked",
+  unsupported: "Desktop notifications unsupported",
+} as const;
 
 const FREQUENCY_OPTIONS: { value: EmailFrequency; label: string }[] = [
   { value: "NEVER", label: "Never" },
@@ -46,6 +54,7 @@ type PreferenceKey = (typeof NOTIFICATION_PREFERENCES)[number]["key"];
 export function SettingsPageContent() {
   const { data } = useNotificationPreferences();
   const updatePreferences = useUpdateNotificationPreferences();
+  const { permission, requestPermission } = useDesktopNotificationPermission();
 
   const isReady = !!data;
   const isMutating = updatePreferences.isPending;
@@ -131,8 +140,15 @@ export function SettingsPageContent() {
           </div>
         </div>
 
-        <Button type="button" variant="outline" size="sm" className="mt-6 cursor-pointer">
-          Allow desktop notifications
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          disabled={permission !== "default"}
+          onClick={requestPermission}
+          className="mt-6 cursor-pointer"
+        >
+          {DESKTOP_NOTIFICATION_LABEL[permission]}
         </Button>
       </div>
     </div>
