@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { buttonVariants } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 export function Hero() {
@@ -36,13 +37,31 @@ export function Hero() {
               Get started free
               <ArrowRight className="size-4" />
             </Link>
-            <a
-              href="#"
-              className={cn(buttonVariants({ variant: "outline", size: "xl" }))}
-            >
-              <Play className="size-4 fill-current" />
-              Live demo
-            </a>
+            <Dialog>
+              <DialogTrigger
+                render={
+                  <button
+                    type="button"
+                    className={cn(buttonVariants({ variant: "outline", size: "xl" }))}
+                  />
+                }
+              >
+                <Play className="size-4 fill-current" />
+                Live demo
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl gap-0 overflow-hidden p-0 sm:max-w-3xl">
+                <div className="aspect-video w-full">
+                  <iframe
+                    className="size-full"
+                    src="https://www.youtube.com/embed/veBZCQ2FELM?si=-fPDLFAMx45taB2L"
+                    title="Kanvas demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
           <div className="flex items-center gap-1.75 text-[13px] font-medium text-muted-foreground">
             <Check className="size-3.75 text-green-500" />
