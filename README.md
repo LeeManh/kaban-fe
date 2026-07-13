@@ -90,26 +90,9 @@ Notable problems solved beyond typical CRUD wiring:
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    subgraph Client["`**FE (Next.js)**`"]
-        UI[React UI]
-        RQ[TanStack Query cache]
-    end
+![Realtime Socket.IO flow](.github/assets/realtime-flow.png)
 
-    subgraph Server["`**BE (NestJS)**`"]
-        REST[REST controllers]
-        GW[Socket.IO gateway]
-    end
-
-    DB[(PostgreSQL)]
-
-    UI -->|REST calls| REST
-    REST --> DB
-    REST -->|domain events| GW
-    UI <-->|WebSocket, per-board room| GW
-    GW -.->|invalidate / sync| RQ
-```
+![Optimistic update flow](.github/assets/optimistic-update-flow.png)
 
 ## Getting Started
 
