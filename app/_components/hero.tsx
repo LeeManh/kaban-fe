@@ -31,7 +31,7 @@ export function Hero() {
               href="/register"
               className={cn(
                 buttonVariants({ size: "xl" }),
-                "shadow-[0_4px_12px_--theme(--color-primary/32%)]"
+                "shadow-[0_4px_12px_--theme(--color-primary/32%)]",
               )}
             >
               Get started free
@@ -49,11 +49,11 @@ export function Hero() {
                 <Play className="size-4 fill-current" />
                 Live demo
               </DialogTrigger>
-              <DialogContent className="max-w-3xl gap-0 overflow-hidden p-0 sm:max-w-3xl">
+              <DialogContent className="max-w-5xl gap-0 overflow-hidden p-0 sm:max-w-5xl">
                 <div className="aspect-video w-full">
                   <iframe
                     className="size-full"
-                    src="https://www.youtube.com/embed/veBZCQ2FELM?si=-fPDLFAMx45taB2L"
+                    src="https://www.youtube.com/embed/QepLhiFHRjQ?si=7VzFDPtNh-unsH5W&vq=hd1080"
                     title="Kanvas demo"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
@@ -69,10 +69,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div
-          className="hidden min-w-0 flex-1 lg:block"
-          style={{ perspective: "1600px" }}
-        >
+        <div className="hidden min-w-0 flex-1 lg:block" style={{ perspective: "1600px" }}>
           <div
             className="relative overflow-hidden rounded-md border border-border bg-muted shadow-[0_40px_80px_-20px_--theme(--color-blue-900/22%),0_8px_20px_--theme(--color-slate-900/10%)]"
             style={{ transform: "rotateY(-14deg) rotateX(5deg) rotate(1deg)" }}
