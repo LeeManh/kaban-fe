@@ -6,7 +6,7 @@
 
 **A real-time Kanban board for teams — boards, lists, cards, and live collaboration.**
 
-**[🔗 Live Demo](https://kaban.io.vn)**
+**[🔗 Live Site](https://kaban.io.vn)**
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)](https://nextjs.org) [![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev) [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org) [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com) [![TanStack Query](https://img.shields.io/badge/TanStack_Query-5-FF4154?logo=reactquery&logoColor=white)](https://tanstack.com/query) [![Socket.IO](https://img.shields.io/badge/Socket.IO-client-black?logo=socketdotio&logoColor=white)](https://socket.io)
 [![CI](https://github.com/LeeManh/kaban-fe/actions/workflows/ci.yml/badge.svg)](https://github.com/LeeManh/kaban-fe/actions/workflows/ci.yml)
