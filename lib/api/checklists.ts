@@ -17,6 +17,22 @@ export async function createChecklist(
   return data.data;
 }
 
+export interface UpdateChecklistPayload {
+  title: string;
+}
+
+export async function updateChecklist(
+  boardId: string,
+  checklistId: string,
+  payload: UpdateChecklistPayload,
+): Promise<Checklist> {
+  const { data } = await apiClient.patch<ApiSuccessResponse<Checklist>>(
+    `/boards/${boardId}/checklists/${checklistId}`,
+    payload,
+  );
+  return data.data;
+}
+
 export interface ChecklistLink {
   id: string;
 }
@@ -39,6 +55,22 @@ export async function createChecklistItem(
 ): Promise<ChecklistItem> {
   const { data } = await apiClient.post<ApiSuccessResponse<ChecklistItem>>(
     `/boards/${boardId}/checklists/${checklistId}/items`,
+    payload,
+  );
+  return data.data;
+}
+
+export interface UpdateChecklistItemPayload {
+  content: string;
+}
+
+export async function updateChecklistItem(
+  boardId: string,
+  itemId: string,
+  payload: UpdateChecklistItemPayload,
+): Promise<ChecklistItem> {
+  const { data } = await apiClient.patch<ApiSuccessResponse<ChecklistItem>>(
+    `/boards/${boardId}/checklist-items/${itemId}`,
     payload,
   );
   return data.data;
