@@ -39,6 +39,8 @@ export function TemplateCategoryContent({ slug }: { slug: string }) {
               {templates.map((template) => (
                 <TemplateCard
                   key={template.id}
+                  id={template.id}
+                  categorySlug={category.slug}
                   name={template.name}
                   background={template.background}
                   description={template.templateDescription}

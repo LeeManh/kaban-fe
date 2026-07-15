@@ -43,3 +43,32 @@ export async function listTemplates(
   );
   return data.data;
 }
+
+export async function getTemplate(templateId: string): Promise<BoardTemplate> {
+  const { data } = await apiClient.get<ApiSuccessResponse<BoardTemplate>>(
+    `/boards/templates/${templateId}`,
+  );
+  return data.data;
+}
+
+export interface CreateBoardFromTemplatePayload {
+  name?: string;
+  background?: string;
+}
+
+export interface CreatedBoard {
+  id: string;
+  name: string;
+  background: string;
+}
+
+export async function createBoardFromTemplate(
+  templateId: string,
+  payload?: CreateBoardFromTemplatePayload,
+): Promise<CreatedBoard> {
+  const { data } = await apiClient.post<ApiSuccessResponse<CreatedBoard>>(
+    `/boards/templates/${templateId}/use`,
+    payload ?? {},
+  );
+  return data.data;
+}
