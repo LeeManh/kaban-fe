@@ -35,7 +35,7 @@ export function Header() {
         <CreateBoardPopover>
           <Button
             size="sm"
-            className="shrink-0 gap-1.75 shadow-[0_1px_2px_--theme(--color-primary/30%)]"
+            className="shrink-0 gap-1.75 shadow-[0_1px_2px_--theme(--color-primary/30%)] h-8"
           >
             Create
           </Button>

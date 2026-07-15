@@ -14,22 +14,13 @@ import { ListMoveForm } from "./list-move-form";
 
 type MenuView = "menu" | "delete-confirm" | "copy-list" | "move-list" | "move-all-cards";
 
-function MenuItem({
-  icon,
-  label,
-  onClick,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  onClick?: () => void;
-}) {
+function MenuItem({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
     <button
       type="button"
       onClick={onClick}
       className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-foreground hover:bg-accent"
     >
-      {icon}
       <span className="flex-1">{label}</span>
     </button>
   );
@@ -83,7 +74,7 @@ export function ListActionsMenu({
           List actions
         </TooltipContent>
       </Tooltip>
-      <PopoverContent align="start" className="w-72 gap-3">
+      <PopoverContent align="start" className="w-60 gap-3">
         {view === "delete-confirm" ? (
           <ListDeleteConfirm
             boardId={boardId}
@@ -118,19 +109,10 @@ export function ListActionsMenu({
         ) : (
           <>
             <PopoverSubHeader title="List actions" />
-            <MenuItem icon={<Plus className="size-4" />} label="Add card" onClick={handleAddCard} />
+            <MenuItem label="Add card" onClick={handleAddCard} />
+            <MenuItem label="Copy list" onClick={() => setView("copy-list")} />
+            <MenuItem label="Move list" onClick={() => setView("move-list")} />
             <MenuItem
-              icon={<Copy className="size-4" />}
-              label="Copy list"
-              onClick={() => setView("copy-list")}
-            />
-            <MenuItem
-              icon={<ArrowLeftRight className="size-4" />}
-              label="Move list"
-              onClick={() => setView("move-list")}
-            />
-            <MenuItem
-              icon={<ArrowRight className="size-4" />}
               label="Move all cards in this list"
               onClick={() => setView("move-all-cards")}
             />
@@ -142,7 +124,6 @@ export function ListActionsMenu({
               onClick={() => setView("delete-confirm")}
               className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-destructive hover:bg-destructive/10"
             >
-              <Trash2 className="size-4" />
               Delete list
             </button>
           </>

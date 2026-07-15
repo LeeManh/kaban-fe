@@ -25,10 +25,7 @@ export function BoardSearch({ background }: { background: boolean }) {
     () => boards.filter((board) => board.name.toLowerCase().includes(trimmedQuery)),
     [boards, trimmedQuery],
   );
-  const recentBoards = useMemo(
-    () => recentlyViewed.map((entry) => entry.board),
-    [recentlyViewed],
-  );
+  const recentBoards = useMemo(() => recentlyViewed.map((entry) => entry.board), [recentlyViewed]);
 
   const results = hasQuery ? searchResults : recentBoards;
   const listLabel = hasQuery ? "Search results" : "Recent boards";
@@ -65,7 +62,7 @@ export function BoardSearch({ background }: { background: boolean }) {
               placeholder="Search"
               aria-label="Search boards"
               className={cn(
-                "w-full h-8 pl-8.5 focus-visible:ring-0",
+                "w-full h-8 pl-8.5 focus-visible:ring-0 rounded-sm",
                 background
                   ? "border-transparent bg-white/20 text-white placeholder:text-white/70 focus-visible:border-transparent focus-visible:bg-white/25"
                   : "bg-muted focus-visible:border-border focus-visible:bg-background",
@@ -75,11 +72,7 @@ export function BoardSearch({ background }: { background: boolean }) {
         />
       </div>
 
-      <PopoverContent
-        align="start"
-        initialFocus={false}
-        className="w-(--anchor-width) gap-1 p-2"
-      >
+      <PopoverContent align="start" initialFocus={false} className="w-(--anchor-width) gap-1 p-2">
         <div className="px-2 pt-1 pb-1.5 text-[11px] font-bold tracking-[0.04em] text-muted-foreground uppercase">
           {listLabel}
         </div>
