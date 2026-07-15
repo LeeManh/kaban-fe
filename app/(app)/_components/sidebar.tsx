@@ -1,63 +1,97 @@
 "use client";
 
-import { SquareKanban } from "lucide-react";
+import { SquareKanban, FilePlusCorner } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-
 interface NavLinkItem {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
-  href?: string;
-  onClick?: () => void;
+  href: string;
+  active?: boolean;
   danger?: boolean;
 }
 
-const PRIMARY_LINKS: NavLinkItem[] = [{ href: "/boards", label: "Boards", icon: SquareKanban }];
+interface TemplateCategoryItem {
+  label: string;
+  slug: string;
+}
+
+const TEMPLATE_CATEGORIES: TemplateCategoryItem[] = [
+  { label: "Business", slug: "business" },
+  { label: "Design", slug: "design" },
+  { label: "Education", slug: "education" },
+  { label: "Engineering", slug: "engineering" },
+  { label: "Marketing", slug: "marketing" },
+  { label: "Remote work", slug: "remote-work" },
+];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const isTemplatesSection = pathname.startsWith("/templates");
+
+  const primaryLinks: NavLinkItem[] = [
+    {
+      href: "/boards",
+      label: "Boards",
+      icon: SquareKanban,
+      active: pathname.startsWith("/boards"),
+    },
+    {
+      href: "/templates",
+      label: "Templates",
+      icon: FilePlusCorner,
+      active: isTemplatesSection,
+    },
+  ];
 
   function renderNavLink(link: NavLinkItem) {
-    if (link.href) {
-      const active = pathname.startsWith(link.href);
-      return (
-        <Link
-          key={link.label}
-          href={link.href}
-          className={cn(
-            "flex items-center gap-3 rounded-md px-3.5 py-2 text-[13.5px]",
-            active
-              ? "bg-primary/10 font-semibold text-primary"
-              : "font-medium text-muted-foreground hover:bg-accent hover:text-foreground",
-          )}
-        >
-          <link.icon className="size-4.5 shrink-0" />
-          <span>{link.label}</span>
-        </Link>
-      );
-    }
+    const className = cn(
+      "flex cursor-pointer items-center gap-3 rounded-md px-3.5 py-2 text-left text-[13.5px]",
+      link.danger
+        ? "font-medium text-destructive hover:bg-destructive/10"
+        : link.active
+          ? "bg-primary/10 font-semibold text-primary"
+          : "font-medium text-muted-foreground hover:bg-accent hover:text-foreground",
+    );
+
     return (
-      <button
-        key={link.label}
-        type="button"
-        onClick={link.onClick}
-        className={cn(
-          "flex items-center gap-3 rounded-md px-3.5 py-2.75 text-left text-[13.5px] font-medium",
-          link.danger
-            ? "text-destructive hover:bg-destructive/10"
-            : "text-muted-foreground hover:bg-accent hover:text-foreground",
-        )}
-      >
+      <Link key={link.label} href={link.href} className={className}>
         <link.icon className="size-4.5 shrink-0" />
         <span>{link.label}</span>
-      </button>
+      </Link>
+    );
+  }
+
+  function renderTemplateCategory(category: TemplateCategoryItem) {
+    const href = `/templates/${category.slug}`;
+    const active = pathname === href;
+    return (
+      <Link
+        key={category.slug}
+        href={href}
+        className={cn(
+          "rounded-md py-2 pr-3.5 pl-11 text-left text-[13.5px]",
+          active
+            ? "bg-accent font-medium text-foreground"
+            : "font-medium text-muted-foreground hover:bg-accent hover:text-foreground",
+        )}
+      >
+        {category.label}
+      </Link>
     );
   }
 
   return (
     <aside className="flex w-64 flex-none flex-col overflow-hidden pt-4">
-      <nav className="flex flex-col gap-1 px-4 pt-6 pb-1">{PRIMARY_LINKS.map(renderNavLink)}</nav>
+      <nav className="flex flex-col gap-1 px-4 pt-6 pb-1">
+        {primaryLinks.map(renderNavLink)}
+        {isTemplatesSection && (
+          <div className="mt-1 flex flex-col gap-0.5">
+            {TEMPLATE_CATEGORIES.map(renderTemplateCategory)}
+          </div>
+        )}
+      </nav>
     </aside>
   );
 }
