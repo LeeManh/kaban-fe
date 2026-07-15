@@ -4,6 +4,9 @@ import { SquareKanban, FilePlusCorner } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+
+import { TEMPLATE_CATEGORIES, type TemplateCategoryItem } from "../templates/_lib/template-categories";
+
 interface NavLinkItem {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -11,20 +14,6 @@ interface NavLinkItem {
   active?: boolean;
   danger?: boolean;
 }
-
-interface TemplateCategoryItem {
-  label: string;
-  slug: string;
-}
-
-const TEMPLATE_CATEGORIES: TemplateCategoryItem[] = [
-  { label: "Business", slug: "business" },
-  { label: "Design", slug: "design" },
-  { label: "Education", slug: "education" },
-  { label: "Engineering", slug: "engineering" },
-  { label: "Marketing", slug: "marketing" },
-  { label: "Remote work", slug: "remote-work" },
-];
 
 export function Sidebar() {
   const pathname = usePathname();
