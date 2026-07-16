@@ -361,9 +361,23 @@ export function BoardCardItem({
   );
 }
 
-export function BoardCardPreview({ card }: { card: CardSummary }) {
+export function BoardCardPreview({
+  card,
+  className,
+  onClick,
+}: {
+  card: CardSummary;
+  className?: string;
+  onClick?: () => void;
+}) {
   return (
-    <div className="cursor-grabbing overflow-hidden rounded-md bg-card p-2.5 shadow-lg">
+    <div
+      onClick={onClick}
+      className={cn(
+        "cursor-grabbing overflow-hidden rounded-md bg-card p-2.5 shadow-lg",
+        className,
+      )}
+    >
       <CardBody card={card} />
     </div>
   );

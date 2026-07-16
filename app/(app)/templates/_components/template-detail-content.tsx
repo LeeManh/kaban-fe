@@ -14,6 +14,7 @@ import {
 import { toBackgroundStyle } from "@/lib/utils";
 
 import { SharePopover } from "./share-popover";
+import { TemplateBoardPreview } from "./template-board-preview";
 import { TemplateDetailSkeleton } from "./template-detail-skeleton";
 import { TemplateSearchInput } from "./template-search-input";
 import { UseTemplatePopover } from "./use-template-popover";
@@ -92,11 +93,18 @@ export function TemplateDetailContent({
                   <h2 className="mb-2 text-base font-bold text-foreground">
                     About this template
                   </h2>
-                  <p className="text-[13.5px] leading-relaxed whitespace-pre-line text-muted-foreground">
+                  <p className="mb-5 text-[13.5px] leading-relaxed whitespace-pre-line text-muted-foreground">
                     {template.templateDescription}
                   </p>
                 </>
               )}
+
+              <TemplateBoardPreview
+                templateId={template.id}
+                lists={template.lists}
+                background={template.background}
+                name={template.name}
+              />
             </>
           )}
         </div>

@@ -1,4 +1,6 @@
 import { apiClient, type ApiSuccessResponse } from "@/lib/api/client";
+import type { CardSummary } from "@/lib/api/boards";
+import type { CardDetail } from "@/lib/api/cards";
 
 export type TemplateCategory =
   | "BUSINESS"
@@ -44,9 +46,32 @@ export async function listTemplates(
   return data.data;
 }
 
-export async function getTemplate(templateId: string): Promise<BoardTemplate> {
-  const { data } = await apiClient.get<ApiSuccessResponse<BoardTemplate>>(
+export interface TemplateListPreview {
+  id: string;
+  title: string;
+  order: number;
+  cards: CardSummary[];
+}
+
+export interface BoardTemplateDetail extends BoardTemplate {
+  lists: TemplateListPreview[];
+}
+
+export async function getTemplate(templateId: string): Promise<BoardTemplateDetail> {
+  const { data } = await apiClient.get<ApiSuccessResponse<BoardTemplateDetail>>(
     `/boards/templates/${templateId}`,
+  );
+  return data.data;
+}
+
+export type TemplateCardDetail = Omit<CardDetail, "comments">;
+
+export async function getTemplateCard(
+  templateId: string,
+  cardId: string,
+): Promise<TemplateCardDetail> {
+  const { data } = await apiClient.get<ApiSuccessResponse<TemplateCardDetail>>(
+    `/boards/templates/${templateId}/cards/${cardId}`,
   );
   return data.data;
 }
