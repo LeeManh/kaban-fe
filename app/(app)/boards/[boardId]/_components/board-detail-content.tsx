@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { useBoardChrome } from "@/app/(app)/_context/app-shell";
+import { useDocumentTitle } from "@/hooks/use-document-title";
 import { getCurrentUserId } from "@/lib/api/tokens";
 
 import { useBoard } from "../_hooks/use-board";
@@ -30,6 +31,8 @@ export function BoardDetailContent({ boardId }: { boardId: string }) {
     setBoardBackground(board?.background ?? null);
     return () => setBoardBackground(null);
   }, [board?.background, setBoardBackground]);
+
+  useDocumentTitle(board?.name ? `${board.name} — Kanvas` : undefined);
 
   const filteredLists = useMemo(() => {
     if (!board) return [];
