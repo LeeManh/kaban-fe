@@ -34,7 +34,7 @@ export function UseTemplatePopover({
 
   function handleCreate() {
     createBoard.mutate(
-      { name: title.trim() || undefined },
+      { name: title.trim() },
       {
         onSuccess: (board) => {
           toast.success("Board created from template.");
@@ -60,7 +60,7 @@ export function UseTemplatePopover({
             htmlFor="use-template-title"
             className="mb-1.5 text-xs font-semibold text-foreground"
           >
-            Title
+            Title <span className="text-destructive">*</span>
           </FieldLabel>
           <Input
             id="use-template-title"
@@ -68,7 +68,7 @@ export function UseTemplatePopover({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleCreate();
+              if (e.key === "Enter" && title.trim()) handleCreate();
             }}
             placeholder={`Like "${templateName}" for example…`}
           />
@@ -76,7 +76,7 @@ export function UseTemplatePopover({
 
         <Button
           className="w-full cursor-pointer"
-          disabled={createBoard.isPending}
+          disabled={!title.trim() || createBoard.isPending}
           onClick={handleCreate}
         >
           {createBoard.isPending ? "Creating…" : "Create"}

@@ -44,11 +44,11 @@ export function BoardMakeTemplateDialog({
   }
 
   function handleCreate() {
-    if (!category) return;
+    if (!name.trim() || !category) return;
 
     makeTemplate.mutate(
       {
-        name: name.trim() || undefined,
+        name: name.trim(),
         templateCategory: category,
         templateDescription: description.trim() || undefined,
       },
@@ -78,7 +78,9 @@ export function BoardMakeTemplateDialog({
         </DialogDescription>
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="template-name">Template name</Label>
+          <Label htmlFor="template-name">
+            Template name <span className="text-destructive">*</span>
+          </Label>
           <Input
             id="template-name"
             value={name}
@@ -88,7 +90,9 @@ export function BoardMakeTemplateDialog({
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="template-category">Category</Label>
+          <Label htmlFor="template-category">
+            Category <span className="text-destructive">*</span>
+          </Label>
           <Select
             value={category}
             onValueChange={(value) => setCategory(value as TemplateCategory)}
@@ -126,7 +130,7 @@ export function BoardMakeTemplateDialog({
           </Button>
           <Button
             onClick={handleCreate}
-            disabled={!category || makeTemplate.isPending}
+            disabled={!name.trim() || !category || makeTemplate.isPending}
             className="cursor-pointer"
           >
             {makeTemplate.isPending ? "Creating…" : "Create template"}

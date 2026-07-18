@@ -64,6 +64,7 @@ export function TemplatesPageContent() {
                         name={template.name}
                         background={template.background}
                         description={template.templateDescription}
+                        owner={template.owner}
                       />
                     ))}
                   </div>

@@ -77,6 +77,17 @@ export function Sidebar() {
         {primaryLinks.map(renderNavLink)}
         {isTemplatesSection && (
           <div className="mt-1 flex flex-col gap-0.5">
+            <Link
+              href="/templates/mine"
+              className={cn(
+                "rounded-md py-2 pr-3.5 pl-11 text-left text-[13.5px]",
+                pathname === "/templates/mine"
+                  ? "bg-accent font-medium text-foreground"
+                  : "font-medium text-muted-foreground hover:bg-accent hover:text-foreground",
+              )}
+            >
+              My templates
+            </Link>
             {TEMPLATE_CATEGORIES.map(renderTemplateCategory)}
           </div>
         )}

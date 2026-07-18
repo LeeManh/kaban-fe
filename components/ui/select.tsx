@@ -44,6 +44,7 @@ function SelectContent({
       <SelectPrimitive.Positioner
         sideOffset={sideOffset}
         align={align}
+        alignItemWithTrigger={false}
         className="isolate z-50 outline-none"
       >
         <SelectPrimitive.Popup

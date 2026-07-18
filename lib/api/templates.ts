@@ -11,14 +11,26 @@ export type TemplateCategory =
   | "PRODUCT_MANAGEMENT"
   | "REMOTE_WORK";
 
+export type TemplateVisibility = "PRIVATE" | "PUBLIC";
+
+export interface TemplateOwner {
+  id: string;
+  name: string | null;
+  email: string;
+  avatar: string | null;
+}
+
 export interface BoardTemplate {
   id: string;
   name: string;
   background: string;
+  ownerId: string;
+  owner?: TemplateOwner;
   createdAt: string;
   isTemplate: boolean;
   templateCategory: TemplateCategory | null;
   templateDescription: string | null;
+  templateVisibility: TemplateVisibility | null;
 }
 
 export interface ListTemplatesParams {

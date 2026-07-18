@@ -1,8 +1,10 @@
 "use client";
 
+import { SquarePen } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
+import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,6 +13,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { getCurrentUserId } from "@/lib/api/tokens";
 import { toBackgroundStyle } from "@/lib/utils";
 
 import { SharePopover } from "./share-popover";
@@ -19,6 +23,7 @@ import { TemplateDetailSkeleton } from "./template-detail-skeleton";
 import { TemplateSearchInput } from "./template-search-input";
 import { UseTemplatePopover } from "./use-template-popover";
 import { useTemplate } from "../_hooks/use-template";
+import { useUpdateTemplateVisibility } from "../_hooks/use-update-template-visibility";
 import { getTemplateCategoryBySlug } from "../_lib/template-categories";
 
 export function TemplateDetailContent({
@@ -29,8 +34,12 @@ export function TemplateDetailContent({
   templateId: string;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const category = getTemplateCategoryBySlug(categorySlug);
   const { data: template, isLoading, isError } = useTemplate(templateId);
+  const updateVisibility = useUpdateTemplateVisibility(templateId);
+  const isOwner = !!template && template.ownerId === getCurrentUserId();
+  const isPublic = template?.templateVisibility === "PUBLIC";
 
   if (!category) return null;
 
@@ -79,10 +88,35 @@ export function TemplateDetailContent({
                   <div className="mb-1 flex items-center gap-2 text-[13px] text-muted-foreground">
                     <category.icon className="size-4" />
                     {category.label}
+                    {isOwner && (
+                      <Badge variant={isPublic ? "default" : "secondary"}>
+                        {isPublic ? "Public" : "Private"}
+                      </Badge>
+                    )}
                   </div>
                   <h1 className="text-2xl font-bold text-foreground">{template.name}</h1>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
+                  {isOwner && (
+                    <>
+                      <Button
+                        variant="outline"
+                        className="cursor-pointer gap-1.5"
+                        onClick={() => router.push(`/boards/${template.id}`)}
+                      >
+                        <SquarePen className="size-3.75" />
+                        Edit content
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="cursor-pointer"
+                        disabled={updateVisibility.isPending}
+                        onClick={() => updateVisibility.mutate(isPublic ? "PRIVATE" : "PUBLIC")}
+                      >
+                        {updateVisibility.isPending ? "Saving…" : isPublic ? "Unpublish" : "Publish"}
+                      </Button>
+                    </>
+                  )}
                   <SharePopover path={pathname} />
                   <UseTemplatePopover templateId={template.id} templateName={template.name} />
                 </div>

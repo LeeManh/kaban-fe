@@ -1,11 +1,34 @@
 import { apiClient, type ApiSuccessResponse } from "@/lib/api/client";
 
+export type TemplateCategory =
+  | "BUSINESS"
+  | "DESIGN"
+  | "EDUCATION"
+  | "ENGINEERING"
+  | "MARKETING"
+  | "PRODUCT_MANAGEMENT"
+  | "REMOTE_WORK";
+
+export type TemplateVisibility = "PRIVATE" | "PUBLIC";
+
+export interface TemplateOwner {
+  id: string;
+  name: string | null;
+  email: string;
+  avatar: string | null;
+}
+
 export interface Board {
   id: string;
   name: string;
   background: string;
   ownerId: string;
+  owner?: TemplateOwner;
   createdAt: string;
+  isTemplate: boolean;
+  templateCategory: TemplateCategory | null;
+  templateDescription: string | null;
+  templateVisibility: TemplateVisibility | null;
 }
 
 export interface CreateBoardPayload {
@@ -138,6 +161,40 @@ export async function updateBoard(boardId: string, payload: UpdateBoardPayload):
   const { data } = await apiClient.patch<ApiSuccessResponse<Board>>(
     `/boards/${boardId}`,
     payload,
+  );
+  return data.data;
+}
+
+export async function updateTemplateVisibility(
+  boardId: string,
+  templateVisibility: TemplateVisibility,
+): Promise<Board> {
+  const { data } = await apiClient.patch<ApiSuccessResponse<Board>>(
+    `/boards/${boardId}/template-visibility`,
+    { templateVisibility },
+  );
+  return data.data;
+}
+
+export interface PaginatedBoards {
+  items: Board[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export interface ListMyTemplatesParams {
+  page?: number;
+  pageSize?: number;
+}
+
+export async function listMyTemplates(
+  params?: ListMyTemplatesParams,
+): Promise<PaginatedBoards> {
+  const { data } = await apiClient.get<ApiSuccessResponse<PaginatedBoards>>(
+    "/boards/templates/mine",
+    { params },
   );
   return data.data;
 }
