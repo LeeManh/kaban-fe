@@ -1,6 +1,6 @@
 "use client";
 
-import { Ellipsis, FilePlusCorner, Star, Tag, Trash2, UserPlus } from "lucide-react";
+import { Ellipsis, FilePlusCorner, Lock, Star, Tag, Trash2, UserPlus } from "lucide-react";
 import { useState } from "react";
 
 import { Popover, PopoverContent, PopoverSubHeader, PopoverTrigger } from "@/components/ui/popover";
@@ -14,9 +14,10 @@ import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { useUpdateBoard } from "../_hooks/use-update-board";
 import { BoardDeleteConfirm } from "./board-delete-confirm";
 import { BoardMakeTemplateDialog } from "./board-make-template-dialog";
+import { BoardVisibilityPopover } from "./board-visibility-popover";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 
-type MenuView = "menu" | "background" | "labels" | "delete-confirm";
+type MenuView = "menu" | "background" | "labels" | "delete-confirm" | "visibility";
 
 function MenuItem({
   icon,
@@ -102,11 +103,31 @@ export function BoardMoreOptionsMenu({
             <CardLabelsPopoverContent boardId={board.id} onBack={() => setView("menu")} />
           ) : view === "delete-confirm" ? (
             <BoardDeleteConfirm boardId={board.id} onBack={() => setView("menu")} />
+          ) : view === "visibility" && board.templateVisibility ? (
+            <BoardVisibilityPopover
+              boardId={board.id}
+              visibility={board.templateVisibility}
+              onBack={() => setView("menu")}
+            />
           ) : (
             <div className="flex flex-col gap-1">
               <PopoverSubHeader title="Menu" className="mb-1" />
 
-              <MenuItem icon={<UserPlus className="size-4" />} label="Share" onClick={onOpenShare} />
+              <MenuItem
+                icon={<UserPlus className="size-4" />}
+                label="Share"
+                onClick={onOpenShare}
+              />
+
+              <div className="my-1 h-px bg-border" />
+
+              {board.isTemplate && isOwner && board.templateVisibility && (
+                <MenuItem
+                  icon={<Lock className="size-4" />}
+                  label={`Visibility: ${board.templateVisibility === "PUBLIC" ? "Public" : "Private"}`}
+                  onClick={() => setView("visibility")}
+                />
+              )}
               <MenuItem
                 icon={
                   <Star

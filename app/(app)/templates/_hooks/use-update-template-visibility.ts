@@ -12,6 +12,7 @@ export function useUpdateTemplateVisibility(templateId: string) {
       updateTemplateVisibility(templateId, templateVisibility),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["templates"] });
+      queryClient.invalidateQueries({ queryKey: ["boards", templateId] });
     },
   });
 }
