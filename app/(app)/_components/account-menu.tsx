@@ -27,7 +27,7 @@ export function AccountMenu() {
 
   function handleLogout() {
     clearTokens();
-    router.replace("/login");
+    window.location.href = "/login";
   }
 
   return (
