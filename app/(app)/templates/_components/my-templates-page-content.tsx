@@ -83,7 +83,7 @@ export function MyTemplatesPageContent() {
                       categorySlug={category.slug}
                       name={template.name}
                       background={template.background}
-                      description={template.templateDescription}
+                      description={template.description}
                       templateVisibility={template.templateVisibility ?? undefined}
                       owner={template.owner}
                     />

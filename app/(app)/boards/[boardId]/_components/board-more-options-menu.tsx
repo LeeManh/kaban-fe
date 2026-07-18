@@ -1,6 +1,6 @@
 "use client";
 
-import { Ellipsis, FilePlusCorner, Lock, Star, Tag, Trash2, UserPlus } from "lucide-react";
+import { Ellipsis, FilePlusCorner, Info, Lock, Star, Tag, Trash2, UserPlus } from "lucide-react";
 import { useState } from "react";
 
 import { Popover, PopoverContent, PopoverSubHeader, PopoverTrigger } from "@/components/ui/popover";
@@ -12,12 +12,13 @@ import { cn, toBackgroundStyle } from "@/lib/utils";
 import { BoardBackgroundFlow } from "../../_components/board-background-flow";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { useUpdateBoard } from "../_hooks/use-update-board";
+import { BoardAboutPopover } from "./board-about-popover";
 import { BoardDeleteConfirm } from "./board-delete-confirm";
 import { BoardMakeTemplateDialog } from "./board-make-template-dialog";
 import { BoardVisibilityPopover } from "./board-visibility-popover";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 
-type MenuView = "menu" | "background" | "labels" | "delete-confirm" | "visibility";
+type MenuView = "menu" | "background" | "labels" | "delete-confirm" | "visibility" | "about";
 
 function MenuItem({
   icon,
@@ -109,6 +110,8 @@ export function BoardMoreOptionsMenu({
               visibility={board.templateVisibility}
               onBack={() => setView("menu")}
             />
+          ) : view === "about" ? (
+            <BoardAboutPopover board={board} onBack={() => setView("menu")} />
           ) : (
             <div className="flex flex-col gap-1">
               <PopoverSubHeader title="Menu" className="mb-1" />
@@ -121,6 +124,11 @@ export function BoardMoreOptionsMenu({
 
               <div className="my-1 h-px bg-border" />
 
+              <MenuItem
+                icon={<Info className="size-4" />}
+                label="About this board"
+                onClick={() => setView("about")}
+              />
               {board.isTemplate && isOwner && board.templateVisibility && (
                 <MenuItem
                   icon={<Lock className="size-4" />}

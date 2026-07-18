@@ -122,13 +122,13 @@ export function TemplateDetailContent({
                 </div>
               </div>
 
-              {template.templateDescription && (
+              {template.description && (
                 <>
                   <h2 className="mb-2 text-base font-bold text-foreground">
                     About this template
                   </h2>
                   <p className="mb-5 text-[13.5px] leading-relaxed whitespace-pre-line text-muted-foreground">
-                    {template.templateDescription}
+                    {template.description}
                   </p>
                 </>
               )}

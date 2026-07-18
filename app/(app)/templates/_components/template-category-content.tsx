@@ -86,7 +86,7 @@ export function TemplateCategoryContent({ slug }: { slug: string }) {
                     categorySlug={category.slug}
                     name={template.name}
                     background={template.background}
-                    description={template.templateDescription}
+                    description={template.description}
                     owner={template.owner}
                   />
                 ))}

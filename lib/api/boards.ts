@@ -22,12 +22,12 @@ export interface Board {
   id: string;
   name: string;
   background: string;
+  description: string | null;
   ownerId: string;
   owner?: TemplateOwner;
   createdAt: string;
   isTemplate: boolean;
   templateCategory: TemplateCategory | null;
-  templateDescription: string | null;
   templateVisibility: TemplateVisibility | null;
 }
 
@@ -155,6 +155,7 @@ export async function unstarBoard(
 export interface UpdateBoardPayload {
   name?: string;
   background?: string;
+  description?: string;
 }
 
 export async function updateBoard(boardId: string, payload: UpdateBoardPayload): Promise<Board> {

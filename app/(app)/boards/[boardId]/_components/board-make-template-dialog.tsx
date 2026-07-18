@@ -50,7 +50,7 @@ export function BoardMakeTemplateDialog({
       {
         name: name.trim(),
         templateCategory: category,
-        templateDescription: description.trim() || undefined,
+        description: description.trim() || undefined,
       },
       {
         onSuccess: () => {
