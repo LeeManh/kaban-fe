@@ -45,9 +45,9 @@ export function TemplateDetailContent({
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden pt-4">
-      <main className="flex-1 overflow-y-auto px-8 py-6.5">
+      <main className="flex-1 overflow-y-auto px-4 py-6.5 sm:px-8">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-6 flex items-center justify-between gap-4">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -67,7 +67,7 @@ export function TemplateDetailContent({
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <TemplateSearchInput className="relative w-72 shrink-0" />
+            <TemplateSearchInput className="relative w-full shrink-0 sm:w-72" />
           </div>
 
           {isLoading ? (
@@ -83,7 +83,7 @@ export function TemplateDetailContent({
                 className="mb-5 h-48 rounded-md bg-cover bg-center"
               />
 
-              <div className="mb-4 flex items-start justify-between gap-4">
+              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <div className="mb-1 flex items-center gap-2 text-[13px] text-muted-foreground">
                     <category.icon className="size-4" />
@@ -96,7 +96,7 @@ export function TemplateDetailContent({
                   </div>
                   <h1 className="text-2xl font-bold text-foreground">{template.name}</h1>
                 </div>
-                <div className="flex shrink-0 items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 sm:shrink-0">
                   {isOwner && (
                     <>
                       <Button

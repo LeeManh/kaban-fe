@@ -52,7 +52,7 @@ export function BoardTitle({ boardId, name: initialName }: { boardId: string; na
     <button
       type="button"
       onClick={() => setIsEditingName(true)}
-      className="mr-1 flex items-center rounded-sm py-1 px-2 text-base font-bold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)] hover:bg-white/15 h-7"
+      className="mr-1 flex h-7 min-w-0 items-center truncate rounded-sm px-2 py-1 text-base font-bold text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.25)] hover:bg-white/15"
     >
       {name}
     </button>

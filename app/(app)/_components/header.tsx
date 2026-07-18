@@ -1,6 +1,8 @@
 "use client";
 
+import { Menu } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -10,11 +12,14 @@ import { cn } from "@/lib/utils";
 import { AccountMenu } from "./account-menu";
 import { BoardSearch } from "./board-search";
 import { useBoardChrome } from "../_context/app-shell";
+import { HeaderMoreMenu } from "./header-more-menu";
 import { NotificationsButton } from "./notifications-button";
 import { CreateBoardPopover } from "../boards/_components/create-board-popover";
 
 export function Header() {
-  const { background } = useBoardChrome();
+  const { background, setIsMobileNavOpen } = useBoardChrome();
+  const pathname = usePathname();
+  const isBoardDetail = /^\/boards\/[^/]+/.test(pathname);
 
   return (
     <header
@@ -24,12 +29,29 @@ export function Header() {
         background ? "border-white/15" : "border-border",
       )}
     >
+      {!isBoardDetail && (
+        <button
+          type="button"
+          aria-label="Open menu"
+          onClick={() => setIsMobileNavOpen(true)}
+          className={cn(
+            "flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md md:hidden",
+            background ? "text-white hover:bg-white/15" : "text-muted-foreground hover:bg-accent",
+          )}
+        >
+          <Menu className="size-4.5" />
+        </button>
+      )}
+
       <Link href="/boards" className="shrink-0 cursor-pointer">
-        <Logo className={cn(background ? "text-white" : "text-foreground")} />
+        <Logo
+          textClassName="hidden sm:inline"
+          className={cn(background ? "text-white" : "text-foreground")}
+        />
       </Link>
 
-      <div className="flex flex-1 items-center justify-center gap-2.5">
-        <div className="max-w-2xl flex-1">
+      <div className="flex min-w-0 flex-1 items-center justify-center gap-2.5">
+        <div className="min-w-0 sm:max-w-2xl sm:flex-1">
           <BoardSearch background={!!background} />
         </div>
         <CreateBoardPopover>
@@ -45,10 +67,12 @@ export function Header() {
       <div className="flex shrink-0 items-center gap-2">
         <ThemeToggle
           className={cn(
+            "hidden sm:flex",
             background ? "text-white hover:bg-white/15" : "text-muted-foreground hover:bg-accent",
           )}
         />
         <NotificationsButton />
+        <HeaderMoreMenu background={!!background} />
         <AccountMenu />
       </div>
     </header>

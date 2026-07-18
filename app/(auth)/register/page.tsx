@@ -29,7 +29,7 @@ export default function RegisterPage() {
               ]}
             />
 
-            <div className="flex flex-1 items-center justify-center overflow-y-auto p-10">
+            <div className="flex flex-1 items-center justify-center overflow-y-auto p-6 sm:p-10">
               <Suspense fallback={null}>
                 <RegisterForm />
               </Suspense>

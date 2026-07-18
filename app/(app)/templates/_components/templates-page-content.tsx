@@ -22,7 +22,7 @@ export function TemplatesPageContent() {
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden pt-4">
-      <main className="flex-1 overflow-y-auto px-8 py-6.5">
+      <main className="flex-1 overflow-y-auto px-4 py-6.5 sm:px-8">
         <div className="mx-auto max-w-4xl">
           <FeaturedCategories />
 
@@ -44,7 +44,7 @@ export function TemplatesPageContent() {
             <div className="flex flex-col gap-8">
               {groups.map(({ category, items }) => (
                 <div key={category.slug}>
-                  <div className="mb-3 flex items-center justify-between gap-4">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                     <h3 className="text-[16px] font-bold text-foreground">{category.label}</h3>
                     <Button
                       variant="outline"
@@ -52,7 +52,8 @@ export function TemplatesPageContent() {
                       nativeButton={false}
                       render={<Link href={`/templates/${category.slug}`} />}
                     >
-                      More templates for {category.label}
+                      <span className="sm:hidden">See all</span>
+                      <span className="hidden sm:inline">More templates for {category.label}</span>
                     </Button>
                   </div>
                   <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">

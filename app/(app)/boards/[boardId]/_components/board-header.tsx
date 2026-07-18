@@ -60,11 +60,11 @@ export function BoardHeader({
   }
 
   return (
-    <div className="flex h-14 flex-none items-center gap-1.5 bg-black/30 px-4">
+    <div className="flex h-14 flex-none items-center gap-1.5 bg-black/30 px-2 sm:px-4">
       <BoardTitle boardId={board.id} name={board.name} />
 
       <div className="flex-1" />
-      <AvatarGroup>
+      <AvatarGroup className="hidden sm:flex">
         {board.members.map((member) => (
           <UserAvatar
             key={member.id}
@@ -75,7 +75,7 @@ export function BoardHeader({
         ))}
       </AvatarGroup>
 
-      <div className="mx-1 h-5 w-px bg-white/25" />
+      <div className="mx-1 hidden h-5 w-px bg-white/25 sm:block" />
 
       <BoardFilterPopover
         filter={filter}
@@ -92,7 +92,7 @@ export function BoardHeader({
               aria-label={board.isStarred ? "Unstar board" : "Star board"}
               onClick={() => toggleStar.mutate({ boardId: board.id, isStarred: board.isStarred })}
               className={cn(
-                "flex size-8 cursor-pointer items-center justify-center rounded-md hover:bg-white/15",
+                "hidden size-8 cursor-pointer items-center justify-center rounded-md hover:bg-white/15 sm:flex",
                 board.isStarred ? "text-yellow-400" : "text-white",
               )}
             />
@@ -108,11 +108,12 @@ export function BoardHeader({
       <Button
         size="sm"
         variant="secondary"
+        aria-label="Share board"
         onClick={() => setIsShareOpen(true)}
-        className="cursor-pointer gap-1.5 bg-white/90 text-slate-900 hover:bg-white"
+        className="hidden cursor-pointer gap-1.5 bg-white/90 text-slate-900 hover:bg-white sm:inline-flex"
       >
         <Share2 className="size-3.75" />
-        Share
+        <span className="hidden sm:inline">Share</span>
       </Button>
 
       <BoardMoreOptionsMenu board={board} onOpenShare={() => setIsShareOpen(true)} />

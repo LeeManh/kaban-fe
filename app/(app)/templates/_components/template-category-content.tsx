@@ -43,9 +43,9 @@ export function TemplateCategoryContent({ slug }: { slug: string }) {
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden pt-4">
-      <main ref={mainRef} className="flex-1 overflow-y-auto px-8 py-6.5">
+      <main ref={mainRef} className="flex-1 overflow-y-auto px-4 py-6.5 sm:px-8">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-4 flex items-center justify-between gap-4">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -59,7 +59,7 @@ export function TemplateCategoryContent({ slug }: { slug: string }) {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <TemplateSearchInput className="relative w-72 shrink-0" />
+            <TemplateSearchInput className="relative w-full shrink-0 sm:w-72" />
           </div>
 
           <h1 className="mb-4 text-[17px] font-bold text-foreground">{category.label}</h1>

@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
         <div className="flex w-full max-w-260 overflow-hidden rounded-md bg-card shadow-[0_4px_24px_--theme(--color-slate-900/10%)] lg:h-165">
           <AuthBrandPanel description="Boards, lists, and cards that keep your team moving — without the clutter." />
 
-          <div className="flex flex-1 items-center justify-center p-10">
+          <div className="flex flex-1 items-center justify-center p-6 sm:p-10">
             <ForgotPasswordForm />
           </div>
         </div>

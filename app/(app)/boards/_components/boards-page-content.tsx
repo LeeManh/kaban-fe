@@ -39,7 +39,7 @@ export function BoardsPageContent() {
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden pt-4">
-      <main className="flex-1 overflow-y-auto px-8 py-6.5">
+      <main className="flex-1 overflow-y-auto px-4 py-6.5 sm:px-8">
         <div className="mx-auto max-w-4xl">
           {recentlyViewed.length > 0 && (
             <div className="mb-8">
