@@ -1,6 +1,6 @@
 "use client";
 
-import { Ellipsis, Star, Tag, Trash2, UserPlus } from "lucide-react";
+import { Ellipsis, FilePlusCorner, Star, Tag, Trash2, UserPlus } from "lucide-react";
 import { useState } from "react";
 
 import { Popover, PopoverContent, PopoverSubHeader, PopoverTrigger } from "@/components/ui/popover";
@@ -13,6 +13,7 @@ import { BoardBackgroundFlow } from "../../_components/board-background-flow";
 import { useToggleBoardStar } from "../../_hooks/use-toggle-board-star";
 import { useUpdateBoard } from "../_hooks/use-update-board";
 import { BoardDeleteConfirm } from "./board-delete-confirm";
+import { BoardMakeTemplateDialog } from "./board-make-template-dialog";
 import { CardLabelsPopoverContent } from "./card-labels-popover";
 
 type MenuView = "menu" | "background" | "labels" | "delete-confirm";
@@ -50,6 +51,7 @@ export function BoardMoreOptionsMenu({
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<MenuView>("menu");
+  const [makeTemplateOpen, setMakeTemplateOpen] = useState(false);
 
   const toggleStar = useToggleBoardStar();
   const updateBoard = useUpdateBoard(board.id);
@@ -65,91 +67,108 @@ export function BoardMoreOptionsMenu({
   }
 
   return (
-    <Popover open={open} onOpenChange={handleOpenChange}>
-      <Tooltip>
-        <TooltipTrigger
-          render={
-            <PopoverTrigger
-              render={
-                <button
-                  type="button"
-                  aria-label="More options"
-                  className="flex size-8 cursor-pointer items-center justify-center rounded-md text-white hover:bg-white/15"
-                />
-              }
-            >
-              <Ellipsis className="size-4" />
-            </PopoverTrigger>
-          }
-        />
-        <TooltipContent side="bottom" showArrow={false}>
-          More options
-        </TooltipContent>
-      </Tooltip>
-      <PopoverContent align="end" className="max-h-[80vh] w-72 gap-3 overflow-y-auto">
-        {view === "background" ? (
-          <BoardBackgroundFlow
-            open={open}
-            value={board.background}
-            onChange={handleBackgroundChange}
-            onBack={() => setView("menu")}
-            title="Change background"
+    <>
+      <Popover open={open} onOpenChange={handleOpenChange}>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <PopoverTrigger
+                render={
+                  <button
+                    type="button"
+                    aria-label="More options"
+                    className="flex size-8 cursor-pointer items-center justify-center rounded-md text-white hover:bg-white/15"
+                  />
+                }
+              >
+                <Ellipsis className="size-4" />
+              </PopoverTrigger>
+            }
           />
-        ) : view === "labels" ? (
-          <CardLabelsPopoverContent boardId={board.id} onBack={() => setView("menu")} />
-        ) : view === "delete-confirm" ? (
-          <BoardDeleteConfirm boardId={board.id} onBack={() => setView("menu")} />
-        ) : (
-          <div className="flex flex-col gap-1">
-            <PopoverSubHeader title="Menu" className="mb-1" />
-
-            <MenuItem icon={<UserPlus className="size-4" />} label="Share" onClick={onOpenShare} />
-            <MenuItem
-              icon={
-                <Star
-                  className={cn("size-4", board.isStarred && "text-yellow-400")}
-                  fill={board.isStarred ? "currentColor" : "none"}
-                />
-              }
-              label={board.isStarred ? "Unstar" : "Star"}
-              onClick={() => toggleStar.mutate({ boardId: board.id, isStarred: board.isStarred })}
+          <TooltipContent side="bottom" showArrow={false}>
+            More options
+          </TooltipContent>
+        </Tooltip>
+        <PopoverContent align="end" className="max-h-[80vh] w-72 gap-3 overflow-y-auto">
+          {view === "background" ? (
+            <BoardBackgroundFlow
+              open={open}
+              value={board.background}
+              onChange={handleBackgroundChange}
+              onBack={() => setView("menu")}
+              title="Change background"
             />
+          ) : view === "labels" ? (
+            <CardLabelsPopoverContent boardId={board.id} onBack={() => setView("menu")} />
+          ) : view === "delete-confirm" ? (
+            <BoardDeleteConfirm boardId={board.id} onBack={() => setView("menu")} />
+          ) : (
+            <div className="flex flex-col gap-1">
+              <PopoverSubHeader title="Menu" className="mb-1" />
 
-            <div className="my-1 h-px bg-border" />
+              <MenuItem icon={<UserPlus className="size-4" />} label="Share" onClick={onOpenShare} />
+              <MenuItem
+                icon={
+                  <Star
+                    className={cn("size-4", board.isStarred && "text-yellow-400")}
+                    fill={board.isStarred ? "currentColor" : "none"}
+                  />
+                }
+                label={board.isStarred ? "Unstar" : "Star"}
+                onClick={() => toggleStar.mutate({ boardId: board.id, isStarred: board.isStarred })}
+              />
 
-            <MenuItem
-              icon={
-                <span
-                  style={{ background: toBackgroundStyle(board.background) }}
-                  className="size-4 rounded-sm bg-cover bg-center"
-                />
-              }
-              label="Change background"
-              onClick={() => setView("background")}
-            />
-            <MenuItem
-              icon={<Tag className="size-4" />}
-              label="Labels"
-              onClick={() => setView("labels")}
-            />
+              <div className="my-1 h-px bg-border" />
 
-            {isOwner && (
-              <>
-                <div className="my-1 h-px bg-border" />
+              <MenuItem
+                icon={
+                  <span
+                    style={{ background: toBackgroundStyle(board.background) }}
+                    className="size-4 rounded-sm bg-cover bg-center"
+                  />
+                }
+                label="Change background"
+                onClick={() => setView("background")}
+              />
+              <MenuItem
+                icon={<Tag className="size-4" />}
+                label="Labels"
+                onClick={() => setView("labels")}
+              />
+              <MenuItem
+                icon={<FilePlusCorner className="size-4" />}
+                label="Make template"
+                onClick={() => {
+                  setOpen(false);
+                  setMakeTemplateOpen(true);
+                }}
+              />
 
-                <button
-                  type="button"
-                  onClick={() => setView("delete-confirm")}
-                  className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-destructive hover:bg-destructive/10"
-                >
-                  <Trash2 className="size-4" />
-                  Delete board
-                </button>
-              </>
-            )}
-          </div>
-        )}
-      </PopoverContent>
-    </Popover>
+              {isOwner && (
+                <>
+                  <div className="my-1 h-px bg-border" />
+
+                  <button
+                    type="button"
+                    onClick={() => setView("delete-confirm")}
+                    className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-[13.5px] font-medium text-destructive hover:bg-destructive/10"
+                  >
+                    <Trash2 className="size-4" />
+                    Delete board
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </PopoverContent>
+      </Popover>
+
+      <BoardMakeTemplateDialog
+        open={makeTemplateOpen}
+        onOpenChange={setMakeTemplateOpen}
+        boardId={board.id}
+        boardName={board.name}
+      />
+    </>
   );
 }

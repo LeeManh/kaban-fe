@@ -180,7 +180,7 @@ export function RegisterForm() {
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
-            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)]"
+            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)] h-9"
           >
             {form.formState.isSubmitting ? "Creating account…" : "Create account"}
           </Button>

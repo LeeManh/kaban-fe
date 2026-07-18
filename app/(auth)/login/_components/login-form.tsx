@@ -142,7 +142,10 @@ export function LoginForm() {
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
-                <Label htmlFor="login-remember" className="text-[13px] font-medium text-muted-foreground">
+                <Label
+                  htmlFor="login-remember"
+                  className="text-[13px] font-medium text-muted-foreground"
+                >
                   Remember me
                 </Label>
               </Field>
@@ -152,7 +155,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
-            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)]"
+            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)] h-9"
           >
             {form.formState.isSubmitting ? "Signing in…" : "Sign in"}
           </Button>

@@ -97,3 +97,20 @@ export async function createBoardFromTemplate(
   );
   return data.data;
 }
+
+export interface CreateTemplateFromBoardPayload {
+  name?: string;
+  templateCategory: TemplateCategory;
+  templateDescription?: string;
+}
+
+export async function createTemplateFromBoard(
+  boardId: string,
+  payload: CreateTemplateFromBoardPayload,
+): Promise<BoardTemplate> {
+  const { data } = await apiClient.post<ApiSuccessResponse<BoardTemplate>>(
+    `/boards/${boardId}/make-template`,
+    payload,
+  );
+  return data.data;
+}

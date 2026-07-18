@@ -47,7 +47,9 @@ export function ResetPasswordForm() {
       toast.success("Password reset. Please sign in with your new password.");
       router.replace("/login");
     } catch (error) {
-      toast.error(getApiErrorMessage(error, "Could not reset password. The link may have expired."));
+      toast.error(
+        getApiErrorMessage(error, "Could not reset password. The link may have expired."),
+      );
     }
   }
 
@@ -132,7 +134,7 @@ export function ResetPasswordForm() {
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
-            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)]"
+            className="w-full shadow-[0_2px_5px_--theme(--color-primary/30%)] h-9"
           >
             {form.formState.isSubmitting ? "Resetting…" : "Reset password"}
           </Button>
